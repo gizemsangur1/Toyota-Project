@@ -5,9 +5,17 @@ import { Container } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useNavigate } from "react-router-dom";
 
- function Terminals() {
+
+function Terminals() {
+
+  const navigate = useNavigate();
+
+  const navigateToLogin = () => {
+    navigate("/Login");
+  };
+
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
@@ -19,13 +27,6 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
       .catch((err) => console.log(err));
   }, []);
 
-  const navigate = useNavigate();
-
-  const navigateToLogin = () => {
-    
-    navigate('/Login');
-  };
-
   const arr = data.map((data, index) => {
     return (
       <Grid container direction="row" sx={{ lineHeight: 1.5 }}>
@@ -35,12 +36,20 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
         <Grid item xs={10} sx={{ borderBottom: 1, textAlign: "left" }}>
           {data.filterBaseds.map((subitem, i) => {
             return (
+              <Badge
             
-                <Button  onClick={navigateToLogin}
-                  sx={{ border: 1, fontSize: 14, color: "black", margin: 1 }}>
+                badgeContent={subitem.linkCount}
+                color="error"
+                overlap="circular"
+                sx={{ maxWidth: "max-content" }}
+              >
+                <Button
+                  onClick={navigateToLogin}
+                  sx={{ border: 1, fontSize: 14, color: "black", margin: 1 }}
+                >
                   {subitem.filterCode}
                 </Button>
-                
+              </Badge>
             );
           })}
         </Grid>
@@ -82,17 +91,23 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
       <Grid container sx={{ mt: 5, border: 1, borderRadius: 2 }}>
         <Grid container direction="row">
           <Grid item xs={12}>
-            <Typography sx={{ borderBottom: 1 }}>Tum Terminaller</Typography>
+            <Typography sx={{ borderBottom: 1, textAlign: "center" }}>
+              Tum Terminaller
+            </Typography>
           </Grid>
         </Grid>
         <Grid container direction="row">
           <Grid item xs={2}>
-            <Typography sx={{ borderRight: 1, borderBottom: 1 }}>
+            <Typography
+              sx={{ borderRight: 1, borderBottom: 1, textAlign: "center" }}
+            >
               Bolum Bazinda
             </Typography>
           </Grid>
           <Grid item xs={10}>
-            <Typography sx={{ borderBottom: 1 }}>Filtre Bazinda</Typography>
+            <Typography sx={{ borderBottom: 1, textAlign: "center" }}>
+              Filtre Bazinda
+            </Typography>
           </Grid>
         </Grid>
         {arr}

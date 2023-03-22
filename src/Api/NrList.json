@@ -1,0 +1,44 @@
+{
+    "nrReasonList": [{
+            "nrId": 104663,
+            "nrReasonAbb": "ANALİZ OK",
+            "nrReasonDetail": "ANALİZ OK"
+        }, {
+            "nrId": 104668,
+            "nrReasonAbb": "BALANS",
+            "nrReasonDetail": "BALANS"
+        }, {
+            "nrId": 104671,
+            "nrReasonAbb": "HOLD ARACI",
+            "nrReasonDetail": "HOLD ARACI"
+        }, {
+            "nrId": 104670,
+            "nrReasonAbb": "KONFİRME",
+            "nrReasonDetail": "KONFİRME"
+        }, {
+            "nrId": 107699,
+            "nrReasonAbb": "MQE OK",
+            "nrReasonDetail": "MQE KARARI OK"
+        }, {
+            "nrId": 104669,
+            "nrReasonAbb": "ÖLÇÜM OK",
+            "nrReasonDetail": "ÖLÇÜM OK"
+        }, {
+            "nrId": 127238,
+            "nrReasonAbb": "RENK ÖLÇÜM",
+            "nrReasonDetail": "RENK ÖLÇÜM ARACI"
+        }, {
+            "nrId": 104662,
+            "nrReasonAbb": "SİMÜLASYON",
+            "nrReasonDetail": "SİMÜLASYON"
+        }, {
+            "nrId": 127087,
+            "nrReasonAbb": "Y AUDIT",
+            "nrReasonDetail": "YAZAN AUDIT"
+        }, {
+            "nrId": 104664,
+            "nrReasonAbb": "Y.ELEMAN",
+            "nrReasonDetail": "YENİ ELEMAN OK"
+        }
+    ]
+}
