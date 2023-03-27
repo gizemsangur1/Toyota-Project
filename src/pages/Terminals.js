@@ -94,6 +94,7 @@ function Terminals() {
             <Typography sx={{ borderBottom: 1, textAlign: "center" }}>
               Tum Terminaller
             </Typography>
+            
           </Grid>
         </Grid>
         <Grid container direction="row">

@@ -8,9 +8,23 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ScrollButton from "./ScrollButton";
 import Autocomplete from "@mui/material/Autocomplete";
 import Tabs from '@mui/material/Tabs';
+import Button from '@mui/material/Button';
 
 import { TabScrollButton } from '@mui/material';
 export default function TerminlList() {
+
+
+  function scrollUp()
+  {
+    document.getElementsByClassName("MuiMenu-list css-rpp6kk-MuiMenu-list").scrollTop -= 20;
+  }
+  
+  function scrollDown()
+  {
+    document.getElementsByClassName("MuiMenu-list css-rpp6kk-MuiMenu-list").scrollDown += 20;
+  }
+
+
   const [term, setTerm] = React.useState("CHASSIS-2");
 
   const handleChange = (event) => {
@@ -22,7 +36,7 @@ export default function TerminlList() {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3005/data")
+      .get("http://localhost:3003/data")
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -49,6 +63,7 @@ export default function TerminlList() {
             value={term}
           >
             {arr}
+            <ScrollButton/>
           </Select>
         
       </FormControl>
