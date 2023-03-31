@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AppBar, Badge, Button, Grid } from "@mui/material";
+import { AppBar, Badge, Button, Chip, Grid } from "@mui/material";
 import { Container } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { Routes, Route, useNavigate } from "react-router-dom";
-
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 function Terminals() {
+  const theme = createTheme({
+    components: {
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            textAlign: "center",
+            color: "red",
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: { minWidth: 100 },
+        },
+      },
+    },
+  });
 
   const navigate = useNavigate();
 
@@ -29,28 +46,64 @@ function Terminals() {
 
   const arr = data.map((data, index) => {
     return (
-      <Grid container direction="row" sx={{ lineHeight: 1.5 }}>
+      <Grid container direction="row" sx={{ lineHeight: 1 }} key={index}>
         <Grid item xs={2} sx={{ borderRight: 1, borderBottom: 1 }}>
           <Typography sx={{ padding: 1 }}>{data.depName}</Typography>
         </Grid>
         <Grid item xs={10} sx={{ borderBottom: 1, textAlign: "left" }}>
           {data.filterBaseds.map((subitem, i) => {
-            return (
-              <Badge
-            
-                badgeContent={subitem.linkCount}
-                color="error"
-                overlap="circular"
-                sx={{ maxWidth: "max-content" }}
-              >
+            if (subitem.linkCount > 1) {
+              return (
                 <Button
                   onClick={navigateToLogin}
-                  sx={{ border: 1, fontSize: 14, color: "black", margin: 1 }}
+                  key={i}
+                  sx={{
+                    borderRadius: 2,
+                    border: 1,
+                    fontSize: 14,
+                    color: "black",
+                    margin: 1,
+                    maxWidth: 100,
+                    minwidth: 100,
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      backgroundColor: "red",
+                      borderTopRightRadius: 7,
+                      borderBottomLeftRadius: 7,
+                      width: 20,
+                      height: 20,
+                    }}
+                  >
+                    <Typography sx={{ color: "white", fontSize: 13 }}>
+                      {subitem.linkCount}
+                    </Typography>
+                  </div>
+                  {subitem.filterCode}
+                </Button>
+              );
+            } else {
+              return (
+                <Button
+                  key={i}
+                  onClick={navigateToLogin}
+                  sx={{
+                    borderRadius: 2,
+                    border: 1,
+                    fontSize: 14,
+                    color: "black",
+                    margin: 1,
+                    width: 50,
+                  }}
                 >
                   {subitem.filterCode}
                 </Button>
-              </Badge>
-            );
+              );
+            }
           })}
         </Grid>
       </Grid>
@@ -60,59 +113,57 @@ function Terminals() {
   return (
     <div>
       <Grid>
-        <AppBar position="static">
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
+        <Box sx={{ flexGrow: 1, backgroundColor: "#c6ffc8" }}>
+          <AppBar
+            position="static"
+            sx={{ flexGrow: 1, backgroundColor: "#c6ffc8" }}
+          >
+            <Toolbar>
               <Typography
                 variant="h6"
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
+                component="div"
+                sx={{ flexGrow: 1, color: "black" }}
               >
                 Complete Vehicle Quality
               </Typography>
-              <Box
-                sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-              ></Box>
+              <Button color="inherit" sx={{ color: "red" }}>
+                Yardim
+              </Button>
+              <Button color="inherit" sx={{ color: "red" }}>
+                Ana Sayfa
+              </Button>
+              <Button color="inherit" sx={{ color: "red" }}>
+                Destek
+              </Button>
             </Toolbar>
-          </Container>
-        </AppBar>
+          </AppBar>
+        </Box>
       </Grid>
 
-      <Grid container sx={{ mt: 5, border: 1, borderRadius: 2 }}>
-        <Grid container direction="row">
-          <Grid item xs={12}>
-            <Typography sx={{ borderBottom: 1, textAlign: "center" }}>
-              Tum Terminaller
-            </Typography>
-            
+      <ThemeProvider theme={theme}>
+        <Grid container sx={{ mt: 5, border: 1, borderRadius: 2 }}>
+          <Grid container direction="row">
+            <Grid item xs={12} sx={{ borderBottom: 1, textAlign: "center" }}>
+              <Typography sx={{ textDecorationLine: "underline" }}>
+                Tum Terminaller
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container direction="row">
-          <Grid item xs={2}>
-            <Typography
+          <Grid container direction="row">
+            <Grid
+              item
+              xs={2}
               sx={{ borderRight: 1, borderBottom: 1, textAlign: "center" }}
             >
-              Bolum Bazinda
-            </Typography>
+              <Typography>Bolum Bazinda</Typography>
+            </Grid>
+            <Grid item xs={10} sx={{ borderBottom: 1, textAlign: "center" }}>
+              <Typography>Filtre Bazinda</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={10}>
-            <Typography sx={{ borderBottom: 1, textAlign: "center" }}>
-              Filtre Bazinda
-            </Typography>
-          </Grid>
+          {arr}
         </Grid>
-        {arr}
-      </Grid>
+      </ThemeProvider>
     </div>
   );
 }

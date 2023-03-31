@@ -9,7 +9,7 @@ import ScrollButton from "./ScrollButton";
 import Autocomplete from "@mui/material/Autocomplete";
 import Tabs from '@mui/material/Tabs';
 import Button from '@mui/material/Button';
-
+import List from "../components/List"
 import { TabScrollButton } from '@mui/material';
 export default function TerminlList() {
 
@@ -53,17 +53,18 @@ export default function TerminlList() {
   });
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 230 }}>
-       
+      <FormControl sx={{ m: 1, minWidth: 230 ,backgroundColor:"transparent"}}>
+     
           <Select 
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
             autoWidth
             onChange={handleChange}
             value={term}
+            sx={{backgroundColor:"transparent"}}
           >
-            {arr}
-            <ScrollButton/>
+             <List/>
+            
           </Select>
         
       </FormControl>

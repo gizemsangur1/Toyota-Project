@@ -7,7 +7,7 @@ import SaveAction from "./SaveAction";
 import { Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import { Select } from "@mui/material";
+import { Select,Grid } from "@mui/material";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@mui/material/styles";
 
@@ -130,8 +130,8 @@ export default function DataGridHata() {
     <div style={{ height: 550, width: "100%" }}>
      
         <DataGridPro rows={rows} columns={headers} rowHeight={50}  
-       />
-      
+       /> 
+     
     </div>
   );
 }
