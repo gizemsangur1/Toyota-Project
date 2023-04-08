@@ -10,9 +10,9 @@ export default function Svg(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3007/data")
+      .get("/JsonFiles/AracResmi.json")
       .then((response) => {
-        setData(response.data);
+        setData(response.data.data);
       })
       .catch((error) => {
         console.error("Bir hata oluştu:", error);

@@ -36,10 +36,10 @@ function Terminals() {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3001/data")
+      .get("/JsonFiles/terminals.json")
       .then((res) => {
-        console.log(res.data);
-        setData(res.data);
+        console.log(res.data.data);
+        setData(res.data.data);
       })
       .catch((err) => console.log(err));
   }, []);

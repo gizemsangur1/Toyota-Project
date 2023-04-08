@@ -7,66 +7,59 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ScrollButton from "./ScrollButton";
 import Autocomplete from "@mui/material/Autocomplete";
-import Tabs from '@mui/material/Tabs';
-import Button from '@mui/material/Button';
-import List from "../components/List"
-import { TabScrollButton } from '@mui/material';
-export default function TerminlList() {
+import Tabs from "@mui/material/Tabs";
+import Button from "@mui/material/Button";
+import List from "../components/List";
+import { TabScrollButton } from "@mui/material";
 
+/* birinci kod */
+export default function TerminlList(props) {
 
-  function scrollUp()
-  {
-    document.getElementsByClassName("MuiMenu-list css-rpp6kk-MuiMenu-list").scrollTop -= 20;
-  }
-  
-  function scrollDown()
-  {
-    document.getElementsByClassName("MuiMenu-list css-rpp6kk-MuiMenu-list").scrollDown += 20;
-  }
-
-
-  const [term, setTerm] = React.useState("CHASSIS-2");
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleChange = (event) => {
-    setTerm(event.target.value);
-    let terminalname = event.target.value;
-    console.log(terminalname);
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+    
   };
+  useEffect(()=>{
+    props.GetDataValue(selectedOption)
+  }
 
+  )
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3003/data")
+      .get("/JsonFiles/LoginList.json")
       .then((res) => {
-        console.log(res.data);
-        setData(res.data);
+       
+        setData(res.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
-
+ 
   const arr = data.map((data, index) => {
     return (
-      <MenuItem key={data.terMId} value={data.termName} sx={{ m: 1, minWidth: 300 }}>
+      <MenuItem
+        key={index}
+        value={data.lastAssyNo}
+        sx={{  minWidth: 300, backgroundColor: " #c6ffc8" }}
+      >
         {data.termName}
       </MenuItem>
     );
   });
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 230 ,backgroundColor:"transparent"}}>
-     
-          <Select 
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            autoWidth
-            onChange={handleChange}
-            value={term}
-            sx={{backgroundColor:"transparent"}}
-          >
-             <List/>
-            
-          </Select>
-        
+    
+      <FormControl sx={{ minWidth: 230, backgroundColor: " #c6ffc8" }}>
+        <Select
+          onChange={handleChange}
+          value={selectedOption}
+          sx={{ backgroundColor: " #c6ffc8" }}
+        >
+          {arr}
+        </Select>
       </FormControl>
     </div>
   );

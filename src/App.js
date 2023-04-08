@@ -7,26 +7,24 @@ import DataGridHata from "./components/DataGridHata";
 import HataListeleme from "./pages/HataListeleme";
 import Keyboard from "./components/Keyboard";
 import ScrollButton from "./components/ScrollButton";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import HataGiris from "./pages/HataGiris";
 import Svg from "./components/Svg";
 import List from "./components/List";
+import HataForm from "./components/HataForm";
+import BoxItem from "./pages/BoxItem";
 function App() {
- 
   return (
-
-        <BrowserRouter>
+  
+  <BrowserRouter>
       <Routes>
         <Route index element={<Terminals />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/HataListeleme" element={<HataListeleme />} />
         <Route path="/HataGiris" element={<HataGiris />} />
+        <Route path="/HataListeleme" element={<HataListeleme />} />
       </Routes>
-    </BrowserRouter>  
-   
-    
-    )
-    
+    </BrowserRouter>
+  );
 }
 
 export default App;
