@@ -10,15 +10,20 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 /* ikinci kod */
 
 export default function Loginto() {
   const [termlist, setTermlist] = useState("");
-
+  const [termname, setTermname] = useState("");
   const GetData = (value) => {
     setTermlist(value);
   };
-  const navigate = useNavigate()
+  const sendTermName = (value) => {
+    setTermname(value);
+  };
+  const navigate = useNavigate();
 
   const [color, setColor] = React.useState("#12a6eb");
 
@@ -35,7 +40,7 @@ export default function Loginto() {
       })
       .catch((err) => console.log(err));
   }, []);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const LoginSchema = Yup.object().shape({
     sicilno: Yup.string()
 
@@ -50,7 +55,7 @@ export default function Loginto() {
       .min(3)
       .required("Password is required")
       .test("match", "Şifre yanlış", function (passw) {
-        return  parseInt(passw) === 233;
+        return parseInt(passw) === 233;
       }),
   });
 
@@ -64,21 +69,18 @@ export default function Loginto() {
     onSubmit: (values) => {
       values.montajno = termlist;
       LoginSchema.validate(values)
-      .then(()=>{
-        navigate("/HataGiris");
-      })
-      .catch((err)=>{
-        setError(err.errors[0]); 
-        console.log(values)
-       
-      })
+        .then(() => {
+          navigate("/HataGiris");
+        })
+        .catch((err) => {
+          setError(err.errors[0]);
+          console.log(values);
+        });
     },
-   
-    
   });
-const closelogin=()=>{
-  navigate(-1)
-}
+  const closelogin = () => {
+    navigate(-1);
+  };
   const arr = data.map((data, index) => {
     return (
       <MenuItem key={index} value={data.rgbColor}>
@@ -89,7 +91,7 @@ const closelogin=()=>{
 
   return (
     <div>
-       {error && <Alert severity="error">{error}</Alert>}
+      {error && <Alert severity="error">{error}</Alert>}
       <Grid container>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
@@ -140,10 +142,21 @@ const closelogin=()=>{
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <TerminlList
-                            GetDataValue={GetData}
-                            onChange={formik.handleChange}
-                          />
+                          <Grid
+                            sx={{
+                              border: 1,
+                              borderRadius: 1,
+                              height: "55px",
+                              minWidth: "44%",
+                              alignContent: "flex-end",
+                            }}
+                          >
+                            <TerminlList
+                              GetDataValue={GetData}
+                              onChange={formik.handleChange}
+                              sendMontajNo={GetData}
+                            />
+                          </Grid>
                         </Grid>
                       </Grid>
                       <Grid container direction="row" sx={{ marginTop: 2 }}>
@@ -195,7 +208,6 @@ const closelogin=()=>{
                             onChange={formik.handleChange}
                             value={formik.values.sifre}
                           />
-                         
                         </Grid>
                       </Grid>
                       <Grid container direction="row" sx={{ marginTop: 2 }}>
