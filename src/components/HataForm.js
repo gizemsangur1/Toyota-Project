@@ -24,6 +24,47 @@ export default function HataForm(props) {
   const [select2, setSelect2] = useState([]);
   const [select3, setSelect3] = useState([]);
   const [select4, setSelect4] = useState([]);
+  const [inputValue1, setInputValue1] = useState("");
+  const [inputValue2, setInputValue2] = useState("");
+const[inputValue,setInputValue]=useState("");
+  const inputRef1 = useRef(null);
+  const inputRef2 = useRef(null);
+  const [selectedInput, setSelectedInput] = useState(null);
+
+  const handleInputChange = (message) => {
+    if(selectedInput==1){
+      setInputValue1(message);
+    }else{
+      setInputValue2(message);
+    }
+  };
+ 
+  const handleDelete = () => {
+    if (selectedInput === 1) {
+      setInputValue1(inputValue1.slice(0, -1));
+      inputRef1.current.focus();
+    } else if (selectedInput === 2) {
+      setInputValue2(inputValue2.slice(0, -1));
+      inputRef2.current.focus();
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    const { key } = event;
+
+    let isBackspace = key === "Backspace";
+    if (isBackspace) {
+      handleDelete();
+    } else {
+      if (selectedInput === 1) {
+        setInputValue1(inputValue1 + key);
+        inputRef1.current.focus();
+      } else if (selectedInput === 2) {
+        setInputValue2(inputValue2 + key);
+        inputRef2.current.focus();
+      }
+    }
+  };
 
   const [exitdepartment, setExitdepartment] = React.useState("");
   const [rdd, setRdd] = React.useState("");
@@ -32,12 +73,12 @@ export default function HataForm(props) {
   const [subresponsible, setSubresponsible] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [action, setAction] = React.useState("");
-const handleDescription=(event)=>{
-  setDescription(event.target.value)
-}
-const handleAction=(event)=>{
-  setAction(event.target.value)
-}
+  const handleDescription = (event) => {
+    setDescription(event.target.value);
+  };
+  const handleAction = (event) => {
+    setAction(event.target.value);
+  };
   const handleChangeexit = (event) => {
     setExitdepartment(event.target.value);
   };
@@ -241,22 +282,26 @@ const handleAction=(event)=>{
         );
       }
     } else {
-      if(data.userName=="Açıklama"){
-         return (
-        <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-          <Grid item xs={3} sx={{ textAlign: "center" }}>
-            <Typography>{data.userName}</Typography>
+      if (data.userName == "Açıklama") {
+        return (
+          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+            <Grid item xs={3} sx={{ textAlign: "center" }}>
+              <Typography>{data.userName}</Typography>
+            </Grid>
+            <Grid item xs={9} sx={{ textAlign: "center" }}>
+              <TextField
+                sx={{ minWidth: "75%" }}
+                ref={inputRef1}
+                value={inputValue1}
+                onClick={() => setSelectedInput(1)}
+                onKeyDown={handleKeyDown}
+                onChange={handleDescription}
+               
+              ></TextField>
+            </Grid>
           </Grid>
-          <Grid item xs={9} sx={{ textAlign: "center" }}>
-            <TextField
-              sx={{ minWidth: "75%" }}
-              onChange={handleDescription}
-              value={description}
-            ></TextField>
-          </Grid>
-        </Grid>
-      );
-      }else{
+        );
+      } else {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
             <Grid item xs={3} sx={{ textAlign: "center" }}>
@@ -266,13 +311,15 @@ const handleAction=(event)=>{
               <TextField
                 sx={{ minWidth: "75%" }}
                 onChange={handleAction}
-                value={action}
+                ref={inputRef2}
+                value={inputValue2}
+                onClick={() => setSelectedInput(2)}
+                onKeyDown={handleKeyDown}
               ></TextField>
             </Grid>
           </Grid>
         );
       }
-     
     }
   });
 
@@ -280,7 +327,9 @@ const handleAction=(event)=>{
     <div>
       <Grid container direction="row" sx={{ border: 1 }}>
         {arr}
-        <Keyboard />
+        <Keyboard     handleKeyDown={handleKeyDown}
+          setInputValue={handleInputChange}
+          handleDelete={handleDelete}/>
       </Grid>
     </div>
   );

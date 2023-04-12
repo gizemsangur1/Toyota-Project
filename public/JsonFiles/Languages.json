@@ -1,7 +1,7 @@
 {
   "turkish": [
     [
-      { "value": "1" },
+      { "value": "1"},
       { "value": "2" },
       { "value": "3" },
       { "value": "4" },
@@ -10,7 +10,8 @@
       { "value": "7" },
       { "value": "8" },
       { "value": "9" },
-      { "value": "0" }
+      { "value": "0" },
+      { "value": "BACKSPACE"}
     ],
     [
       { "value": "q" },
@@ -24,8 +25,8 @@
       { "value": "o" },
       { "value": "p" },
       { "value": "ğ" },
-      { "value": "ü" },
-      { "value": "BACKSPACE" }
+      { "value": "ü" }
+      
     ],
     [
       { "value": "a" },
@@ -65,7 +66,9 @@
       { "value": "7" },
       { "value": "8" },
       { "value": "9" },
-      { "value": "0" }
+      { "value": "0" },
+      { "value": "BACKSPACE" }
+      
     ],
     [
       { "value": "q" },
@@ -77,8 +80,7 @@
       { "value": "u" },
       { "value": "i" },
       { "value": "o" },
-      { "value": "p" },
-      { "value": "BACKSPACE" }
+      { "value": "p" }
     ],
     [
       { "value": "a" },
@@ -114,7 +116,8 @@
       { "value": "7" },
       { "value": "8" },
       { "value": "9" },
-      { "value": "0" }
+      { "value": "0" },
+      { "value": "BACKSPACE" }
     ],
     [
       { "value": "A" },
@@ -126,8 +129,7 @@
       { "value": "U" },
       { "value": "I" },
       { "value": "O" },
-      { "value": "P" },
-      { "value": "BACKSPACE" }
+      { "value": "P" }
     ],
     [
       { "value": "Q" },
@@ -167,7 +169,8 @@
       { "value": "7" },
       { "value": "8" },
       { "value": "9" },
-      { "value": "0" }
+      { "value": "0" },
+      { "value": "BACKSPACE" }
     ],
     [
       {
@@ -183,8 +186,7 @@
       { "value": "Щ" },
       { "value": "З" },
       { "value": "Х" },
-      { "value": "Ъ" },
-      { "value": "BACKSPACE" }
+      { "value": "Ъ" }
     ],
     [
       {

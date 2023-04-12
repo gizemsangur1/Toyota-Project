@@ -1,42 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Grid } from "@mui/material";
-import { Box } from "@mui/system";
-import PropTypes from "prop-types";
 import axios from "axios";
-function Item(props) {
-  const { sx, ...other } = props;
-  return (
-    <Box
-      sx={{
-        minWidth: 10,
-        minHeight: 10,
-        margin: 0.5,
-        fontSize: "0.875vw",
-        fontWeight: "700",
-        ...sx,
-      }}
-      {...other}
-    />
-  );
-}
-
-Item.propTypes = {
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])
-    ),
-    PropTypes.func,
-    PropTypes.object,
-  ]),
-};
+import LanguageIcon from "@mui/icons-material/Language";
 
 export default function Keyboard(props) {
   const [language, setLanguage] = useState([]);
   const [counter, setCounter] = useState(0);
-  
+
   useEffect(() => {
     axios
       .get("/JsonFiles/Languages.json")
@@ -55,23 +25,30 @@ export default function Keyboard(props) {
   const handleButtonClick = (value) => {
     if (value === "LNG") {
       setCounter((counter + 1) % Object.keys(language).length);
-    }
-    else if (value === "BACKSPACE") {
-      props.setInputValue(inputValue.slice(0, inputValue.length-1));
-    }else if(value==="SPACE"){
+    } else if (value === "BACKSPACE") {
+      props.setInputValue(inputValue.slice(0, inputValue.length - 1));
+    } else if (value === "SPACE") {
+      props.setInputValue((inputValue) => inputValue + value);
+    } else {
       props.setInputValue((inputValue) => inputValue + value);
     }
-     else {
-      props.setInputValue((inputValue) => inputValue + value);
-    }
-    
-  }; 
+  };
+  useEffect(() => {
+    const handleResize = () => {
+      setButtonWidth(window.innerWidth < 600 ? "20px" : "50px");
+    };
 
+    window.addEventListener("resize", handleResize);
 
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const [buttonWidth, setButtonWidth] = useState("50px");
   return (
     <div>
-   
-      <Grid container sx={{ border: 1 }}>
+      <Grid container sx={{ border: 1, backgroundColor: "#d9dedc",height:"45vh"}}>
         {language.map((row) => (
           <Grid
             container
@@ -79,19 +56,23 @@ export default function Keyboard(props) {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "space-evenly",
+              
             }}
           >
             {row.map((key) => (
-              <Item key={key.value} flexDirection="row">
-                <Button
-                  sx={{ border: 1, borderRadius: 1 }}
-                  key={key.value}
-                  onClick={() => handleButtonClick(key.value)}
+              <button 
+                style={{ border: 1, borderRadius:5, marginTop:0.5,height:"7vh", width: key.value==="BACKSPACE"?"7vw" :"5vw",textAlign:"center",justifyContent: "center",backgroundColor:"whitesmoke" }}
+                key={key.value}
+                onClick={() => handleButtonClick(key.value)}
+              >
+                {key.value === "LNG" && <LanguageIcon />}
+                <span
+                  style={{ display: key.value === "LNG" ? "none" : "inline" }}
                 >
                   {key.value}
-                </Button>
-              </Item>
+                </span>
+              </button>
             ))}
           </Grid>
         ))}
@@ -102,25 +83,17 @@ export default function Keyboard(props) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            width: "${100 / language[0].length}%",
           }}
         >
-          <Item flexDirection="row">
-            <Button
-              sx={{ border: 1, borderRadius: 1 }}
-              onClick={() => handleButtonClick(" ")} 
-            >
-              SPACE
-            </Button>
-          </Item>
+          <button
+            style={{ border: 1, borderRadius: 5,width:"90%",height:"5vh" ,textAlign:"center",justifyContent: "center",backgroundColor:"whitesmoke"}}
+            onClick={() => handleButtonClick(" ")}
+          >
+            SPACE
+          </button>
         </Grid>
       </Grid>
-      
     </div>
   );
 }
-
-
-
-
-
-

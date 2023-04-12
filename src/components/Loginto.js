@@ -12,8 +12,9 @@ import InputLabel from "@mui/material/InputLabel";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Keyboard from "./Keyboard";
-
-/*LOGIN */
+ 
+/* import KeyboardReact from "react-simple-keyboard";
+import 'react-simple-keyboard/build/css/index.css'; */
 export default function Loginto() {
   const [termlist, setTermlist] = useState("");
   const [termname, setTermname] = useState("");
@@ -42,18 +43,20 @@ export default function Loginto() {
   }, []);
   const [error, setError] = useState("");
   const LoginSchema = Yup.object().shape({
+    montajno:Yup.string()
+    .required("Montaj no gerekli"),
     sicilno: Yup.string()
 
       .min(5)
 
-      .required("Sicilno is required")
+      .required("Sicilno gerekli")
       .test("match", "Sicilno yanlış", function (sicilno) {
         return parseInt(sicilno) === 26917;
       }),
     sifre: Yup.string()
 
       .min(3)
-      .required("Password is required")
+      .required("Sifre gerekli")
       .test("match", "Şifre yanlış", function (passw) {
         return parseInt(passw) === 233;
       }),
@@ -68,14 +71,16 @@ export default function Loginto() {
 
     onSubmit: (values) => {
       values.montajno = termlist;
+      values.sicilno = inputValue1;
+      values.sifre = inputValue2;
       LoginSchema.validate(values)
         .then(() => {
           navigate("/HataGiris");
         })
         .catch((err) => {
-          /* setError(err.errors[0]);
-          console.log(values); */
-          navigate("/HataGiris");
+         setError(err.errors[0]);
+          console.log(values); 
+          /* navigate("/HataGiris"); */
         });
     },
   });
@@ -90,22 +95,21 @@ export default function Loginto() {
     );
   });
 
-  /*IKINCI KOD */
+  /*KLAVYE KODLARI */
   const [inputValue1, setInputValue1] = useState("");
   const [inputValue2, setInputValue2] = useState("");
-const[inputValue,setInputValue]=useState("");
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
   const [selectedInput, setSelectedInput] = useState(null);
 
   const handleInputChange = (message) => {
-    if(selectedInput==1){
+    if (selectedInput == 1) {
       setInputValue1(message);
-    }else{
+    } else {
       setInputValue2(message);
     }
   };
- 
+
   const handleDelete = () => {
     if (selectedInput === 1) {
       setInputValue1(inputValue1.slice(0, -1));
@@ -167,7 +171,7 @@ const[inputValue,setInputValue]=useState("");
                 <Formik>
                   {({ errors, touched }) => (
                     <Form onSubmit={formik.handleSubmit}>
-                      <Grid container direction="row" sx={{ marginTop: 2 }}>
+                      <Grid container direction="row" sx={{ marginTop: 1 }}>
                         <Grid
                           item
                           container
@@ -203,7 +207,7 @@ const[inputValue,setInputValue]=useState("");
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Grid container direction="row" sx={{ marginTop: 2 }}>
+                      <Grid container direction="row" sx={{ marginTop: 1 }}>
                         <span>{errors?.sicilno?.message}</span>
                         <Grid
                           item
@@ -231,7 +235,7 @@ const[inputValue,setInputValue]=useState("");
                           />
                         </Grid>
                       </Grid>
-                      <Grid container direction="row" sx={{ marginTop: 2 }}>
+                      <Grid container direction="row" sx={{ marginTop: 1 }}>
                         <Grid
                           item
                           container
@@ -248,18 +252,17 @@ const[inputValue,setInputValue]=useState("");
                           justifyContent="center"
                           alignItems="center"
                         >
-                        <TextField
+                          <TextField
                             type="password"
                             name="sifre"
                             ref={inputRef2}
                             value={inputValue2}
                             onClick={() => setSelectedInput(2)}
                             onKeyDown={handleKeyDown}
-                          /> 
-                         
+                          />
                         </Grid>
                       </Grid>
-                      <Grid container direction="row" sx={{ marginTop: 2 }}>
+                      <Grid container direction="row" sx={{ marginTop: 1 }}>
                         <Grid
                           item
                           container
@@ -287,7 +290,7 @@ const[inputValue,setInputValue]=useState("");
                       <Grid
                         container
                         direction="row"
-                        sx={{ marginTop: 2, backgroundColor: color }}
+                        sx={{ marginTop: 1, backgroundColor: color }}
                       >
                         <Grid item container xs={8}>
                           <Grid item xs={2}>
@@ -312,7 +315,7 @@ const[inputValue,setInputValue]=useState("");
                           </FormControl>
                         </Grid>
                       </Grid>
-                      <Grid container direction="row" sx={{ marginTop: 2 }}>
+                      <Grid container direction="row" sx={{ marginTop: 1}}>
                         <Grid item xs={6}>
                           <Button
                             type="submit"
@@ -345,18 +348,19 @@ const[inputValue,setInputValue]=useState("");
                     </Form>
                   )}
                 </Formik>
+                
               </Grid>
               <Grid item xs={1.5}></Grid>
+            <Keyboard
+                  handleKeyDown={handleKeyDown}
+                  setInputValue={handleInputChange}
+                  handleDelete={handleDelete}
+                /> 
+               {/*  <KeyboardReact/> */}
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={2}></Grid>
-        <Keyboard
-          handleKeyDown={handleKeyDown}
-          setInputValue={handleInputChange}
-          handleDelete={handleDelete}
-       
-        />
       </Grid>
     </div>
   );
