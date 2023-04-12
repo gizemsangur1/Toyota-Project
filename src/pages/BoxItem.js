@@ -9,12 +9,15 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo,memo  } from "react";
 import axios from "axios";
 import Save from "@mui/icons-material/Save";
 import Delete from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 import { List, AutoSizer } from "react-virtualized";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Item(props) {
   const { sx, ...other } = props;
   return (
@@ -46,10 +49,15 @@ Item.propTypes = {
 };
 
 export default function BoxItem() {
+  const kaydedildi = () => {
+    toast.success('Kaydedildi!', {
+      position: toast.POSITION.TOP_CENTER
+  });
+
+  };
   const [data, setData] = useState([]);
   const [nrlist, setNrlist] = useState([]);
   const [option, setOption] = React.useState("");
-
   const handleChange = (event) => {
     setOption(event.target.value);
   };
@@ -64,6 +72,7 @@ export default function BoxItem() {
       .catch((err) => console.log(err));
     setData([]);
   }, []);
+ 
   const headers = [
     {
       headerName: "Bildiren",
@@ -115,7 +124,7 @@ export default function BoxItem() {
       Width: "5vw",
       alignment: "left",
     },
-    { headerName: "Alt Sorumlu", columnName: "depCode", Width: "5vw" },
+    { headerName: "Alt Sorumlu", columnName: "depCode", Width: "4vw" , alignment: "left",},
     {
       headerName: "NR REASON",
       Width: "7vw",
@@ -126,7 +135,7 @@ export default function BoxItem() {
     },
     {
       headerName: "islem",
-      Width: "7vw",
+      Width: "6.5vw",
     },
   ];
   const arr2 = headers.map((header) => {
@@ -171,6 +180,7 @@ export default function BoxItem() {
                     textAlign: header.alignment,
                   }}
                   size="small"
+                  onClick={kaydedildi}
                 >
                   <Save />
                 </Button>
@@ -326,7 +336,8 @@ export default function BoxItem() {
             justifyContent: "space-evenly",
             overflowY: "scroll",
             overflowX: "hidden",
-            maxHeight: "600px",
+            maxHeight: "500px",
+            enableInfiniteScrolling: true,
           }}
         >
           {arr}

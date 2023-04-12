@@ -39,17 +39,18 @@ export default function Svg(props) {
     ))
   );
   const arr2 = data.map((item) =>
-    item.defectButtonRecords.map((subitem) => (
+    item.defectButtonRecords.map((subitem,index) => (
       <foreignObject
+      key={index}
         x={subitem.boxX}
         y={subitem.boxY}
         width={subitem.boxWidth - 5}
         height={subitem.boxHeight / 2}
       >
         <div style={{ backgroundColor: "white" }}>
-          <text style={{ fill: subitem.labelColor, fontSize: 13 }}>
+          <Typography style={{ fill: subitem.labelColor, fontSize: 13 }}>
             {subitem.labelText}
-          </text>
+          </Typography>
         </div>
       </foreignObject>
     ))
@@ -66,17 +67,3 @@ export default function Svg(props) {
   );
 } 
 
-/* const arr2 = data.map((item) =>
-item.defectButtonRecords.map((subitem) => (
-  <foreignObject
-    x={subitem.boxX}
-    y={subitem.boxY}
-    width={subitem.boxWidth - 5}
-    height={subitem.boxHeight}
-  >
-    <div style={{ backgroundColor: "white" }}>
-     
-    </div>
-  </foreignObject>
-))
-); */

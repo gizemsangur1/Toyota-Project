@@ -12,55 +12,26 @@ import {
 import Buyukfontdata from "./Buyukfontdata";
 import BuyukfontHeader from "./BuyukfontHeader";
 
-/*İKİNCİ KOD */
 export default function BuyukFont(props) {
   const [background, setBackground] = useState("#c6ffc8");
-  const [timer, setTimer] = useState(null);
-  const [playing, setPlaying] = useState(false);
+const [lastClick, setLastClick] = useState(Date.now());
 
-  useEffect(() => {
-    function changeBackgroundColor() {
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    if (Date.now() - lastClick >= 10000) {
+      const beep = new Audio('Beep.mp3');
+      beep.play();
       setBackground((prevColor) => (prevColor === "#c6ffc8" ? "red" : "red"));
     }
-    const intervalId = setInterval(changeBackgroundColor, 10000);
+  }, 1000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  return () => clearInterval(intervalId);
+}, [lastClick]);
 
-  function resetTimer() {
-    setBackground("#c6ffc8");
-    clearInterval(timer);
-    setTimer(null);
-    setPlaying(false);
-  }
-
-  function handleAudio(){
-    if(playing){
-      setPlaying(false);
-    }else{
-      setPlaying(true);
-    }
-  }
-
-  useEffect(() => {
-    let audioInterval;
-    if (playing) {
-      const audio = new Audio('Beep.mp3');
-      audio.play();
-      audioInterval = setInterval(() => {
-        audio.currentTime = 0;
-        audio.play();
-      }, 10000);
-    } else {
-      clearInterval(audioInterval);
-    }
-
-    return () => {
-      clearInterval(audioInterval);
-    };
-  }, [playing]);
+function resetTimer() {
+  setBackground("#c6ffc8");
+  setLastClick(Date.now());
+}
 
   const [data, setData] = useState([]);
   useEffect(() => {

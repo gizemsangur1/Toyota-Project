@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
@@ -11,6 +11,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Keyboard from "./Keyboard";
 
 /* ikinci kod */
 
@@ -73,8 +74,9 @@ export default function Loginto() {
           navigate("/HataGiris");
         })
         .catch((err) => {
-          setError(err.errors[0]);
-          console.log(values);
+          /* setError(err.errors[0]);
+          console.log(values); */
+          navigate("/HataGiris");
         });
     },
   });
@@ -88,7 +90,44 @@ export default function Loginto() {
       </MenuItem>
     );
   });
+  /*KLAVYE KODLARI */
+  const [input1Value, setInput1Value] = useState("");
+  const [input2Value, setInput2Value] = useState("");
+  const [selectedInput, setSelectedInput] = useState(null);
 
+  const handleInput1Change = (event) => {
+    if (selectedInput === "input1") {
+      setInput1Value(event.target.value);
+    }
+  };
+
+  const handleInput2Change = (event) => {
+    if (selectedInput === "input2") {
+      setInput2Value(event.target.value);
+    }
+  };
+
+  const handleInputFocus = (event) => {
+    setSelectedInput(event.target.name);
+    event.target.focus();
+  };
+
+  const handleDelete = () => {
+    setSelectedInput((prev) => prev.slice(0, -1));
+  };
+
+  const handleKeyDown = (event) => {
+    const { key } = event;
+
+    let isBackspace = key === "Backspace";
+    if (isBackspace) {
+      handleDelete();
+    } else {
+      setSelectedInput((prev) => prev + key);
+    }
+  };
+ 
+  
   return (
     <div>
       {error && <Alert severity="error">{error}</Alert>}
@@ -177,11 +216,18 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <TextField
+                          {/* <TextField
                             type="text"
                             name="sicilno"
                             onChange={formik.handleChange}
-                            value={formik.values.sicilno}
+                            ref={this.inputRef}
+                          /> */}
+                          <input
+                            type="text"
+                            name="input1"
+                            value={input1Value}
+                            onChange={handleInput1Change}
+                            onFocus={handleInputFocus}
                           />
                         </Grid>
                       </Grid>
@@ -202,11 +248,18 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <TextField
+                          {/* <TextField
                             type="password"
                             name="sifre"
                             onChange={formik.handleChange}
                             value={formik.values.sifre}
+                          /> */}
+                          <input
+                            type="text"
+                            name="input2"
+                            value={input2Value}
+                            onChange={handleInput2Change}
+                            onFocus={handleInputFocus}
                           />
                         </Grid>
                       </Grid>
@@ -302,6 +355,11 @@ export default function Loginto() {
           </Grid>
         </Grid>
         <Grid item xs={2}></Grid>
+        <Keyboard
+          inputValue={input2Value}
+          onKeyDown={handleKeyDown}
+          onChange={setSelectedInput}
+        />
       </Grid>
     </div>
   );

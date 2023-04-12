@@ -1,17 +1,15 @@
-import { React, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useState, useEffect,  } from "react";
+
 import axios from "axios";
-import { Box, fontSize } from "@mui/system";
-import List from "../components/List";
+import { Box } from "@mui/system";
+
 import { Button, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import TerminlList from "./TerminlList";
+
 import MenuItem from "@mui/material/MenuItem";
-import Pointer from "./Pointer";
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export default function Svg2(props) {
   const [data, setData] = useState([]);
@@ -40,7 +38,7 @@ export default function Svg2(props) {
     axios
       .get("/JsonFiles/MaviKutu.json")
       .then((res) => {
-        console.log(res.data.data);
+        
         setListdata(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -56,7 +54,7 @@ export default function Svg2(props) {
     setGosterpointer(!gosterpointer);
     props.onMenuSelect();
   }
-  console.log(selectedOption);
+
   useEffect(() => {
     props.GetDataValue(selectedOption);
   });
@@ -76,18 +74,19 @@ export default function Svg2(props) {
       />
     ))
   );
-  const arr2 = data.map((item) =>
+  const arr2 = data.map((item,i) =>
     item.defectButtonRecords.map((subitem) => (
       <foreignObject
+      key={i}
         x={subitem.boxX}
         y={subitem.boxY}
         width={subitem.boxWidth - 5}
         height={subitem.boxHeight / 2}
       >
         <div style={{ backgroundColor: "white" }}>
-          <text style={{ fill: subitem.labelColor, fontSize: 13 }}>
+          <Typography style={{ fill: subitem.labelColor, fontSize: 13 }}>
             {subitem.labelText}
-          </text>
+          </Typography>
         </div>
       </foreignObject>
     ))
@@ -114,13 +113,20 @@ export default function Svg2(props) {
       </Grid>
     );
   });
-  const [x, setX] = useState(null);
-  const [y, setY] = useState(null);
 
-  function changePointer(e) {
-    setX(e.clientX);
-    setY(e.clientY);
+  const [clickedCoords, setClickedCoords] = useState(null);
+  
+    function handleClick(e) {
+      const svg = e.currentTarget;
+      const point = svg.createSVGPoint();
+      point.x = e.clientX;
+      point.y = e.clientY;
+      const { x, y } = point.matrixTransform(svg.getScreenCTM().inverse());
+      setClickedCoords({ x, y });
+      console.log(clickedCoords);
+  
   }
+
   const [scrollPosition, setScrollPosition] = useState(0);
 
   function handleScroll(direction) {
@@ -131,8 +137,16 @@ export default function Svg2(props) {
         setScrollPosition(Math.max(scrollPosition - scrollStep, 0));
         box.scrollTop = Math.max(box.scrollTop - scrollStep, 0);
       } else if (direction === "down") {
-        setScrollPosition(Math.min(scrollPosition + scrollStep, box.scrollHeight - box.clientHeight));
-        box.scrollTop = Math.min(box.scrollTop + scrollStep, box.scrollHeight - box.clientHeight);
+        setScrollPosition(
+          Math.min(
+            scrollPosition + scrollStep,
+            box.scrollHeight - box.clientHeight
+          )
+        );
+        box.scrollTop = Math.min(
+          box.scrollTop + scrollStep,
+          box.scrollHeight - box.clientHeight
+        );
       }
     }
   }
@@ -141,9 +155,9 @@ export default function Svg2(props) {
       <svg
         viewBox="0 0 1000 600"
         preserveAspectRatio="none"
-        onClick={changePointer}
+        onClick={handleClick}
       >
-        <image href="car3.jpg" />
+        <image href="car2.jpg" />
 
         {gostersvg && (
           <>
@@ -155,34 +169,52 @@ export default function Svg2(props) {
         {gosterpointer && (
           <>
             <svg>
-              <circle cx={x} cy={y} r="10" fill="red" />
+              <circle
+                cx={clickedCoords.x}
+                cy={clickedCoords.y}
+                r="10"
+                fill="red"
+              />
             </svg>
+            
           </>
         )}
       </svg>
-      <Grid sx={{ position: "absolute", top: 150, left: 600, zIndex: 999 }}>
+      <Grid
+        sx={{
+          position: "absolute",
+          top: " 23vh",
+          left: " 40vw",
+          zIndex: 999,
+          width: "20vw",
+        }}
+      >
         {goster && (
           <div>
             <Grid container>
               <Grid item xs={8}>
                 <Box
-                id="scrollable-box"
-                value={selectedOption}
-                onChange={handleChange}
-                  container
+                  id="scrollable-box"
+                  value={selectedOption}
+                  onChange={handleChange}
+                  container="true"
                   sx={{
                     justifyContent: "space-evenly",
                     overflowY: "scroll",
                     overflowX: "hidden",
-                    maxHeight: "300px",
+                    maxHeight: "40vh",
                   }}
                 >
                   {arrlist}
                 </Box>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={() => handleScroll("up")}><KeyboardArrowUpIcon/></Button>
-                <Button onClick={() => handleScroll("down")}><KeyboardArrowDownIcon/></Button>
+                <Button onClick={() => handleScroll("up")}>
+                  <KeyboardArrowUpIcon />
+                </Button>
+                <Button onClick={() => handleScroll("down")}>
+                  <KeyboardArrowDownIcon />
+                </Button>
               </Grid>
             </Grid>
           </div>

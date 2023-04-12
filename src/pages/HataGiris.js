@@ -2,23 +2,31 @@ import {
   Button,
   FormControlLabel,
   Grid,
-  Input,
+  TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import Image from "mui-image";
 import { React, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Calculate, CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
+import { CheckBoxOutlineBlank } from "@mui/icons-material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Svg from "../components/Svg";
 import Svg2 from "../components/Svg2";
 import HataForm from "../components/HataForm";
 import BuyukFont from "../components/BuyukFont";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-/*Ikinci kod */
 export default function HataGiris(props) {
+  const notifyMe = () => {
+    toast.success('Kaydedildi!', {
+      position: toast.POSITION.TOP_CENTER
+  });
+    closeform();
+    setShowComponent2(false);
+    setIsButtonDisabled(true);
+  };
   const theme = createTheme({
     components: {
       MuiGrid: {
@@ -66,13 +74,12 @@ export default function HataGiris(props) {
   const GetData = (value) => {
     setTermlist(value);
   };
-  console.log(termlist);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const handleMenuSelect = () => {
     setIsButtonDisabled(false);
   };
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const navigateToHataListesi = () => {
     navigate("/HataListeleme");
@@ -83,7 +90,6 @@ export default function HataGiris(props) {
     axios
       .get("/JsonFiles/Header.json")
       .then((res) => {
-        console.log(res.data.data);
         setData(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -109,6 +115,7 @@ export default function HataGiris(props) {
   }
   function handlesvg() {
     setShowComponent2(false);
+    setIsButtonDisabled(true);
   }
   function handlesvgclick() {}
   function closeform() {
@@ -120,8 +127,24 @@ export default function HataGiris(props) {
   function closebuyukfont() {
     setShowComponent(false);
   }
+  const [lastClick, setLastClick] = useState(Date.now());
+
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    if (Date.now() - lastClick >= 30000) {
+      const beep = new Audio('Beep.mp3');
+      beep.play();
+    }
+  }, 3000);
+
+  return () => clearInterval(intervalId);
+}, [lastClick]);
+function resetTimer() {
+  setLastClick(Date.now());
+}
+
   return (
-    <div>
+    <div onClick={resetTimer}>
       {showComponent ? (
         <BuyukFont
           onClick={closebuyukfont}
@@ -205,13 +228,13 @@ export default function HataGiris(props) {
                       MODELİN İLK RESMİ
                     </Button>
                     <Button variant="outlined">GERİ</Button>
-                    <Button
-                       onClick={navigateToHataListesi} variant="outlined"
-                    >
+                    <Button onClick={navigateToHataListesi} variant="outlined">
                       HATA LİSTESİ
                     </Button>
                     <Button variant="outlined">TEMİZLE</Button>
-                    <Button variant="outlined" onClick={buyukFont}>BÜYÜK FONT</Button>
+                    <Button variant="outlined" onClick={buyukFont}>
+                      BÜYÜK FONT
+                    </Button>
                   </ThemeProvider>
                 </Grid>
               </Grid>
@@ -251,7 +274,11 @@ export default function HataGiris(props) {
                   <Typography>MONTAJ NO</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Input></Input>
+                  {data.map((item, i) => (
+                    <TextField value={item.assyNo} key={i}>
+                      {item.assyNo}
+                    </TextField>
+                  ))}
                 </Grid>
                 <Grid item xs={12}>
                   <Button variant="outlined">ARA</Button>
@@ -282,11 +309,12 @@ export default function HataGiris(props) {
                 height: "90%",
               }}
             >
-              <HataForm onClick={closeform} />
+              <HataForm onClick={closeform} onKaydedildi={notifyMe} />
             </Grid>
           )}
         </Grid>
       )}
+      <ToastContainer />
     </div>
   );
 }

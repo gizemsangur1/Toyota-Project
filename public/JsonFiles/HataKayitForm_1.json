@@ -1,10 +1,10 @@
+
 {
-  "data": [
-    {
-      "models": [
-        { "modelId": 23638, "modelCode": "CHR", "modelName": "CHR" },
-        { "modelId": 29695, "modelCode": "COR", "modelName": "COROLLA" },
-        { "modelId": 1115757, "modelCode": "New CHR", "modelName": "New CHR" }
+  "data": [{
+            "models": [
+            { "modelId": 23638, "modelCode": "CHR", "modelName": "CHR" },
+            { "modelId": 29695, "modelCode": "COR", "modelName": "COROLLA" },
+            { "modelId": 1115757, "modelCode": "New CHR", "modelName": "New CHR" }
       ],
       "requiredFieldsByInspectionDTOList": [
         {

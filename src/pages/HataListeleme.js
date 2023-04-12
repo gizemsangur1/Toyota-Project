@@ -1,5 +1,12 @@
-import { Button, Grid, ListItem, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  ListItem,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import axios from "axios";
 import {
   Table,
@@ -14,16 +21,29 @@ import {
 import { maxHeight } from "@mui/system";
 import DataGridHata from "../components/DataGridHata";
 import Datagrid from "../components/Datagrid";
-import BoxItem from "./BoxItem";
+
 import { List, AutoSizer } from "react-virtualized";
-
+const ErrorList = lazy(() => import("./BoxItem"));
+/**/
 export default function HataListeleme() {
+  const [showErrorList, setShowErrorList] = useState(false);
 
-  
+ 
+
+  const handleClick =  () => {
+
+      setShowErrorList(true);
+
+  };
+
   return (
     <div>
-      
-      <BoxItem />
+      {showErrorList && (
+        <Suspense fallback={<div>Yükleniyor...</div>}>
+          <ErrorList />
+        </Suspense>
+      )}
+
       <Grid container direction="row">
         <Grid container item xs={4} alignItems="center" justifyContent="center">
           <Grid item xs={3}>
@@ -77,7 +97,6 @@ export default function HataListeleme() {
             <Grid item xs={12}>
               <Button
                 sx={{
-                  
                   border: 1,
                   textAlign: "center",
                   width: 100,
@@ -94,7 +113,6 @@ export default function HataListeleme() {
             <Grid item xs={12}>
               <Button
                 sx={{
-               
                   border: 1,
                   textAlign: "center",
                   width: 100,
@@ -111,7 +129,6 @@ export default function HataListeleme() {
             <Grid item xs={12}>
               <Button
                 sx={{
-                
                   border: 1,
                   textAlign: "center",
                   width: 100,
@@ -128,12 +145,12 @@ export default function HataListeleme() {
             <Grid item xs={12}>
               <Button
                 sx={{
-                 
                   border: 1,
                   textAlign: "center",
                   width: 100,
                   height: 100,
                 }}
+                onClick={handleClick}
               >
                 HATA LİSTESİ
               </Button>
@@ -145,7 +162,6 @@ export default function HataListeleme() {
             <Grid item xs={12}>
               <Button
                 sx={{
-                 
                   border: 1,
                   textAlign: "center",
                   width: 100,
@@ -162,7 +178,6 @@ export default function HataListeleme() {
             <Grid item xs={12}>
               <Button
                 sx={{
-                
                   border: 1,
                   textAlign: "center",
                   width: 100,

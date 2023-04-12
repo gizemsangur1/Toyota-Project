@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Grid, Paper, TextField, Typography } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
+import { Grid, Typography } from "@mui/material";
+
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import ScrollButton from "./ScrollButton";
-import Autocomplete from "@mui/material/Autocomplete";
-import Tabs from "@mui/material/Tabs";
+
 import Button from "@mui/material/Button";
-import List from "../components/List";
-import { TabScrollButton } from "@mui/material";
+
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Box, fontSize } from "@mui/system";
+import { Box } from "@mui/system";
 
 /* birinci kod */
 export default function TerminlList(props) {
@@ -98,7 +93,7 @@ export default function TerminlList(props) {
             <Grid item xs={9}>
               <Box
                 id="scrollable-box"
-                container
+                container="true"
                 sx={{
                   justifyContent: "space-evenly",
                   overflowY: "scroll",
