@@ -5,18 +5,19 @@ import Terminals from "./pages/Terminals";
 import Login from "./pages/Login";
 import HataListeleme from "./pages/HataListeleme";
 import HataGiris from "./pages/HataGiris";
+import Keyboard from "./components/Keyboard";
 
 function App() {
   return (
 
-  <BrowserRouter>
+   <BrowserRouter>
       <Routes>
         <Route index element={<Terminals />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/HataGiris" element={<HataGiris />} />
         <Route path="/HataListeleme" element={<HataListeleme />} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> 
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import PropTypes from "prop-types";
+import axios from "axios";
 function Item(props) {
   const { sx, ...other } = props;
   return (
@@ -9,7 +10,7 @@ function Item(props) {
       sx={{
         minWidth: 10,
         minHeight: 10,
-        margin:0.5,
+        margin: 0.5,
         fontSize: "0.875vw",
         fontWeight: "700",
         ...sx,
@@ -33,180 +34,93 @@ Item.propTypes = {
 };
 
 export default function Keyboard(props) {
-   
+  const [language, setLanguage] = useState([]);
+  const [counter, setCounter] = useState(0);
   
- 
-   const handleDelete = () => {
-    
-   props.onChange(props.input2Value.slice(0, -1));
-  }; 
+  useEffect(() => {
+    axios
+      .get("/JsonFiles/Languages.json")
+      .then((res) => {
+        setLanguage(res.data[Object.keys(res.data)[counter]]);
+      })
+      .catch((err) => console.log(err));
+  }, [counter]);
+
+  const [shift, setShift] = useState(false);
+
+  /*KEYBOARD*/
+
+  const [inputValue, setInputValue] = useState("");
 
   const handleButtonClick = (value) => {
-    if (value === "Backspace") {
-       handleDelete(); 
-      
-    } else {
-      props.onChange(props.input2Value + value);
-     
+    if (value === "LNG") {
+      setCounter((counter + 1) % Object.keys(language).length);
     }
-  };
+    else if (value === "BACKSPACE") {
+      props.setInputValue(inputValue.slice(0, inputValue.length-1));
+    }else if(value==="SPACE"){
+      props.setInputValue((inputValue) => inputValue + value);
+    }
+     else {
+      props.setInputValue((inputValue) => inputValue + value);
+    }
+    
+  }; 
 
-  
- 
-  const turkishkeys = [
-    [
-      { value: "q" },
-      { value: "w" },
-      { value: "e" },
-      { value: "r" },
-      { value: "t" },
-      { value: "y" },
-      { value: "u" },
-      { value: "ı" },
-      { value: "o" },
-      { value: "p" },
-      { value: "ğ" },
-      { value: "ü" },
-    ],
-    [
-      { value: "a" },
-      { value: "s" },
-      { value: "d" },
-      { value: "f" },
-      { value: "g" },
-      { value: "h" },
-      { value: "j" },
-      { value: "k" },
-      { value: "l" },
-      { value: "ş" },
-      { value: "i" },
-    ],
-    [
-      { value: "z" },
-      { value: "x" },
-      { value: "c" },
-      { value: "v" },
-      { value: "b" },
-      { value: "n" },
-      { value: "m" },
-      { value: "ö" },
-      { value: "ç" },
-    ],
-    { value: " ", label: "SPACE" },
-    { value: "Backspace", label: "BACKSPACE" },
-  ];
 
   return (
     <div>
- {/* <input type="text" ref={inputRef} value={inputValue} onKeyDown={handleKeyDown} /> */}
-     
-       <Grid container sx={{border:1}}>
-       <Grid
-          container
-          flexDirection="row"
-          sx={{
-            
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {turkishkeys[0].map((key) => (
-            
-              <Item  key={key.value} flexDirection="row">
-                <Button 
-                  sx={{ border: 1, borderRadius: 1 }}
-                  key={key.value}
-                  onClick={() => handleButtonClick(key.value)}
-                >
-                  {key.value}
-                </Button>
-              </Item>
-           
-          ))}
-        </Grid>
-        <Grid
-          container
-          flexDirection="row"
-          sx={{
-           
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {turkishkeys[1].map((key) => (
-            
-              <Item  key={key.value} flexDirection="row">
-                <Button 
-                  sx={{ border: 1, borderRadius: 1 }}
-                  key={key.value}
-                  onClick={() => handleButtonClick(key.value)}
-                >
-                  {key.value}
-                </Button>
-              </Item>
-           
-          ))}
-        </Grid>
-        <Grid
-          container
-          flexDirection="row"
-          sx={{
-           
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {turkishkeys[2].map((key) => (
-            
-              <Item  key={key.value} flexDirection="row">
-                <Button 
-                  sx={{ border: 1, borderRadius: 1 }}
-                  key={key.value}
-                  onClick={() => handleButtonClick(key.value)}
-                >
-                  {key.value}
-                </Button>
-              </Item>
-           
-          ))}
-        </Grid>
-        <Grid
-          container
-          flexDirection="row"
-          sx={{
-            
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-         
-            
-         <Item>
-          <Button
-            sx={{ border: 1, borderRadius: 1 }}
-            onClick={() => handleButtonClick(" ")}
+   
+      <Grid container sx={{ border: 1 }}>
+        {language.map((row) => (
+          <Grid
+            container
+            flexDirection="row"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            SPACE
-          </Button>
-        </Item>
-        <Item>
-          <Button
-            sx={{ border: 1, borderRadius: 1 }}
-            onClick={() => handleButtonClick("Backspace")}
-          >
-            BACKSPACE
-          </Button>
-        </Item>
-           
-          
+            {row.map((key) => (
+              <Item key={key.value} flexDirection="row">
+                <Button
+                  sx={{ border: 1, borderRadius: 1 }}
+                  key={key.value}
+                  onClick={() => handleButtonClick(key.value)}
+                >
+                  {key.value}
+                </Button>
+              </Item>
+            ))}
+          </Grid>
+        ))}
+        <Grid
+          container
+          flexDirection="row"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Item flexDirection="row">
+            <Button
+              sx={{ border: 1, borderRadius: 1 }}
+              onClick={() => handleButtonClick(" ")} 
+            >
+              SPACE
+            </Button>
+          </Item>
         </Grid>
-       </Grid>
-      
+      </Grid>
       
     </div>
   );
 }
+
+
+
+
+
+

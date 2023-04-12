@@ -13,8 +13,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Keyboard from "./Keyboard";
 
-/* ikinci kod */
-
+/*LOGIN */
 export default function Loginto() {
   const [termlist, setTermlist] = useState("");
   const [termname, setTermname] = useState("");
@@ -90,30 +89,31 @@ export default function Loginto() {
       </MenuItem>
     );
   });
-  /*KLAVYE KODLARI */
-  const [input1Value, setInput1Value] = useState("");
-  const [input2Value, setInput2Value] = useState("");
+
+  /*IKINCI KOD */
+  const [inputValue1, setInputValue1] = useState("");
+  const [inputValue2, setInputValue2] = useState("");
+const[inputValue,setInputValue]=useState("");
+  const inputRef1 = useRef(null);
+  const inputRef2 = useRef(null);
   const [selectedInput, setSelectedInput] = useState(null);
 
-  const handleInput1Change = (event) => {
-    if (selectedInput === "input1") {
-      setInput1Value(event.target.value);
+  const handleInputChange = (message) => {
+    if(selectedInput==1){
+      setInputValue1(message);
+    }else{
+      setInputValue2(message);
     }
   };
-
-  const handleInput2Change = (event) => {
-    if (selectedInput === "input2") {
-      setInput2Value(event.target.value);
-    }
-  };
-
-  const handleInputFocus = (event) => {
-    setSelectedInput(event.target.name);
-    event.target.focus();
-  };
-
+ 
   const handleDelete = () => {
-    setSelectedInput((prev) => prev.slice(0, -1));
+    if (selectedInput === 1) {
+      setInputValue1(inputValue1.slice(0, -1));
+      inputRef1.current.focus();
+    } else if (selectedInput === 2) {
+      setInputValue2(inputValue2.slice(0, -1));
+      inputRef2.current.focus();
+    }
   };
 
   const handleKeyDown = (event) => {
@@ -123,11 +123,16 @@ export default function Loginto() {
     if (isBackspace) {
       handleDelete();
     } else {
-      setSelectedInput((prev) => prev + key);
+      if (selectedInput === 1) {
+        setInputValue1(inputValue1 + key);
+        inputRef1.current.focus();
+      } else if (selectedInput === 2) {
+        setInputValue2(inputValue2 + key);
+        inputRef2.current.focus();
+      }
     }
   };
- 
-  
+
   return (
     <div>
       {error && <Alert severity="error">{error}</Alert>}
@@ -216,18 +221,13 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          {/* <TextField
+                          <TextField
                             type="text"
                             name="sicilno"
-                            onChange={formik.handleChange}
-                            ref={this.inputRef}
-                          /> */}
-                          <input
-                            type="text"
-                            name="input1"
-                            value={input1Value}
-                            onChange={handleInput1Change}
-                            onFocus={handleInputFocus}
+                            ref={inputRef1}
+                            value={inputValue1}
+                            onClick={() => setSelectedInput(1)}
+                            onKeyDown={handleKeyDown}
                           />
                         </Grid>
                       </Grid>
@@ -248,19 +248,15 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          {/* <TextField
+                        <TextField
                             type="password"
                             name="sifre"
-                            onChange={formik.handleChange}
-                            value={formik.values.sifre}
-                          /> */}
-                          <input
-                            type="text"
-                            name="input2"
-                            value={input2Value}
-                            onChange={handleInput2Change}
-                            onFocus={handleInputFocus}
-                          />
+                            ref={inputRef2}
+                            value={inputValue2}
+                            onClick={() => setSelectedInput(2)}
+                            onKeyDown={handleKeyDown}
+                          /> 
+                         
                         </Grid>
                       </Grid>
                       <Grid container direction="row" sx={{ marginTop: 2 }}>
@@ -356,9 +352,10 @@ export default function Loginto() {
         </Grid>
         <Grid item xs={2}></Grid>
         <Keyboard
-          inputValue={input2Value}
-          onKeyDown={handleKeyDown}
-          onChange={setSelectedInput}
+          handleKeyDown={handleKeyDown}
+          setInputValue={handleInputChange}
+          handleDelete={handleDelete}
+       
         />
       </Grid>
     </div>
