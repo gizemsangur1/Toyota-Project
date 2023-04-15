@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Terminals from "./pages/Terminals";
 import Login from "./pages/Login";
 import HataListeleme from "./pages/HataListeleme";
 import HataGiris from "./pages/HataGiris";
-import Keyboard from "./components/Keyboard";
+import Hatalistesi from "./pages/Hatalistesi";
+
 
 function App() {
   return (
-
+/* <Hatalistesi/> */
    <BrowserRouter>
       <Routes>
         <Route index element={<Terminals />} />

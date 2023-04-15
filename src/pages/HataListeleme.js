@@ -2,48 +2,66 @@ import {
   Box,
   Button,
   Grid,
-  ListItem,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState, lazy, Suspense } from "react";
-import axios from "axios";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TablePagination,
-  Paper,
-} from "@mui/material";
-import { maxHeight } from "@mui/system";
-import DataGridHata from "../components/DataGridHata";
-import Datagrid from "../components/Datagrid";
+import React, {  useState, lazy, Suspense } from "react";
 
-import { List, AutoSizer } from "react-virtualized";
-const ErrorList = lazy(() => import("./BoxItem"));
-/**/
-export default function HataListeleme() {
+
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+
+const BoxItem = lazy(() => import("../components/BoxItem"));
+export default function HataListeleme(props) {
   const [showErrorList, setShowErrorList] = useState(false);
 
- 
-
-  const handleClick =  () => {
-
-      setShowErrorList(true);
-
+  const handleClick = () => {
+    setShowErrorList(true);
   };
+  
+  const [scrollPosition, setScrollPosition] = useState(0);
 
+  function handleScroll(direction) {
+    const scrollStep = 100;
+    const box = document.getElementById("my-grid" );
+    if (box) {
+      if (direction === "up") {
+        setScrollPosition(Math.max(scrollPosition - scrollStep, 0));
+        box.scrollTop = Math.max(box.scrollTop - scrollStep, 0);
+      } else if (direction === "down") {
+        setScrollPosition(
+          Math.min(
+            scrollPosition + scrollStep,
+            box.scrollHeight - box.clientHeight
+          )
+        );
+        box.scrollTop = Math.min(
+          box.scrollTop + scrollStep,
+          box.scrollHeight - box.clientHeight
+        );
+      }
+    }
+  }
   return (
     <div>
-      {showErrorList && (
-        <Suspense fallback={<div>Yükleniyor...</div>}>
-          <ErrorList />
-        </Suspense>
-      )}
+      <Box
+        sx={{
+          height: "600px",
+          overflowY: "hidden",
+          overflowX: "hidden",
+        }}
+      >
+        {showErrorList && (
+          <Suspense fallback={<div style={{width:"100%",backgroundColor:"darkviolet",top:0,position:"fixed",height:"3px"}}>
 
+          </div>}>
+           
+          <BoxItem handleScroll={handleScroll}/>
+             
+          </Suspense>
+        )}
+      </Box>
       <Grid container direction="row">
         <Grid container item xs={4} alignItems="center" justifyContent="center">
           <Grid item xs={3}>
@@ -74,21 +92,24 @@ export default function HataListeleme() {
                 width: 100,
                 height: 50,
               }}
+              onClick={() => handleScroll("up")}
             >
-              YUKARI
+              <KeyboardArrowUpIcon />
             </Button>
           </Grid>
 
           <Grid item xs={12}>
             <Button
+            variant="primary"
               sx={{
                 border: 1,
                 textAlign: "center",
                 width: 100,
                 height: 50,
               }}
+              onClick={() => handleScroll("down")}
             >
-              AŞAGI
+              <KeyboardArrowDownIcon />
             </Button>
           </Grid>
         </Grid>

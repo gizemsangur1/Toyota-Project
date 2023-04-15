@@ -1,15 +1,12 @@
 import { AppBar, Typography } from "@mui/material";
 import { React, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Box } from "@mui/system";
-import { Button, Grid, TextField } from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
+import { Grid } from "@mui/material";
 
-/*Birinci kod */
 export default function BuyukfontHeader() {
   const [data, setData] = useState([]);
-  const[montajno,setMontajno]=useState([]);
+
   
   useEffect(() => {
     axios
@@ -19,7 +16,7 @@ export default function BuyukfontHeader() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(data);
+  
   const arr = data.map((data, index) => {
     return (
       <Grid container direction="row" key={index}>
