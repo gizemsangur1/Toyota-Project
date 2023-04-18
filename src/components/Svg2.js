@@ -1,13 +1,9 @@
-import { React, useState, useEffect,  } from "react";
-
+import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { Box } from "@mui/system";
-
 import { Button, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-
 import MenuItem from "@mui/material/MenuItem";
-
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -28,40 +24,42 @@ export default function Svg2(props) {
   function HandleClicksvg(event, color) {
     props.onClick(event, color);
     setGoster(!goster);
+  
   }
-
+ 
+  const [selectedName, setSelectedName] = useState("");
   const [goster, setGoster] = useState(false);
   const [gostersvg, setGostersvg] = useState(true);
   const [gosterpointer, setGosterpointer] = useState(false);
+  const [gosterline, setGosterline] = useState(false);
   const [listdata, setListdata] = useState([]);
   useEffect(() => {
     axios
       .get("/JsonFiles/MaviKutu.json")
       .then((res) => {
-        
         setListdata(res.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const [selectedOption, setSelectedOption] = useState("");
-
-  function handleChange(event) {
-    const selectedValue = event.target.value;
-    setSelectedOption(selectedValue);
+  function handleChange(event,termname) {
     setGoster(!goster);
     setGostersvg(!gostersvg);
     setGosterpointer(!gosterpointer);
     props.onMenuSelect();
+    setGosterline(true);
+    setSelectedName(termname);
   }
 
   useEffect(() => {
-    props.GetDataValue(selectedOption);
+    props.GetDataValue(selectedName);
   });
 
-  const arr = data.map((item) =>
+  const arr = data.map((item) => 
     item.defectButtonRecords.map((subitem) => (
+     
       <rect
+        id="myrect"
         key={subitem.buttonId}
         x={subitem.boxX}
         y={subitem.boxY}
@@ -74,10 +72,11 @@ export default function Svg2(props) {
       />
     ))
   );
-  const arr2 = data.map((item,i) =>
+
+  const arr2 = data.map((item, i) =>
     item.defectButtonRecords.map((subitem) => (
       <foreignObject
-      key={i}
+        key={i}
         x={subitem.boxX}
         y={subitem.boxY}
         width={subitem.boxWidth - 5}
@@ -99,7 +98,7 @@ export default function Svg2(props) {
             <MenuItem
               key={i}
               value={subitem.defectName}
-              onClick={handleChange}
+              onClick={(event) => handleChange(event, subitem.defectName)}
               sx={{
                 minWidth: 200,
                 borderBottom: 1,
@@ -114,18 +113,27 @@ export default function Svg2(props) {
     );
   });
 
-  const [clickedCoords, setClickedCoords] = useState(null);
-  
-    function handleClick(e) {
-      const svg = e.currentTarget;
-      const point = svg.createSVGPoint();
-      point.x = e.clientX;
-      point.y = e.clientY;
-      const { x, y } = point.matrixTransform(svg.getScreenCTM().inverse());
-      setClickedCoords({ x, y });
-      console.log(clickedCoords);
-  
+  const [clickedCoords, setClickedCoords] = useState([]);
+  const [x1, setX1] = useState(null);
+  const [y1, setY1] = useState(null);
+
+  function handleClick(e) {
+    const svg = e.currentTarget;
+    const point = svg.createSVGPoint();
+    point.x = e.clientX;
+    point.y = e.clientY;
+    const { x, y } = point.matrixTransform(svg.getScreenCTM().inverse());
+    setClickedCoords({ x, y });
+    setX1(x);
+    setY1(y);
+    
   }
+  useEffect(() => {
+    if (clickedCoords) {
+      console.log(clickedCoords); 
+     
+    }
+  }, [clickedCoords]);
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -176,7 +184,14 @@ export default function Svg2(props) {
                 fill="red"
               />
             </svg>
-            
+          </>
+        )}
+        {gosterline && (
+          <>
+          
+            <svg>
+              <line x1={x1} y1={y1} x2={488} y2={100} stroke="red" />
+            </svg>
           </>
         )}
       </svg>
@@ -195,7 +210,7 @@ export default function Svg2(props) {
               <Grid item xs={8}>
                 <Box
                   id="scrollable-box"
-                  value={selectedOption}
+                  value={selectedName}
                   onChange={handleChange}
                   container="true"
                   sx={{

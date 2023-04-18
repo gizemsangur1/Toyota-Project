@@ -1,30 +1,14 @@
-import { PropTypes } from "prop-types";
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState} from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Save from "@mui/icons-material/Save";
 import Delete from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Virtuoso } from "react-virtuoso";
-
-
-export default function BoxItem(props)  {
-  const kaydedildi = () => {
-    toast.success("Kaydedildi!", {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+export default function BoxItem({ filterText }) {
   const [data, setData] = useState([]);
   const [nrlist, setNrlist] = useState([]);
   const [option, setOption] = React.useState("");
@@ -56,6 +40,7 @@ export default function BoxItem(props)  {
       headerName: "Renk",
       columnName: "colorExtCode",
       Width: "3vw",
+      rgbcode: "rgbCode",
     },
     {
       headerName: "Mdl",
@@ -113,8 +98,8 @@ export default function BoxItem(props)  {
       Width: "6vw",
     },
   ];
-  
-  const arr2 = headers.map((header,i) => {
+
+  const arr2 = headers.map((header, i) => {
     return (
       <Grid
         item
@@ -125,11 +110,38 @@ export default function BoxItem(props)  {
       </Grid>
     );
   });
-  
 
+  const selectedNrReasonAbbs = data.map((data) => {
+    if (data.nrReasonId === 0) {
+      return null;
+    } else {
+      const matchingNrReason = nrlist.find(
+        (nrReason) => nrReason.nrId === data.nrReasonId
+      );
+      if (matchingNrReason) {
+        return matchingNrReason.nrReasonAbb;
+      }
+    }
+  });
+  const selectedNrReasonAbbsCleaned = selectedNrReasonAbbs.map((item) =>
+    item === null ? "" : item
+  );
+  const filteredData = data.filter((item) =>
+    item.bodyNo.toString().includes(filterText.toLowerCase())
+  );
+  const handleDelete = (index) => {
+    const newData = [...data];
+    newData.splice(index, 1);
+    setData(newData);
+  };
+  const notifyMe = () => {
+    toast.success("Kaydedildi!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
   return (
     <div>
-      <Box container="true" sx={{border:1,borderRadius:1}}>
+      <Box container="true" sx={{ border: 1, borderRadius: 1 }}>
         <Box
           container="true"
           id="header"
@@ -144,19 +156,24 @@ export default function BoxItem(props)  {
           </Grid>
         </Box>
         <Virtuoso
-          style={{ height: "500px",fontSize:"1vw" }}
+          style={{ height: "500px", fontSize: "1vw" }}
           totalCount={data.length}
           id="my-grid"
           itemContent={(index) => {
-            
-            const dataItem = data[index];
+            const dataItem = filteredData[index];
+            if (!dataItem) {
+              return null;
+            }
+
             return (
               <Grid
                 container
                 direction="row"
                 key={index}
-                sx={{ textAlign: "center" }}
-              
+                sx={{ textAlign: "center",
+                
+               }}
+                
               >
                 {headers.map((header, index) => {
                   if (header.headerName === "kaydet") {
@@ -181,7 +198,7 @@ export default function BoxItem(props)  {
                             textAlign: header.alignment,
                           }}
                           size="small"
-                          onClick={kaydedildi}
+                          onClick={notifyMe}
                         >
                           <Save />
                         </Button>
@@ -224,12 +241,39 @@ export default function BoxItem(props)  {
                             textAlign: header.alignment,
                           }}
                           size="small"
+                          onClick={() => handleDelete(dataItem.index)}
                         >
-                          <Delete/>
+                          <Delete />
                         </Button>
                       </Grid>
                     );
-                  } else {
+                  } else if (header.headerName === "NR REASON") {
+                    return (
+                      <Grid
+                        item
+                        key={index}
+                        sx={{
+                          border: 1,
+                          width: header.Width,
+                          textAlign: header.alignment,
+                        }}
+                      >
+                        <select>
+                          {nrlist.map((data, i) => {
+                            return (
+                              <option
+                                key={i}
+                                selected={selectedNrReasonAbbs[i]}
+                              >
+                                {data.nrReasonAbb}
+                              </option>
+                            );
+                          })}
+                          ;
+                        </select>
+                      </Grid>
+                    );
+                  }  else {
                     return (
                       <Grid
                         item
@@ -237,6 +281,8 @@ export default function BoxItem(props)  {
                           border: 1,
                           width: header.Width,
                           textAlign: header.alignment,
+                          backgroundColor: header.headerName === "Renk" ? dataItem[header.rgbcode] : "inherit",
+                          color: header.headerName === "Renk" && dataItem[header.rgbcode] === "#000000" ? "white" : "inherit",
                         }}
                         key={header.columnName}
                       >
@@ -255,5 +301,4 @@ export default function BoxItem(props)  {
       </Box>
     </div>
   );
-};
-
+}

@@ -70,12 +70,17 @@ export default function HataGiris(props) {
     },
   });
   const [termlist, setTermlist] = useState("");
-
+const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+const [data, setData] = useState([]);
+const [showComponent2, setShowComponent2] = useState(false);
+  const [showComponent, setShowComponent] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [lastClick, setLastClick] = useState(Date.now());
+  const [partname, setName] = useState("");
   const GetData = (value) => {
     setTermlist(value);
   };
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const handleMenuSelect = () => {
     setIsButtonDisabled(false);
   };
@@ -85,7 +90,7 @@ export default function HataGiris(props) {
     navigate("/HataListeleme");
   };
 
-  const [data, setData] = useState([]);
+  
   useEffect(() => {
     axios
       .get("/JsonFiles/Header.json")
@@ -95,23 +100,24 @@ export default function HataGiris(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  const [showComponent2, setShowComponent2] = useState(false);
-  const [showComponent, setShowComponent] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  
   function openForm() {
     setShowForm(true);
   }
-  function handlerectclick(event, color) {
+  function handlerectclick(event, color,name) {
+    
     switch (color) {
       case "red":
         console.log("Kırmızı renkli recte tıklandı.");
         break;
       case "blue":
         setShowComponent2(true);
+        setName(name)
         break;
       case "green":
         console.log("Yesil renkli recte tıklandı.");
     }
+    
   }
   function handlesvg() {
     setShowComponent2(false);
@@ -127,7 +133,7 @@ export default function HataGiris(props) {
   function closebuyukfont() {
     setShowComponent(false);
   }
-  const [lastClick, setLastClick] = useState(Date.now());
+  
 
 useEffect(() => {
   const intervalId = setInterval(() => {
@@ -160,14 +166,14 @@ function resetTimer() {
             xs={8}
             justifyContent="center"
             alignItems="center"
-            sx={{ border: 1, borderRadius: 1 }}
+            sx={{ border: 1, borderRadius: 1,textAlign:"center" }}
           >
             <Grid item xs={9}>
               <Grid container direction="row">
                 <Grid item xs={2}>
                   <Typography>Montaj No</Typography>
                   {data.map((item) => (
-                    <Typography key={item.modelId}>{item.assyNo}</Typography>
+                    <Typography key={item.modelId} >{item.assyNo}</Typography>
                   ))}
                 </Grid>
                 <Grid
@@ -191,8 +197,8 @@ function resetTimer() {
                 <Grid item xs={6}>
                   <Typography>HATA GİRİŞ EKRANI</Typography>
                 </Grid>
-                <Grid item xs={2}>
-                  <Typography>RENK</Typography>
+                <Grid item xs={2} sx={{backgroundColor:data[0].bgColor,border:1,borderRadius:1,textAlign:"center"}}>
+                  <Typography >RENK</Typography>
                   {data.map((item) => (
                     <Typography key={item.modelId}>{item.extCode}</Typography>
                   ))}
@@ -217,7 +223,7 @@ function resetTimer() {
                       GetDataValue={GetData}
                     />
                   ) : (
-                    <Svg onClick={handlerectclick} />
+                    <Svg onClick={handlerectclick}  />
                   )}
                 </Box>
               </Grid>
@@ -236,6 +242,9 @@ function resetTimer() {
                       BÜYÜK FONT
                     </Button>
                   </ThemeProvider>
+                </Grid>
+                <Grid item xs={12}>
+                  {partname}
                 </Grid>
               </Grid>
             </Grid>
@@ -292,6 +301,9 @@ function resetTimer() {
                 <Grid item xs={12}>
                   <Button variant="outlined">MANİFEST</Button>
                 </Grid>
+                <Grid item xs={12}>
+                  <Typography>{termlist}</Typography>
+                </Grid>
               </Grid>
             </ThemeProvider>
           </Grid>
@@ -312,8 +324,10 @@ function resetTimer() {
               <HataForm onClick={closeform} onKaydedildi={notifyMe} />
             </Grid>
           )}
+          
         </Grid>
       )}
+      
       <ToastContainer />
     </div>
   );

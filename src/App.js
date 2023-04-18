@@ -5,12 +5,10 @@ import Terminals from "./pages/Terminals";
 import Login from "./pages/Login";
 import HataListeleme from "./pages/HataListeleme";
 import HataGiris from "./pages/HataGiris";
-import Hatalistesi from "./pages/Hatalistesi";
-
 
 function App() {
   return (
-/* <Hatalistesi/> */
+
    <BrowserRouter>
       <Routes>
         <Route index element={<Terminals />} />

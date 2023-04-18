@@ -19,8 +19,8 @@ export default function Svg(props) {
       });
   }, []);
 
-  function handleClick(event, color){
-    props.onClick(event, color);
+  function handleClick(event, color,name){
+    props.onClick(event, color,name);
   }
 
   const arr = data.map((item) =>
@@ -30,7 +30,7 @@ export default function Svg(props) {
         x={subitem.boxX}
         y={subitem.boxY}
         fill="transparent"
-        onClick={(event)=>props.onClick(event, subitem.boxColor)}
+        onClick={(event)=>props.onClick(event, subitem.boxColor,subitem.labelText)}
         width={subitem.boxWidth}
         height={subitem.boxHeight}
         stroke={subitem.boxColor}

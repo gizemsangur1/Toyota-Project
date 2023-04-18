@@ -1,30 +1,29 @@
-import {
-  Box,
-  Button,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, {  useState, lazy, Suspense } from "react";
-
-
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import React, { useState, lazy, Suspense } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { toast, useToast } from "react-toastify";
 
-
+import "react-toastify/dist/ReactToastify.css";
 const BoxItem = lazy(() => import("../components/BoxItem"));
 export default function HataListeleme(props) {
+  const [filterText, setFilterText] = useState("");
+  const handleFilter = (e) => {
+    e.preventDefault();
+    setFilterText(e.target.value);
+  };
+
   const [showErrorList, setShowErrorList] = useState(false);
 
   const handleClick = () => {
     setShowErrorList(true);
   };
-  
+
   const [scrollPosition, setScrollPosition] = useState(0);
 
   function handleScroll(direction) {
     const scrollStep = 100;
-    const box = document.getElementById("my-grid" );
+    const box = document.getElementById("my-grid");
     if (box) {
       if (direction === "up") {
         setScrollPosition(Math.max(scrollPosition - scrollStep, 0));
@@ -53,12 +52,20 @@ export default function HataListeleme(props) {
         }}
       >
         {showErrorList && (
-          <Suspense fallback={<div style={{width:"100%",backgroundColor:"darkviolet",top:0,position:"fixed",height:"3px"}}>
-
-          </div>}>
-           
-          <BoxItem handleScroll={handleScroll}/>
-             
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  width: "100%",
+                  backgroundColor: "darkviolet",
+                  top: 0,
+                  position: "fixed",
+                  height: "3px",
+                }}
+              ></div>
+            }
+          >
+            <BoxItem handleScroll={handleScroll} filterText={filterText} />
           </Suspense>
         )}
       </Box>
@@ -77,7 +84,12 @@ export default function HataListeleme(props) {
             <Typography sx={{ textAlign: "center" }}>BODY NO</Typography>
           </Grid>
           <Grid item xs={5} sx={{ textAlign: "center" }}>
-            <TextField id="outlined-basic" variant="outlined" />
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+            />
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
             <Button>ARA</Button>
@@ -86,6 +98,7 @@ export default function HataListeleme(props) {
         <Grid container item xs={2} alignItems="center" justifyContent="center">
           <Grid item xs={12}>
             <Button
+              variant="primary"
               sx={{
                 border: 1,
                 textAlign: "center",
@@ -100,7 +113,7 @@ export default function HataListeleme(props) {
 
           <Grid item xs={12}>
             <Button
-            variant="primary"
+              variant="primary"
               sx={{
                 border: 1,
                 textAlign: "center",
@@ -115,99 +128,87 @@ export default function HataListeleme(props) {
         </Grid>
         <Grid item xs={1}>
           <Grid container direction="row">
-            <Grid item xs={12}>
-              <Button
-                sx={{
-                  border: 1,
-                  textAlign: "center",
-                  width: 100,
-                  height: 100,
-                }}
-              >
-                ARAC LİSTESİ
-              </Button>
-            </Grid>
+            <Button
+              sx={{
+                border: 1,
+                textAlign: "center",
+                width: 100,
+                height: 100,
+              }}
+            >
+              ARAC LİSTESİ
+            </Button>
           </Grid>
         </Grid>
         <Grid item xs={1}>
           <Grid container direction="row">
-            <Grid item xs={12}>
-              <Button
-                sx={{
-                  border: 1,
-                  textAlign: "center",
-                  width: 100,
-                  height: 100,
-                }}
-              >
-                MANUEL HATA
-              </Button>
-            </Grid>
+            <Button
+              sx={{
+                border: 1,
+                textAlign: "center",
+                width: 100,
+                height: 100,
+              }}
+            >
+              MANUEL HATA
+            </Button>
           </Grid>
         </Grid>
         <Grid item xs={1}>
           <Grid container direction="row">
-            <Grid item xs={12}>
-              <Button
-                sx={{
-                  border: 1,
-                  textAlign: "center",
-                  width: 100,
-                  height: 100,
-                }}
-              >
-                COKLU HATA
-              </Button>
-            </Grid>
+            <Button
+              sx={{
+                border: 1,
+                textAlign: "center",
+                width: 100,
+                height: 100,
+              }}
+            >
+              COKLU HATA
+            </Button>
           </Grid>
         </Grid>
         <Grid item xs={1}>
           <Grid container direction="row">
-            <Grid item xs={12}>
-              <Button
-                sx={{
-                  border: 1,
-                  textAlign: "center",
-                  width: 100,
-                  height: 100,
-                }}
-                onClick={handleClick}
-              >
-                HATA LİSTESİ
-              </Button>
-            </Grid>
+            <Button
+              sx={{
+                border: 1,
+                textAlign: "center",
+                width: 100,
+                height: 100,
+              }}
+              onClick={handleClick}
+            >
+              HATA LİSTESİ
+            </Button>
           </Grid>
         </Grid>
         <Grid item xs={1}>
           <Grid container direction="row">
-            <Grid item xs={12}>
-              <Button
-                sx={{
-                  border: 1,
-                  textAlign: "center",
-                  width: 100,
-                  height: 100,
-                }}
-              >
-                HATA KOPYA
-              </Button>
-            </Grid>
+            <Button
+              sx={{
+                border: 1,
+                textAlign: "center",
+                width: 100,
+                height: 100,
+              }}
+            >
+              HATA KOPYA
+            </Button>
           </Grid>
         </Grid>
         <Grid item xs={1}>
           <Grid container direction="row">
-            <Grid item xs={12}>
-              <Button
-                sx={{
-                  border: 1,
-                  textAlign: "center",
-                  width: 100,
-                  height: 100,
-                }}
-              >
-                CİKİS
-              </Button>
-            </Grid>
+            <Button
+              sx={{
+                border: 1,
+                textAlign: "center",
+                width: 100,
+                height: 100,
+              }}
+            >
+              CİKİS
+            </Button>
           </Grid>
         </Grid>
       </Grid>
