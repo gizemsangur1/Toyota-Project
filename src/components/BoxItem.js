@@ -126,9 +126,10 @@ export default function BoxItem({ filterText }) {
   const selectedNrReasonAbbsCleaned = selectedNrReasonAbbs.map((item) =>
     item === null ? "" : item
   );
-  const filteredData = data.filter((item) =>
-    item.bodyNo.toString().includes(filterText.toLowerCase())
+  const filteredData = data.filter((item) =>data
+  .filter((item) => item.bodyNo.toString().includes(filterText.toLowerCase()))
   );
+  filteredData.sort((a, b) => a.depCode.localeCompare(b.depCode));
   const handleDelete = (index) => {
     const newData = [...data];
     newData.splice(index, 1);
