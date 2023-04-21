@@ -3,7 +3,6 @@ import React, { useState, lazy, Suspense } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { toast, useToast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 const BoxItem = lazy(() => import("../components/BoxItem"));
 export default function HataListeleme(props) {
@@ -65,14 +64,21 @@ export default function HataListeleme(props) {
               ></div>
             }
           >
-            <BoxItem handleScroll={handleScroll} filterText={filterText} />
+             <BoxItem handleScroll={handleScroll} filterText={filterText} /> 
+          
           </Suspense>
         )}
       </Box>
       <Grid container direction="row">
         <Grid container item xs={4} alignItems="center" justifyContent="center">
           <Grid item xs={3}>
-            <Typography sx={{ textAlign: "center" }}>MONTAJ NO</Typography>
+            <Typography
+              sx={{ textAlign: "center" }}
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+            >
+              MONTAJ NO
+            </Typography>
           </Grid>
           <Grid item xs={5} sx={{ textAlign: "center" }}>
             <TextField id="outlined-basic" variant="outlined" />

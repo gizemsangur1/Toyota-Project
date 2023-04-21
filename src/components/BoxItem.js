@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, MenuItem, Select, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Save from "@mui/icons-material/Save";
@@ -87,6 +87,7 @@ export default function BoxItem({ filterText }) {
     },
     {
       headerName: "NR REASON",
+      nrId: "nrReasonId",
       Width: "7vw",
     },
     {
@@ -123,13 +124,14 @@ export default function BoxItem({ filterText }) {
       }
     }
   });
+
   const selectedNrReasonAbbsCleaned = selectedNrReasonAbbs.map((item) =>
     item === null ? "" : item
   );
-  const filteredData = data.filter((item) =>data
-  .filter((item) => item.bodyNo.toString().includes(filterText.toLowerCase()))
+  const sortedData = data.sort((a, b) => a.depCode.localeCompare(b.depCode));
+  const filteredData = sortedData.filter((item) =>
+    item.bodyNo.toString().includes(filterText.toLowerCase())
   );
-  filteredData.sort((a, b) => a.depCode.localeCompare(b.depCode));
   const handleDelete = (index) => {
     const newData = [...data];
     newData.splice(index, 1);
@@ -171,10 +173,7 @@ export default function BoxItem({ filterText }) {
                 container
                 direction="row"
                 key={index}
-                sx={{ textAlign: "center",
-                
-               }}
-                
+                sx={{ textAlign: "center" }}
               >
                 {headers.map((header, index) => {
                   if (header.headerName === "kaydet") {
@@ -260,21 +259,28 @@ export default function BoxItem({ filterText }) {
                         }}
                       >
                         <select>
-                          {nrlist.map((data, i) => {
-                            return (
-                              <option
-                                key={i}
-                                selected={selectedNrReasonAbbs[i]}
-                              >
-                                {data.nrReasonAbb}
-                              </option>
-                            );
+                          <option
+                            value={
+                              dataItem.nrReasonId === 0
+                                ? " "
+                                : nrlist.find(
+                                    (nr) => nr.nrId === dataItem.nrReasonId
+                                  ).nrReasonAbb
+                            }
+                          >
+                            {dataItem.nrReasonId === 0
+                              ? ""
+                              : nrlist.find(
+                                  (nr) => nr.nrId === dataItem.nrReasonId
+                                ).nrReasonAbb}
+                          </option>
+                          {nrlist.map((d, i) => {
+                            return <option>{d.nrReasonAbb}</option>;
                           })}
-                          ;
                         </select>
                       </Grid>
                     );
-                  }  else {
+                  } else {
                     return (
                       <Grid
                         item
@@ -282,8 +288,15 @@ export default function BoxItem({ filterText }) {
                           border: 1,
                           width: header.Width,
                           textAlign: header.alignment,
-                          backgroundColor: header.headerName === "Renk" ? dataItem[header.rgbcode] : "inherit",
-                          color: header.headerName === "Renk" && dataItem[header.rgbcode] === "#000000" ? "white" : "inherit",
+                          backgroundColor:
+                            header.headerName === "Renk"
+                              ? dataItem[header.rgbcode]
+                              : "inherit",
+                          color:
+                            header.headerName === "Renk" &&
+                            dataItem[header.rgbcode] === "#000000"
+                              ? "white"
+                              : "inherit",
                         }}
                         key={header.columnName}
                       >

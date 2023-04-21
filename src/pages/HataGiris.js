@@ -20,12 +20,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function HataGiris(props) {
   const notifyMe = () => {
-    toast.success('Kaydedildi!', {
-      position: toast.POSITION.TOP_CENTER
-  });
+    toast.success("Kaydedildi!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
     closeform();
     setShowComponent2(false);
     setIsButtonDisabled(true);
+  
+    setTermlist("");
+    setName("");
   };
   const theme = createTheme({
     components: {
@@ -70,13 +73,18 @@ export default function HataGiris(props) {
     },
   });
   const [termlist, setTermlist] = useState("");
-const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-const [data, setData] = useState([]);
-const [showComponent2, setShowComponent2] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [data, setData] = useState([]);
+  const [showComponent2, setShowComponent2] = useState(false);
   const [showComponent, setShowComponent] = useState(false);
+  const [showselected, setShowselected] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [lastClick, setLastClick] = useState(Date.now());
   const [partname, setName] = useState("");
+  const fontdata = {
+    termlist: termlist,
+    partname: partname,
+  };
   const GetData = (value) => {
     setTermlist(value);
   };
@@ -90,7 +98,6 @@ const [showComponent2, setShowComponent2] = useState(false);
     navigate("/HataListeleme");
   };
 
-  
   useEffect(() => {
     axios
       .get("/JsonFiles/Header.json")
@@ -100,24 +107,21 @@ const [showComponent2, setShowComponent2] = useState(false);
       .catch((err) => console.log(err));
   }, []);
 
-  
   function openForm() {
     setShowForm(true);
   }
-  function handlerectclick(event, color,name) {
-    
+  function handlerectclick(event, color, name) {
     switch (color) {
       case "red":
         console.log("Kırmızı renkli recte tıklandı.");
         break;
       case "blue":
         setShowComponent2(true);
-        setName(name)
+        setName(name);
         break;
       case "green":
         console.log("Yesil renkli recte tıklandı.");
     }
-    
   }
   function handlesvg() {
     setShowComponent2(false);
@@ -133,21 +137,20 @@ const [showComponent2, setShowComponent2] = useState(false);
   function closebuyukfont() {
     setShowComponent(false);
   }
-  
 
-useEffect(() => {
-  const intervalId = setInterval(() => {
-    if (Date.now() - lastClick >= 30000) {
-      const beep = new Audio('Beep.mp3');
-      beep.play();
-    }
-  }, 3000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (Date.now() - lastClick >= 30000) {
+        const beep = new Audio("Beep.mp3");
+        beep.play();
+      }
+    }, 3000);
 
-  return () => clearInterval(intervalId);
-}, [lastClick]);
-function resetTimer() {
-  setLastClick(Date.now());
-}
+    return () => clearInterval(intervalId);
+  }, [lastClick]);
+  function resetTimer() {
+    setLastClick(Date.now());
+  }
 
   return (
     <div onClick={resetTimer}>
@@ -166,14 +169,14 @@ function resetTimer() {
             xs={8}
             justifyContent="center"
             alignItems="center"
-            sx={{ border: 1, borderRadius: 1,textAlign:"center" }}
+            sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
           >
             <Grid item xs={9}>
               <Grid container direction="row">
                 <Grid item xs={2}>
                   <Typography>Montaj No</Typography>
                   {data.map((item) => (
-                    <Typography key={item.modelId} >{item.assyNo}</Typography>
+                    <Typography key={item.modelId}>{item.assyNo}</Typography>
                   ))}
                 </Grid>
                 <Grid
@@ -197,8 +200,12 @@ function resetTimer() {
                 <Grid item xs={6}>
                   <Typography>HATA GİRİŞ EKRANI</Typography>
                 </Grid>
-                <Grid item xs={2} sx={{backgroundColor:data[0].bgColor,border:1,borderRadius:1,textAlign:"center"}}>
-                  <Typography >RENK</Typography>
+                <Grid
+                  item
+                  xs={2}
+                  sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
+                >
+                  <Typography>RENK</Typography>
                   {data.map((item) => (
                     <Typography key={item.modelId}>{item.extCode}</Typography>
                   ))}
@@ -223,7 +230,7 @@ function resetTimer() {
                       GetDataValue={GetData}
                     />
                   ) : (
-                    <Svg onClick={handlerectclick}  />
+                    <Svg onClick={handlerectclick} />
                   )}
                 </Box>
               </Grid>
@@ -244,7 +251,7 @@ function resetTimer() {
                   </ThemeProvider>
                 </Grid>
                 <Grid item xs={12}>
-                  {partname}
+                  {showselected && <Typography> {partname}</Typography>}
                 </Grid>
               </Grid>
             </Grid>
@@ -302,7 +309,7 @@ function resetTimer() {
                   <Button variant="outlined">MANİFEST</Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography>{termlist}</Typography>
+                  {showselected && <Typography> {termlist}</Typography>}
                 </Grid>
               </Grid>
             </ThemeProvider>
@@ -321,13 +328,16 @@ function resetTimer() {
                 height: "90%",
               }}
             >
-              <HataForm onClick={closeform} onKaydedildi={notifyMe} />
+              <HataForm
+                onClick={closeform}
+                onKaydedildi={notifyMe}
+                fontdata={fontdata}
+              />
             </Grid>
           )}
-          
         </Grid>
       )}
-      
+
       <ToastContainer />
     </div>
   );

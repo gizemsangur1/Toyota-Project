@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -26,7 +26,6 @@ export default function HataForm(props) {
   const [select4, setSelect4] = useState([]);
   const [inputValue1, setInputValue1] = useState("");
   const [inputValue2, setInputValue2] = useState("");
-const[inputValue,setInputValue]=useState("");
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
   const [selectedInput, setSelectedInput] = useState(null);
@@ -129,6 +128,14 @@ const[inputValue,setInputValue]=useState("");
   function closeform() {
     props.onClick();
   }
+  const fontdata=props.fontdata;
+  const buyukfont={
+    "partName":fontdata.partname ,
+    "description": description ,
+    "defectName":fontdata.termlist ,
+  }
+ 
+
   function handleClik() {
     console.log(exitdepartment);
     console.log(rdd);
@@ -138,7 +145,9 @@ const[inputValue,setInputValue]=useState("");
     console.log(action);
     console.log(description);
     props.onKaydedildi();
+   
   }
+
   const arr = data.map((data, index) => {
     if (data.controlType == "CMB") {
       if (data.englishUserName == "Exit Department") {
