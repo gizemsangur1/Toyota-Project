@@ -6,12 +6,22 @@ import { toast, useToast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const BoxItem = lazy(() => import("../components/BoxItem"));
 export default function HataListeleme(props) {
-  const [filterText, setFilterText] = useState("");
+  const [filterText1, setFilterText1] = useState("");
+  const [filterText2, setFilterText2] = useState("");
+  const [info, setInfo] = useState("");
+  const [info2, setInfo2] = useState("");
   const handleFilter = (e) => {
     e.preventDefault();
-    setFilterText(e.target.value);
+    setFilterText1(e.target.value);
+    setFilterText2(e.target.value);
   };
 
+const handleSearchM=()=>{
+ setInfo2(filterText2);
+}
+const handleSearchB=()=>{
+  setInfo(filterText1);
+ }
   const [showErrorList, setShowErrorList] = useState(false);
 
   const handleClick = () => {
@@ -64,27 +74,25 @@ export default function HataListeleme(props) {
               ></div>
             }
           >
-             <BoxItem handleScroll={handleScroll} filterText={filterText} /> 
-          
+            <BoxItem handleScroll={handleScroll} filterText1={info} filterText2={info2}   />
           </Suspense>
         )}
       </Box>
       <Grid container direction="row">
         <Grid container item xs={4} alignItems="center" justifyContent="center">
           <Grid item xs={3}>
-            <Typography
-              sx={{ textAlign: "center" }}
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
-            >
-              MONTAJ NO
-            </Typography>
+            <Typography sx={{ textAlign: "center" }}>MONTAJ NO</Typography>
           </Grid>
           <Grid item xs={5} sx={{ textAlign: "center" }}>
-            <TextField id="outlined-basic" variant="outlined" />
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              value={filterText2}
+              onChange={(e) => setFilterText2(e.target.value)}
+            />
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
-            <Button>ARA</Button>
+            <Button onClick={handleSearchM}>ARA</Button>
           </Grid>
           <Grid item xs={3}>
             <Typography sx={{ textAlign: "center" }}>BODY NO</Typography>
@@ -93,12 +101,12 @@ export default function HataListeleme(props) {
             <TextField
               id="outlined-basic"
               variant="outlined"
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
+              value={filterText1}
+              onChange={(e) => setFilterText1(e.target.value)}
             />
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
-            <Button>ARA</Button>
+            <Button onClick={handleSearchB}>ARA</Button>
           </Grid>
         </Grid>
         <Grid container item xs={2} alignItems="center" justifyContent="center">

@@ -8,13 +8,12 @@ import { toast } from "react-toastify";
 import { Virtuoso } from "react-virtuoso";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
-export default function BoxItem({ filterText }) {
+export default function BoxItem(props) {
+  const filterText1=props.filterText1;
+  const filterText2=props.filterText2;
   const [data, setData] = useState([]);
   const [nrlist, setNrlist] = useState([]);
-  const [option, setOption] = React.useState("");
-  const handleChange = (event) => {
-    setOption(event.target.value);
-  };
+  
 
   useEffect(() => {
     axios
@@ -129,9 +128,11 @@ export default function BoxItem({ filterText }) {
     item === null ? "" : item
   );
   const sortedData = data.sort((a, b) => a.depCode.localeCompare(b.depCode));
-  const filteredData = sortedData.filter((item) =>
-    item.bodyNo.toString().includes(filterText.toLowerCase())
-  );
+  const filterByBodyNo = (item) => item.bodyNo.toString().includes(filterText1.toLowerCase());
+
+const filterByLocalId = (item) => item.localId.toString().includes(filterText2.toLowerCase());
+
+const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterByLocalId(item));
   const handleDelete = (index) => {
     const newData = [...data];
     newData.splice(index, 1);
@@ -259,7 +260,8 @@ export default function BoxItem({ filterText }) {
                         }}
                       >
                         <select>
-                          <option
+                          <option 
+                          id="selected"
                             value={
                               dataItem.nrReasonId === 0
                                 ? " "
@@ -275,7 +277,9 @@ export default function BoxItem({ filterText }) {
                                 ).nrReasonAbb}
                           </option>
                           {nrlist.map((d, i) => {
-                            return <option>{d.nrReasonAbb}</option>;
+                           if (d.nrId !== dataItem.nrReasonId) { 
+                            return <option key={i}>{d.nrReasonAbb}</option>;
+                          }
                           })}
                         </select>
                       </Grid>
