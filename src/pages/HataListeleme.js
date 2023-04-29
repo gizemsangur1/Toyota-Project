@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { toast, useToast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const BoxItem = lazy(() => import("../components/BoxItem"));
+const Hatalistesi = lazy(() => import("../components/Hatalistesi"));
 export default function HataListeleme(props) {
   const [filterText1, setFilterText1] = useState("");
   const [filterText2, setFilterText2] = useState("");
@@ -74,7 +74,7 @@ const handleSearchB=()=>{
               ></div>
             }
           >
-            <BoxItem handleScroll={handleScroll} filterText1={info} filterText2={info2}   />
+            <Hatalistesi handleScroll={handleScroll} filterText1={info} filterText2={info2}   />
           </Suspense>
         )}
       </Box>

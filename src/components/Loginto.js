@@ -80,7 +80,7 @@ export default function Loginto() {
         .catch((err) => {
          setError(err.errors[0]);
           console.log(values); 
-          /* navigate("/HataGiris"); */
+          
         });
     },
   });
@@ -356,7 +356,6 @@ export default function Loginto() {
                   setInputValue={handleInputChange}
                   handleDelete={handleDelete}
                 /> 
-               {/*  <KeyboardReact/> */}
             </Grid>
           </Grid>
         </Grid>

@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios, { Axios } from "axios";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-import * as Yup from "yup";
+import axios from "axios";
+
 import {
   Button,
   FormControl,
   FormControlLabel,
-  FormGroup,
   Grid,
-  Input,
   MenuItem,
   Select,
   TextField,
@@ -134,7 +131,6 @@ export default function HataForm(props) {
     "description": description ,
     "defectName":fontdata.termlist ,
   }
- 
 
   function handleClik() {
     console.log(exitdepartment);

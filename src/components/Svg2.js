@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-export default function Svg2(props) {
+export default function Svg2(props,{lines}) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -24,14 +24,13 @@ export default function Svg2(props) {
   function HandleClicksvg(event, color) {
     props.onClick(event, color);
     setGoster(!goster);
-  
   }
- 
+
   const [selectedName, setSelectedName] = useState("");
   const [goster, setGoster] = useState(false);
   const [gostersvg, setGostersvg] = useState(true);
   const [gosterpointer, setGosterpointer] = useState(false);
-  const [gosterline, setGosterline] = useState(false);
+  
   const [listdata, setListdata] = useState([]);
   useEffect(() => {
     axios
@@ -42,12 +41,12 @@ export default function Svg2(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  function handleChange(event,termname) {
+  function handleChange(event, termname) {
     setGoster(!goster);
     setGostersvg(!gostersvg);
     setGosterpointer(!gosterpointer);
     props.onMenuSelect();
-    setGosterline(true);
+
     setSelectedName(termname);
   }
 
@@ -55,9 +54,8 @@ export default function Svg2(props) {
     props.GetDataValue(selectedName);
   });
 
-  const arr = data.map((item) => 
+  const arr = data.map((item) =>
     item.defectButtonRecords.map((subitem) => (
-     
       <rect
         id="myrect"
         key={subitem.buttonId}
@@ -117,6 +115,7 @@ export default function Svg2(props) {
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
 
+
   function handleClick(e) {
     const svg = e.currentTarget;
     const point = svg.createSVGPoint();
@@ -125,13 +124,14 @@ export default function Svg2(props) {
     const { x, y } = point.matrixTransform(svg.getScreenCTM().inverse());
     setClickedCoords({ x, y });
     setX1(x);
-    setY1(y);
-    
+    setY1(y); 
+    props.onClick(clickedCoords)
+   
   }
+
   useEffect(() => {
     if (clickedCoords) {
-      console.log(clickedCoords); 
-     
+      console.log(clickedCoords);
     }
   }, [clickedCoords]);
 
@@ -186,14 +186,26 @@ export default function Svg2(props) {
             </svg>
           </>
         )}
-        {gosterline && (
+       
           <>
-          
-            <svg>
+          {/*   {lines.map(({ x1, y1, x2, y2 }, index) => (
+              <svg>
+                <line
+                key={index}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="red"
+              />
+              </svg>
+              
+            ))} */}
+            {/* <svg>
               <line x1={x1} y1={y1} x2={488} y2={100} stroke="red" />
-            </svg>
+            </svg> */}
           </>
-        )}
+  
       </svg>
       <Grid
         sx={{

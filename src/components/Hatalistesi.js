@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { Virtuoso } from "react-virtuoso";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
-export default function BoxItem(props) {
+export default function Hatalistesi(props) {
   const filterText1=props.filterText1;
   const filterText2=props.filterText2;
   const [data, setData] = useState([]);

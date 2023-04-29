@@ -26,10 +26,14 @@ export default function HataGiris(props) {
     closeform();
     setShowComponent2(false);
     setIsButtonDisabled(true);
-  
     setTermlist("");
     setName("");
+    console.log(x1,y1)
+    /* const newLine = { x1: x1, y1: y1, x2: 488, y2: 100 };
+    setLines([...lines, newLine]);
+    localStorage.setItem("lines"); */
   };
+ 
   const theme = createTheme({
     components: {
       MuiGrid: {
@@ -81,9 +85,19 @@ export default function HataGiris(props) {
   const [showForm, setShowForm] = useState(false);
   const [lastClick, setLastClick] = useState(Date.now());
   const [partname, setName] = useState("");
+  const [x1, setX1] = useState(null);
+  const [y1, setY1] = useState(null);
+  const [clickedCoord, setClickedCoords] = useState([]);
+  const [lines, setLines] = useState([]);
+  function handlesvgclick(x1, y1) {
+    setX1(x1);
+    setY1(y1);
+  
+  }
   const fontdata = {
     termlist: termlist,
     partname: partname,
+    clickedCoord:clickedCoord,
   };
   const GetData = (value) => {
     setTermlist(value);
@@ -127,7 +141,7 @@ export default function HataGiris(props) {
     setShowComponent2(false);
     setIsButtonDisabled(true);
   }
-  function handlesvgclick() {}
+  
   function closeform() {
     setShowForm(false);
   }
@@ -228,6 +242,8 @@ export default function HataGiris(props) {
                       onClick={handlesvgclick}
                       onMenuSelect={handleMenuSelect}
                       GetDataValue={GetData}
+                      lines={lines}
+                     
                     />
                   ) : (
                     <Svg onClick={handlerectclick} />

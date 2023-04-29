@@ -24,9 +24,9 @@ export default function Svg(props) {
   }
 
   const arr = data.map((item) =>
-    item.defectButtonRecords.map((subitem) => (
+    item.defectButtonRecords.map((subitem,index) => (
       <rect
-        key={subitem.buttonId}
+        key={index}
         x={subitem.boxX}
         y={subitem.boxY}
         fill="transparent"
@@ -55,13 +55,27 @@ export default function Svg(props) {
       </foreignObject>
     ))
   );
-
+  const arr3 = data.map((item) =>
+  item.defectButtonRecords.map((subitem, index) =>
+    subitem.lineX !== -100 ? (
+      <line
+        key={index}
+        x1={subitem.boxX}
+        y1={subitem.boxY}
+        x2={subitem.lineX}
+        y2={subitem.lineY}
+        stroke="red"
+      />
+    ) : null
+  )
+);
   return (
     <div>
       <svg viewBox="0 0 1000 600" preserveAspectRatio="none">
         <image href="car1.jpg" />
         {arr}
         {arr2}
+        {arr3}
       </svg>
     </div>
   );
