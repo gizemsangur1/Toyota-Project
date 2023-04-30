@@ -6,8 +6,22 @@ import { Grid } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Svg2(props,{lines}) {
+  const dispatch = useDispatch();
+  const termname = useSelector((state) => state.termname);
+  function handleFormChange(event,termname) {
+    setSelectedName(termname);
+    dispatch({
+      type: "SET_TERMNAME",
+      termname: termname,
+    });
+    setGoster(!goster);
+    setGostersvg(!gostersvg);
+    setGosterpointer(!gosterpointer);
+    props.onMenuSelect();
+  }
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -41,18 +55,18 @@ export default function Svg2(props,{lines}) {
       .catch((err) => console.log(err));
   }, []);
 
-  function handleChange(event, termname) {
+  /* function handleFormChange(event, termname) {
     setGoster(!goster);
     setGostersvg(!gostersvg);
     setGosterpointer(!gosterpointer);
     props.onMenuSelect();
 
     setSelectedName(termname);
-  }
+  } */
 
-  useEffect(() => {
+  /* useEffect(() => {
     props.GetDataValue(selectedName);
-  });
+  }); */
 
   const arr = data.map((item) =>
     item.defectButtonRecords.map((subitem) => (
@@ -96,7 +110,7 @@ export default function Svg2(props,{lines}) {
             <MenuItem
               key={i}
               value={subitem.defectName}
-              onClick={(event) => handleChange(event, subitem.defectName)}
+              onClick={(event) => handleFormChange(event, subitem.defectName)}
               sx={{
                 minWidth: 200,
                 borderBottom: 1,
@@ -223,7 +237,7 @@ export default function Svg2(props,{lines}) {
                 <Box
                   id="scrollable-box"
                   value={selectedName}
-                  onChange={handleChange}
+                  onChange={handleFormChange}
                   container="true"
                   sx={{
                     justifyContent: "space-evenly",

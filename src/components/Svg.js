@@ -3,9 +3,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Box, fontSize } from "@mui/system";
 import { Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
-/* Birinci kod */
 export default function Svg(props) {
+  const dispatch = useDispatch();
+  const partname = useSelector((state) => state.partname);
+  function handleFormChange(event,color,name) {
+  
+    dispatch({
+      type: "SET_PARTNAME",
+      partname: name,
+    });
+    props.onClick(event, color);
+  }
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -19,9 +29,9 @@ export default function Svg(props) {
       });
   }, []);
 
-  function handleClick(event, color,name){
+/*   function handleClick(event, color,name){
     props.onClick(event, color,name);
-  }
+  } */
 
   const arr = data.map((item) =>
     item.defectButtonRecords.map((subitem,index) => (
@@ -30,7 +40,7 @@ export default function Svg(props) {
         x={subitem.boxX}
         y={subitem.boxY}
         fill="transparent"
-        onClick={(event)=>props.onClick(event, subitem.boxColor,subitem.labelText)}
+        onClick={(event)=>handleFormChange(event, subitem.boxColor,subitem.labelText)}
         width={subitem.boxWidth}
         height={subitem.boxHeight}
         stroke={subitem.boxColor}

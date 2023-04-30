@@ -17,7 +17,9 @@ import HataForm from "../components/HataForm";
 import BuyukFont from "../components/BuyukFont";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import BuyukfontHeader from "../components/BuyukfontHeader";
+import { useDispatch, useSelector } from "react-redux";
+import {resetAll} from '../components/Store'
 export default function HataGiris(props) {
   const notifyMe = () => {
     toast.success("Kaydedildi!", {
@@ -26,12 +28,8 @@ export default function HataGiris(props) {
     closeform();
     setShowComponent2(false);
     setIsButtonDisabled(true);
-    setTermlist("");
-    setName("");
+    dispatch(resetAll());
     console.log(x1,y1)
-    /* const newLine = { x1: x1, y1: y1, x2: 488, y2: 100 };
-    setLines([...lines, newLine]);
-    localStorage.setItem("lines"); */
   };
  
   const theme = createTheme({
@@ -76,7 +74,10 @@ export default function HataGiris(props) {
       },
     },
   });
-  const [termlist, setTermlist] = useState("");
+  const dispatch = useDispatch();
+
+  const termname = useSelector(state => state.termname);
+  const partname = useSelector(state => state.partname);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [data, setData] = useState([]);
   const [showComponent2, setShowComponent2] = useState(false);
@@ -84,7 +85,6 @@ export default function HataGiris(props) {
   const [showselected, setShowselected] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [lastClick, setLastClick] = useState(Date.now());
-  const [partname, setName] = useState("");
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
   const [clickedCoord, setClickedCoords] = useState([]);
@@ -95,13 +95,10 @@ export default function HataGiris(props) {
   
   }
   const fontdata = {
-    termlist: termlist,
     partname: partname,
     clickedCoord:clickedCoord,
   };
-  const GetData = (value) => {
-    setTermlist(value);
-  };
+
 
   const handleMenuSelect = () => {
     setIsButtonDisabled(false);
@@ -124,22 +121,23 @@ export default function HataGiris(props) {
   function openForm() {
     setShowForm(true);
   }
-  function handlerectclick(event, color, name) {
+  function handlerectclick(event, color) {
     switch (color) {
       case "red":
         console.log("Kırmızı renkli recte tıklandı.");
         break;
       case "blue":
         setShowComponent2(true);
-        setName(name);
         break;
       case "green":
         console.log("Yesil renkli recte tıklandı.");
     }
   }
+ 
   function handlesvg() {
     setShowComponent2(false);
     setIsButtonDisabled(true);
+    dispatch(resetAll());
   }
   
   function closeform() {
@@ -172,7 +170,7 @@ export default function HataGiris(props) {
         <BuyukFont
           onClick={closebuyukfont}
           onMenuSelect={handleMenuSelect}
-          GetDataValue={GetData}
+         /*  GetDataValue={GetData} */
         />
       ) : (
         <Grid container direction="row">
@@ -186,44 +184,8 @@ export default function HataGiris(props) {
             sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
           >
             <Grid item xs={9}>
-              <Grid container direction="row">
-                <Grid item xs={2}>
-                  <Typography>Montaj No</Typography>
-                  {data.map((item) => (
-                    <Typography key={item.modelId}>{item.assyNo}</Typography>
-                  ))}
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={2}
-                  sx={{
-                    border: 1,
-                    borderRadius: 1,
-                  }}
-                >
-                  <Grid container item xs={12}>
-                    <Typography>Body No</Typography>
-                  </Grid>
-                  <Grid container item xs={12}>
-                    {data.map((item) => (
-                      <Typography key={item.modelId}>{item.bodyNo}</Typography>
-                    ))}
-                  </Grid>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography>HATA GİRİŞ EKRANI</Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={2}
-                  sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
-                >
-                  <Typography>RENK</Typography>
-                  {data.map((item) => (
-                    <Typography key={item.modelId}>{item.extCode}</Typography>
-                  ))}
-                </Grid>
+              <Grid container direction="row" sx={{height:"10vh"}}>
+              <BuyukfontHeader/>
               </Grid>
               <Grid
                 container
@@ -241,7 +203,7 @@ export default function HataGiris(props) {
                     <Svg2
                       onClick={handlesvgclick}
                       onMenuSelect={handleMenuSelect}
-                      GetDataValue={GetData}
+                    /*   GetDataValue={GetData} */
                       lines={lines}
                      
                     />
@@ -325,7 +287,7 @@ export default function HataGiris(props) {
                   <Button variant="outlined">MANİFEST</Button>
                 </Grid>
                 <Grid item xs={12}>
-                  {showselected && <Typography> {termlist}</Typography>}
+                  {showselected && <Typography> {termname}</Typography>}
                 </Grid>
               </Grid>
             </ThemeProvider>

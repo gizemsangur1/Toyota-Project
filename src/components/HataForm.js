@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-
 import {
   Button,
   FormControl,
@@ -13,8 +12,24 @@ import {
 } from "@mui/material";
 import Keyboard from "./Keyboard";
 import { CheckBoxOutlineBlank } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function HataForm(props) {
+ /*  const dispatch = useDispatch();
+  const exitdepartmentname = useSelector((state) => state.exitdepartmentname); */
+  const [exitdepartment, setExitdepartment] = React.useState("");
+
+/*   function handleFormChange(event) {
+    setExitdepartment(event.target.value);
+    dispatch({
+      type: "SET_EXIT_DEPARTMENTNAME",
+      exitdepartmentname: event.target.value,
+    });
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Form gönderildi. Ad:", exitdepartmentname);
+  } */
   const [data, setData] = useState([]);
   const [Nrlist, setNrlist] = useState([]);
   const [select, setSelect] = useState([]);
@@ -28,13 +43,13 @@ export default function HataForm(props) {
   const [selectedInput, setSelectedInput] = useState(null);
 
   const handleInputChange = (message) => {
-    if(selectedInput==1){
+    if (selectedInput == 1) {
       setInputValue1(message);
-    }else{
+    } else {
       setInputValue2(message);
     }
   };
- 
+
   const handleDelete = () => {
     if (selectedInput === 1) {
       setInputValue1(inputValue1.slice(0, -1));
@@ -62,7 +77,6 @@ export default function HataForm(props) {
     }
   };
 
-  const [exitdepartment, setExitdepartment] = React.useState("");
   const [rdd, setRdd] = React.useState("");
   const [defectclass, setDefectclass] = React.useState("");
   const [defectresponsible, setDefectresponsible] = React.useState("");
@@ -75,9 +89,9 @@ export default function HataForm(props) {
   const handleAction = (event) => {
     setAction(event.target.value);
   };
-  const handleChangeexit = (event) => {
+   const handleChangeexit = (event) => {
     setExitdepartment(event.target.value);
-  };
+  }; 
   const handleChangerdd = (event) => {
     setRdd(event.target.value);
   };
@@ -125,14 +139,14 @@ export default function HataForm(props) {
   function closeform() {
     props.onClick();
   }
-  const fontdata=props.fontdata;
-  const buyukfont={
-    "partName":fontdata.partname ,
-    "description": description ,
-    "defectName":fontdata.termlist ,
-  }
+  const fontdata = props.fontdata;
+  const buyukfont = {
+    partName: fontdata.partname,
+    description: description,
+    defectName: fontdata.termlist,
+  };
 
-  function handleClik() {
+   function handleClik() {
     console.log(exitdepartment);
     console.log(rdd);
     console.log(defectclass);
@@ -141,200 +155,212 @@ export default function HataForm(props) {
     console.log(action);
     console.log(description);
     props.onKaydedildi();
-   
-  }
+  } 
 
-  const arr = data.map((data, index) => {
-    if (data.controlType == "CMB") {
-      if (data.englishUserName == "Exit Department") {
-        return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.userName}</Typography>
-            </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
-                <Select value={exitdepartment} onChange={handleChangeexit}>
-                  {select.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item.dataValue}>
-                        {item.dataValue}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={2} sx={{ textAlign: "center" }}>
-              <FormControlLabel
-                control={<CheckBoxOutlineBlank />}
-                label="Harigami"
-              />
-            </Grid>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>RDD</Typography>
-              <FormControl sx={{ minWidth: "45%" }}>
-                <Select value={rdd} onChange={handleChangerdd}>
-                  {Nrlist.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item.nrReasonAbb}>
-                        {item.nrReasonAbb}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-        );
-      } else if (data.englishUserName == "Defect Class") {
-        return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.englishUserName}</Typography>
-            </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
-                <Select value={defectclass} onChange={handleChangedefectclass}>
-                  {select2.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item.dataValue}>
-                        {item.dataValue}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={5}>
-              <Grid container direction="row">
-                <Grid item xs={6} sx={{ width: "100%" }}>
-                  <Button
-                    sx={{
-                      backgroundColor: " red",
-                      color: "white",
-                      borderRadius: 1,
-                      margin: 0.5,
-                      width: "99%",
-                    }}
-                    onClick={handleClik}
-                  >
-                    KAYDET
-                  </Button>
+  const arr = (
+    <form>
+      {data.map((data, index) => {
+        if (data.controlType == "CMB") {
+          if (data.englishUserName == "Exit Department") {
+            return (
+              <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>{data.userName}</Typography>
                 </Grid>
-                <Grid item xs={6}>
-                  <Button
-                    sx={{
-                      backgroundColor: " red",
-                      color: "white",
-                      borderRadius: 1,
-                      margin: 0.5,
-                      width: "99%",
-                    }}
-                    onClick={closeform}
-                  >
-                    İPTAL
-                  </Button>
+                <Grid item xs={4} sx={{ textAlign: "center" }}>
+                  <FormControl sx={{ minWidth: "45%" }}>
+                    <Select value={exitdepartment} onChange={handleChangeexit}>
+                      {select.map((item, i) => {
+                        return (
+                          <MenuItem key={i} value={item.dataValue}>
+                            {item.dataValue}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={2} sx={{ textAlign: "center" }}>
+                  <FormControlLabel
+                    control={<CheckBoxOutlineBlank />}
+                    label="Harigami"
+                  />
+                </Grid>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>RDD</Typography>
+                  <FormControl sx={{ minWidth: "45%" }}>
+                    <Select value={rdd} onChange={handleChangerdd}>
+                      {Nrlist.map((item, i) => {
+                        return (
+                          <MenuItem key={i} value={item.nrReasonAbb}>
+                            {item.nrReasonAbb}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-        );
-      } else if (data.englishUserName == "Defect Responsibles") {
-        return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.englishUserName}</Typography>
-            </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
-                <Select
-                  value={defectresponsible}
-                  onChange={handleChangedefectresp}
-                >
-                  {select3.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item.dataValue}>
-                        {item.dataValue}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-        );
-      } else {
-        return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.englishUserName}</Typography>
-            </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
-                <Select value={subresponsible} onChange={handleChangesubresp}>
-                  {select4.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item.dataValue}>
-                        {item.dataValue}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-        );
-      }
-    } else {
-      if (data.userName == "Açıklama") {
-        return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.userName}</Typography>
-            </Grid>
-            <Grid item xs={9} sx={{ textAlign: "center" }}>
-              <TextField
-                sx={{ minWidth: "75%" }}
-                ref={inputRef1}
-                value={inputValue1}
-                onClick={() => setSelectedInput(1)}
-                onKeyDown={handleKeyDown}
-                onChange={handleDescription}
-               
-              ></TextField>
-            </Grid>
-          </Grid>
-        );
-      } else {
-        return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.userName}</Typography>
-            </Grid>
-            <Grid item xs={9} sx={{ textAlign: "center" }}>
-              <TextField
-                sx={{ minWidth: "75%" }}
-                onChange={handleAction}
-                ref={inputRef2}
-                value={inputValue2}
-                onClick={() => setSelectedInput(2)}
-                onKeyDown={handleKeyDown}
-              ></TextField>
-            </Grid>
-          </Grid>
-        );
-      }
-    }
-  });
+            );
+          } else if (data.englishUserName == "Defect Class") {
+            return (
+              <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>{data.englishUserName}</Typography>
+                </Grid>
+                <Grid item xs={4} sx={{ textAlign: "center" }}>
+                  <FormControl sx={{ minWidth: "45%" }}>
+                    <Select
+                      value={defectclass}
+                      onChange={handleChangedefectclass}
+                    >
+                      {select2.map((item, i) => {
+                        return (
+                          <MenuItem key={i} value={item.dataValue}>
+                            {item.dataValue}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={5}>
+                  <Grid container direction="row">
+                    <Grid item xs={6} sx={{ width: "100%" }}>
+                      <button
+                        type="submit"
+                        sx={{
+                          backgroundColor: " red",
+                          color: "white",
+                          borderRadius: 1,
+                          margin: 0.5,
+                          width: "99%",
+                        }}
+                        onClick={handleClik} 
+                      >
+                        KAYDET
+                      </button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                      type="button"
+                        sx={{
+                          backgroundColor: " red",
+                          color: "white",
+                          borderRadius: 1,
+                          margin: 0.5,
+                          width: "99%",
+                        }}
+                        onClick={closeform}
+                      >
+                        İPTAL
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            );
+          } else if (data.englishUserName == "Defect Responsibles") {
+            return (
+              <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>{data.englishUserName}</Typography>
+                </Grid>
+                <Grid item xs={4} sx={{ textAlign: "center" }}>
+                  <FormControl sx={{ minWidth: "45%" }}>
+                    <Select
+                      value={defectresponsible}
+                      onChange={handleChangedefectresp}
+                    >
+                      {select3.map((item, i) => {
+                        return (
+                          <MenuItem key={i} value={item.dataValue}>
+                            {item.dataValue}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            );
+          } else {
+            return (
+              <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>{data.englishUserName}</Typography>
+                </Grid>
+                <Grid item xs={4} sx={{ textAlign: "center" }}>
+                  <FormControl sx={{ minWidth: "45%" }}>
+                    <Select
+                      value={subresponsible}
+                      onChange={handleChangesubresp}
+                    >
+                      {select4.map((item, i) => {
+                        return (
+                          <MenuItem key={i} value={item.dataValue}>
+                            {item.dataValue}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            );
+          }
+        } else {
+          if (data.userName == "Açıklama") {
+            return (
+              <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>{data.userName}</Typography>
+                </Grid>
+                <Grid item xs={9} sx={{ textAlign: "center" }}>
+                  <TextField
+                    sx={{ minWidth: "75%" }}
+                    ref={inputRef1}
+                    value={inputValue1}
+                    onClick={() => setSelectedInput(1)}
+                    onKeyDown={handleKeyDown}
+                    onChange={handleDescription}
+                  ></TextField>
+                </Grid>
+              </Grid>
+            );
+          } else {
+            return (
+              <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+                <Grid item xs={3} sx={{ textAlign: "center" }}>
+                  <Typography>{data.userName}</Typography>
+                </Grid>
+                <Grid item xs={9} sx={{ textAlign: "center" }}>
+                  <TextField
+                    sx={{ minWidth: "75%" }}
+                    onChange={handleAction}
+                    ref={inputRef2}
+                    value={inputValue2}
+                    onClick={() => setSelectedInput(2)}
+                    onKeyDown={handleKeyDown}
+                  ></TextField>
+                </Grid>
+              </Grid>
+            );
+          }
+        }
+      })}
+    </form>
+  );
 
   return (
     <div>
       <Grid container direction="row" sx={{ border: 1 }}>
         {arr}
-        <Keyboard     handleKeyDown={handleKeyDown}
+        <Keyboard
+          handleKeyDown={handleKeyDown}
           setInputValue={handleInputChange}
-          handleDelete={handleDelete}/>
+          handleDelete={handleDelete}
+        />
       </Grid>
     </div>
   );
