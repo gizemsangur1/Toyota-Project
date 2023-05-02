@@ -134,6 +134,7 @@ const filterByLocalId = (item) => item.localId.toString().includes(filterText2.t
 
 const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterByLocalId(item));
   const handleDelete = (index) => {
+    console.log(index)
     const newData = [...data];
     newData.splice(index, 1);
     setData(newData);
@@ -176,12 +177,12 @@ const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterB
                 key={index}
                 sx={{ textAlign: "center" }}
               >
-                {headers.map((header, index) => {
+                {headers.map((header, i) => {
                   if (header.headerName === "kaydet") {
                     return (
                       <Grid
                         item
-                        key={index}
+                        key={i}
                         sx={{
                           border: 1,
                           width: header.Width,
@@ -209,7 +210,7 @@ const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterB
                     return (
                       <Grid
                         item
-                        key={index}
+                        key={i}
                         sx={{
                           border: 1,
                           width: header.Width,
@@ -217,6 +218,7 @@ const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterB
                         }}
                       >
                         <Button
+                       
                           sx={{
                             border: 1,
                             backgroundColor: "red",
@@ -242,7 +244,7 @@ const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterB
                             textAlign: header.alignment,
                           }}
                           size="small"
-                          onClick={() => handleDelete(dataItem.index)}
+                          onClick={() => handleDelete(index)}
                         >
                           <Delete />
                         </Button>
@@ -252,7 +254,7 @@ const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterB
                     return (
                       <Grid
                         item
-                        key={index}
+                        key={i}
                         sx={{
                           border: 1,
                           width: header.Width,

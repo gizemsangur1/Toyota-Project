@@ -158,8 +158,8 @@ export default function HataForm(props) {
   } 
 
   const arr = (
-    <form>
-      {data.map((data, index) => {
+
+      data.map((data, index) => {
         if (data.controlType == "CMB") {
           if (data.englishUserName == "Exit Department") {
             return (
@@ -227,7 +227,7 @@ export default function HataForm(props) {
                 <Grid item xs={5}>
                   <Grid container direction="row">
                     <Grid item xs={6} sx={{ width: "100%" }}>
-                      <button
+                      <Button
                         type="submit"
                         sx={{
                           backgroundColor: " red",
@@ -239,7 +239,7 @@ export default function HataForm(props) {
                         onClick={handleClik} 
                       >
                         KAYDET
-                      </button>
+                      </Button>
                     </Grid>
                     <Grid item xs={6}>
                       <Button
@@ -348,8 +348,8 @@ export default function HataForm(props) {
             );
           }
         }
-      })}
-    </form>
+      })
+ 
   );
 
   return (
