@@ -21,6 +21,8 @@ import BuyukfontHeader from "../components/BuyukfontHeader";
 import { useDispatch, useSelector } from "react-redux";
 import {resetAll} from '../components/Store'
 export default function HataGiris(props) {
+   const coord = useSelector((state) => state.coord);
+  const [clickedCoordinates, setClickedCoords] = useState([]);
   const notifyMe = () => {
     toast.success("Kaydedildi!", {
       position: toast.POSITION.TOP_CENTER,
@@ -29,9 +31,11 @@ export default function HataGiris(props) {
     setShowComponent2(false);
     setIsButtonDisabled(true);
     dispatch(resetAll());
-    console.log(x1,y1)
+    setClickedCoords([...clickedCoordinates, coord]);
+    console.log(clickedCoordinates)
   };
  
+  
   const theme = createTheme({
     components: {
       MuiGrid: {
@@ -87,16 +91,13 @@ export default function HataGiris(props) {
   const [lastClick, setLastClick] = useState(Date.now());
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
-  const [clickedCoord, setClickedCoords] = useState([]);
-  const [lines, setLines] = useState([]);
   function handlesvgclick(x1, y1) {
     setX1(x1);
     setY1(y1);
-  
   }
   const fontdata = {
     partname: partname,
-    clickedCoord:clickedCoord,
+    clickedCoords:clickedCoordinates,
   };
 
 
@@ -170,7 +171,6 @@ export default function HataGiris(props) {
         <BuyukFont
           onClick={closebuyukfont}
           onMenuSelect={handleMenuSelect}
-         /*  GetDataValue={GetData} */
         />
       ) : (
         <Grid container direction="row">
@@ -203,8 +203,7 @@ export default function HataGiris(props) {
                     <Svg2
                       onClick={handlesvgclick}
                       onMenuSelect={handleMenuSelect}
-                    /*   GetDataValue={GetData} */
-                      lines={lines}
+                      clickedCoordinates={clickedCoordinates}
                      
                     />
                   ) : (

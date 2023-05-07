@@ -1,4 +1,4 @@
-import { Box, Button, Grid, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, Grid,Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Save from "@mui/icons-material/Save";
@@ -111,22 +111,6 @@ export default function Hatalistesi(props) {
     );
   });
 
-  const selectedNrReasonAbbs = data.map((data) => {
-    if (data.nrReasonId === 0) {
-      return null;
-    } else {
-      const matchingNrReason = nrlist.find(
-        (nrReason) => nrReason.nrId === data.nrReasonId
-      );
-      if (matchingNrReason) {
-        return matchingNrReason.nrReasonAbb;
-      }
-    }
-  });
-
-  const selectedNrReasonAbbsCleaned = selectedNrReasonAbbs.map((item) =>
-    item === null ? "" : item
-  );
   const sortedData = data.sort((a, b) => a.depCode.localeCompare(b.depCode));
   const filterByBodyNo = (item) => item.bodyNo.toString().includes(filterText1.toLowerCase());
 
@@ -261,7 +245,7 @@ const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterB
                           textAlign: header.alignment,
                         }}
                       >
-                        <select>
+                        <select style={{width:"6.5vw"}}>
                           <option 
                           id="selected"
                             value={

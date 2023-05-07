@@ -1,7 +1,6 @@
-import { React, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import {  Grid, Typography } from "@mui/material";
 export default function Buyukfontdata() {
 
     const [data, setData] = useState([]);

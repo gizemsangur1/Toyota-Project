@@ -1,16 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { Formik, Form, useFormik } from "formik";
 import * as Yup from "yup";
 import { Grid, Button, TextField, Typography, Alert } from "@mui/material";
 import TerminlList from "./TerminlList";
 import SelectDate from "./SelectDate";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Select from "@mui/material/Select";
+import {  useNavigate } from "react-router-dom";
 import Keyboard from "./Keyboard";
  
 /* import KeyboardReact from "react-simple-keyboard";
@@ -47,7 +45,7 @@ export default function Loginto() {
     .required("Montaj no gerekli"),
     sicilno: Yup.string()
 
-      .min(5)
+      .min(5,"Sicilno minimum 5 karakter olmali")
 
       .required("Sicilno gerekli")
       .test("match", "Sicilno yanlış", function (sicilno) {
@@ -55,7 +53,7 @@ export default function Loginto() {
       }),
     sifre: Yup.string()
 
-      .min(3)
+      .min(3,"Sifre mininmum 3 karakter olmali")
       .required("Sifre gerekli")
       .test("match", "Şifre yanlış", function (passw) {
         return parseInt(passw) === 233;
@@ -95,7 +93,6 @@ export default function Loginto() {
     );
   });
 
-  /*KLAVYE KODLARI */
   const [inputValue1, setInputValue1] = useState("");
   const [inputValue2, setInputValue2] = useState("");
   const inputRef1 = useRef(null);

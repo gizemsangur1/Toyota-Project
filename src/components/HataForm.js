@@ -13,23 +13,8 @@ import {
 import Keyboard from "./Keyboard";
 import { CheckBoxOutlineBlank } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-
 export default function HataForm(props) {
- /*  const dispatch = useDispatch();
-  const exitdepartmentname = useSelector((state) => state.exitdepartmentname); */
   const [exitdepartment, setExitdepartment] = React.useState("");
-
-/*   function handleFormChange(event) {
-    setExitdepartment(event.target.value);
-    dispatch({
-      type: "SET_EXIT_DEPARTMENTNAME",
-      exitdepartmentname: event.target.value,
-    });
-  }
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log("Form gönderildi. Ad:", exitdepartmentname);
-  } */
   const [data, setData] = useState([]);
   const [Nrlist, setNrlist] = useState([]);
   const [select, setSelect] = useState([]);
@@ -145,7 +130,9 @@ export default function HataForm(props) {
     description: description,
     defectName: fontdata.termlist,
   };
-
+  const dispatch = useDispatch();
+  const coord = useSelector(state => state.coord);
+  const coords = useSelector(state => state.coords);
    function handleClik() {
     console.log(exitdepartment);
     console.log(rdd);
@@ -154,6 +141,8 @@ export default function HataForm(props) {
     console.log(subresponsible);
     console.log(action);
     console.log(description);
+    console.log(coord);
+    console.log(coords);
     props.onKaydedildi();
   } 
 

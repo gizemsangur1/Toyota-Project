@@ -1,12 +1,9 @@
-import { React, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useState, useEffect } from "react";
 import axios from "axios";
 import {
-  AppBar,
   Button,
   Grid,
   Input,
-  TextField,
   Typography,
 } from "@mui/material";
 import Buyukfontdata from "./Buyukfontdata";
@@ -58,9 +55,6 @@ function resetTimer() {
   }
   const [montajValue, setMontajValue] = useState("");
 
-  function handleChange(event) {
-    setMontajValue(event.target.value);
-  }
   console.log(montajValue);
   return (
     <div

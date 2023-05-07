@@ -1,7 +1,5 @@
 import { React, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, fontSize } from "@mui/system";
 import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,9 +27,6 @@ export default function Svg(props) {
       });
   }, []);
 
-/*   function handleClick(event, color,name){
-    props.onClick(event, color,name);
-  } */
 
   const arr = data.map((item) =>
     item.defectButtonRecords.map((subitem,index) => (

@@ -1,6 +1,4 @@
 import React from "react";
-import { TextField } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -26,7 +24,6 @@ export default function SelectDate() {
   const [day, setDay] = React.useState("1");
   const [month, setMonth] = React.useState("January");
   const [year, setYear] = React.useState("2023");
-  const tarih = "day" + "month" + "year";
   const handleChangeD = (d) => {
     setDay(d.target.value);
   };
@@ -55,7 +52,7 @@ export default function SelectDate() {
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
           onChange={handleChangeD}
-          value={day} // Value prop'u eklenir
+          value={day}
           autoWidth
         >
           {days.map((day) => (

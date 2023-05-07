@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Grid, Typography } from "@mui/material";
-
 import MenuItem from "@mui/material/MenuItem";
-
 import Button from "@mui/material/Button";
-
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box } from "@mui/system";
 
-/* birinci kod */
 export default function TerminlList(props) {
 
   const [selectedName, setSelectedName] = useState("");

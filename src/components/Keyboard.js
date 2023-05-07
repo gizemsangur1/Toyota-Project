@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Button, Grid } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {  Grid } from "@mui/material";
 import axios from "axios";
 import LanguageIcon from "@mui/icons-material/Language";
 
@@ -15,10 +15,6 @@ export default function Keyboard(props) {
       })
       .catch((err) => console.log(err));
   }, [counter]);
-
-  const [shift, setShift] = useState(false);
-
-  /*KEYBOARD*/
 
   const [inputValue, setInputValue] = useState("");
 
