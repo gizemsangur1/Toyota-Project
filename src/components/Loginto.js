@@ -8,14 +8,17 @@ import TerminlList from "./TerminlList";
 import SelectDate from "./SelectDate";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Keyboard from "./Keyboard";
- 
+import { useDispatch } from "react-redux";
+
 /* import KeyboardReact from "react-simple-keyboard";
 import 'react-simple-keyboard/build/css/index.css'; */
 export default function Loginto() {
   const [termlist, setTermlist] = useState("");
   const [termname, setTermname] = useState("");
+  const dispatch = useDispatch();
+  const [shiftname, setShiftname] = useState("");
   const GetData = (value) => {
     setTermlist(value);
   };
@@ -41,11 +44,10 @@ export default function Loginto() {
   }, []);
   const [error, setError] = useState("");
   const LoginSchema = Yup.object().shape({
-    montajno:Yup.string()
-    .required("Montaj no gerekli"),
+    montajno: Yup.string().required("Montaj no gerekli"),
     sicilno: Yup.string()
 
-      .min(5,"Sicilno minimum 5 karakter olmali")
+      .min(5, "Sicilno minimum 5 karakter olmali")
 
       .required("Sicilno gerekli")
       .test("match", "Sicilno yanlış", function (sicilno) {
@@ -53,7 +55,7 @@ export default function Loginto() {
       }),
     sifre: Yup.string()
 
-      .min(3,"Sifre mininmum 3 karakter olmali")
+      .min(3, "Sifre mininmum 3 karakter olmali")
       .required("Sifre gerekli")
       .test("match", "Şifre yanlış", function (passw) {
         return parseInt(passw) === 233;
@@ -76,12 +78,18 @@ export default function Loginto() {
           navigate("/HataGiris");
         })
         .catch((err) => {
-         setError(err.errors[0]);
-          console.log(values); 
-          
+          setError(err.errors[0]);
+          console.log(values);
         });
     },
   });
+
+  const handleSubmit = () => {
+    dispatch({
+      type: "SET_SHIFT",
+      shift: color,
+    });
+  };
   const closelogin = () => {
     navigate(-1);
   };
@@ -312,7 +320,7 @@ export default function Loginto() {
                           </FormControl>
                         </Grid>
                       </Grid>
-                      <Grid container direction="row" sx={{ marginTop: 1}}>
+                      <Grid container direction="row" sx={{ marginTop: 1 }}>
                         <Grid item xs={6}>
                           <Button
                             type="submit"
@@ -323,6 +331,7 @@ export default function Loginto() {
                               borderRadius: 1,
                               width: "100%",
                             }}
+                            onClick={handleSubmit}
                           >
                             Giris Yap
                           </Button>
@@ -345,14 +354,13 @@ export default function Loginto() {
                     </Form>
                   )}
                 </Formik>
-                
               </Grid>
               <Grid item xs={1.5}></Grid>
-            <Keyboard
-                  handleKeyDown={handleKeyDown}
-                  setInputValue={handleInputChange}
-                  handleDelete={handleDelete}
-                /> 
+              <Keyboard
+                handleKeyDown={handleKeyDown}
+                setInputValue={handleInputChange}
+                handleDelete={handleDelete}
+              />
             </Grid>
           </Grid>
         </Grid>

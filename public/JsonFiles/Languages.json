@@ -42,7 +42,7 @@
       { "value": "i" }
     ],
     [
-      { "value": "SHIFT" },
+      { "value": "CPSLCK" },
       { "value": "z" },
       { "value": "x" },
       { "value": "c" },
@@ -94,7 +94,7 @@
       { "value": "l" }
     ],
     [
-      { "value": "SHIFT" },
+      { "value": "CPSLCK" },
       { "value": "z" },
       { "value": "x" },
       { "value": "c" },
@@ -145,7 +145,7 @@
       { "value": "LNG" }
     ],
     [
-      { "value": "SHIFT" },
+      { "value": "CPSLCK" },
       { "value": "W" },
       { "value": "X" },
       { "value": "C" },
@@ -205,7 +205,7 @@
       { "value": "LNG" }
     ],
     [
-      { "value": "SHIFT" },
+      { "value": "CPSLCK" },
       {
         "value": "Я"
       },

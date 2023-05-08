@@ -3,6 +3,7 @@ const initialState = {
   termname: "",
   partname: "",
   coord: "",
+  shift:"",
 };
 
 function reducer(state = initialState, action) {
@@ -13,6 +14,8 @@ function reducer(state = initialState, action) {
       return { ...state, partname: action.partname };
     case "SET_COORD":
       return { ...state, coord: action.coord };
+      case "SET_SHIFT":
+      return { ...state, shift: action.shift };
     case "RESET_ALL":
       return { termname: "", partname: ""};
     default:

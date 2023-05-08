@@ -109,7 +109,9 @@ export default function HataGiris(props) {
   const navigateToHataListesi = () => {
     navigate("/HataListeleme");
   };
-
+  const navigateBack = () => {
+    navigate(-1);
+  };
   useEffect(() => {
     axios
       .get("/JsonFiles/Header.json")
@@ -184,7 +186,7 @@ export default function HataGiris(props) {
             sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
           >
             <Grid item xs={9}>
-              <Grid container direction="row" sx={{height:"10vh"}}>
+              <Grid container direction="row"  >
               <BuyukfontHeader/>
               </Grid>
               <Grid
@@ -192,6 +194,7 @@ export default function HataGiris(props) {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
+                sx={{width:"50vw"}}
               >
                 <Box
                   sx={{
@@ -217,7 +220,7 @@ export default function HataGiris(props) {
                     <Button variant="outlined" onClick={handlesvg}>
                       MODELİN İLK RESMİ
                     </Button>
-                    <Button variant="outlined">GERİ</Button>
+                    <Button variant="outlined" onClick={navigateBack}>GERİ</Button>
                     <Button onClick={navigateToHataListesi} variant="outlined">
                       HATA LİSTESİ
                     </Button>

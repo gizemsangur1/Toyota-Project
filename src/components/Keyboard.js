@@ -17,7 +17,7 @@ export default function Keyboard(props) {
   }, [counter]);
 
   const [inputValue, setInputValue] = useState("");
-
+  const [shifted, setShifted] = useState("");
   const handleButtonClick = (value) => {
     if (value === "LNG") {
       setCounter((counter + 1) % Object.keys(language).length);
@@ -25,8 +25,11 @@ export default function Keyboard(props) {
       props.setInputValue(inputValue.slice(0, inputValue.length - 1));
     } else if (value === "SPACE") {
       props.setInputValue((inputValue) => inputValue + value);
+    } else if (value === "CPSLCK") {
+      setShifted(!shifted); // toggle shifted state
     } else {
-      props.setInputValue((inputValue) => inputValue + value);
+      const newValue = shifted ? value.toUpperCase() : value.toLowerCase();
+      props.setInputValue((inputValue) => inputValue + newValue);
     }
   };
   useEffect(() => {
