@@ -23,7 +23,7 @@
   <a href="#rocket-technologies">Media</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-
+ <a href="#checkered_flag-starting">Supported Languages</a> &#xa0; | &#xa0;
 </p>
 
 <br>
@@ -74,6 +74,10 @@ $ yarn start
 
 # The server will initialize in the <http://localhost:3000>
 ```
-
-
+## :checkered_flag: Suppported Languages ##
+Turkce
+Ingilizce
+Almanca
+Fransizca
+Rusca
 <a href="#top">Back to top</a>
