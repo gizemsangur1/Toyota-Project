@@ -17,7 +17,6 @@ export default function Svg2(props) {
   }, [props.clickedCoordinates]);
   const dispatch = useDispatch();
   const termname = useSelector((state) => state.termname);
-  const coord = useSelector((state) => state.coord);
   function handleFormChange(event, termname) {
     setSelectedName(termname);
     dispatch({
@@ -28,7 +27,6 @@ export default function Svg2(props) {
     setGostersvg(!gostersvg);
     setGosterpointer(!gosterpointer);
     props.onMenuSelect();
-    console.log(clickedCoordinates[0])
   }
 
   const [data, setData] = useState([]);
@@ -100,7 +98,7 @@ export default function Svg2(props) {
     ))
   );
   const lines = clickedCoordinates.map((coord, i) => {
-    if (i === 0) {
+    if (i-1 === 0) {
       return null;
     }
     return <line key={i} x1={477} y1={112} x2={coord.x} y2={coord.y} stroke="red" />;
@@ -223,7 +221,7 @@ export default function Svg2(props) {
                   onChange={handleFormChange}
                   container="true"
                   sx={{
-                    justifyContent: "space-evenly",
+                    
                     overflowY: "scroll",
                     overflowX: "hidden",
                     maxHeight: "40vh",
@@ -233,11 +231,11 @@ export default function Svg2(props) {
                 </Box>
               </Grid>
               <Grid item xs={4}>
-                <Button onClick={() => handleScroll("up")}>
-                  <KeyboardArrowUpIcon />
+                <Button  sx={{backgroundColor:"#c6ffc8",width:"100%",border:1,borderColor:"black",height:"17%"}} onClick={() => handleScroll("up")}>
+                  <KeyboardArrowUpIcon sx={{color:"black"}}/>
                 </Button>
-                <Button onClick={() => handleScroll("down")}>
-                  <KeyboardArrowDownIcon />
+                <Button sx={{backgroundColor:"#c6ffc8",width:"100%",border:1,borderColor:"black",height:"17%"}} onClick={() => handleScroll("down")}>
+                  <KeyboardArrowDownIcon sx={{color:"black"}} />
                 </Button>
               </Grid>
             </Grid>

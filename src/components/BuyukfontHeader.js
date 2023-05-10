@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import '../i18n';
+
 export default function BuyukfontHeader() {
   const{t,i18n}=useTranslation();
   const [data, setData] = useState([]);

@@ -223,7 +223,7 @@ export default function HataGiris(props) {
                     <Button variant="outlined" onClick={handlesvg} sx={{fontSize:"10px"}}>
                     {t('Mfp')}
                     </Button>
-                    <Button variant="outlined" onClick={navigateBack}>GERİ</Button>
+                    <Button variant="outlined" onClick={navigateBack}>{t('Back')}</Button>
                     <Button onClick={navigateToHataListesi} variant="outlined">
                       {t('EL')}
                     </Button>
@@ -252,12 +252,12 @@ export default function HataGiris(props) {
                 </Grid>
                 <Grid container item xs={12}>
                   <Button disabled variant="outlined">
-                    HIZLI KAYDET{t('EL')}
+                    {t('FR')}
                   </Button>
                 </Grid>
                 <Grid container item xs={12}>
                   <Button disabled variant="outlined">
-                    KAYDET GEÇ{t('EL')}
+                    {t('RP')}
                   </Button>
                 </Grid>
                 <Grid container item xs={12}>

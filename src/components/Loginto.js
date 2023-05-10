@@ -19,7 +19,6 @@ export default function Loginto() {
   const [termlist, setTermlist] = useState("");
   const [termname, setTermname] = useState("");
   const dispatch = useDispatch();
-  const [shiftname, setShiftname] = useState("");
   const GetData = (value) => {
     setTermlist(value);
   };
