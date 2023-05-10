@@ -19,11 +19,11 @@
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
-  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#rocket-technologies">Media</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
+
 </p>
 
 <br>
@@ -32,7 +32,7 @@
 
 This project is a front-end project that has created to add and list the defects of vehicles produced at the Toyota vehicle manufacturing factory.
 
-## Some pictures from app
+## Media
 ### Terminal page <img src="./Terminal.png">
 ### Login Page <img src="./Login.png">
 ### Defect Register Screen ![](DefectRegister.gif)
