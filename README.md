@@ -75,10 +75,10 @@ $ yarn start
 # The server will initialize in the <http://localhost:3000>
 ```
 ## :checkered_flag: Suppported Languages ##
-Turkce 
-Ingilizce 
-Almanca 
-Fransizca 
-Rusca 
+Turkce \
+Ingilizce \
+Almanca \
+Fransizca \
+Rusca \
 
 <a href="#top">Back to top</a>
