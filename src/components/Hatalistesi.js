@@ -7,8 +7,11 @@ import CreateIcon from "@mui/icons-material/Create";
 import { toast } from "react-toastify";
 import { Virtuoso } from "react-virtuoso";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation  } from "react-i18next";
+import "../i18n"
 toast.configure();
 export default function Hatalistesi(props) {
+  const{t,i18n}=useTranslation();
   const filterText1=props.filterText1;
   const filterText2=props.filterText2;
   const [data, setData] = useState([]);

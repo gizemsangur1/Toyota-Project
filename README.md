@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+<div align="center" id="top"> 
+  <img src="./.github/app.gif" alt="Toyota Project" />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  &#xa0;
 
-## Available Scripts
+  <!-- <a href="https://toyotaproject.netlify.app">Demo</a> -->
+</div>
 
-In the project directory, you can run:
+<h1 align="center">Toyota Project</h1>
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<!-- Status -->
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<!-- <h4 align="center"> 
+	🚧  Toyota Project 🚀 Under construction...  🚧
+</h4> 
 
-### `npm test`
+<hr> -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<p align="center">
+  <a href="#dart-about">About</a> &#xa0; | &#xa0; 
+  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
+  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
+  <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
+  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
+</p>
 
-### `npm run build`
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## :dart: About ##
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This project is a front-end project that has created to add and list the defects of vehicles produced at the Toyota vehicle manufacturing factory.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Some pictures from app
+### Terminal page <img src="./Terminal.png">
+### Login Page <img src="./Login.png">
+### Defect Register Screen ![](DefectRegister.gif)
+### Defect Listing ![](Defectlist.gif)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## :rocket: Technologies ##
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The following tools were used in this project:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [React.js-18.2.0]
+- [react-redux-8.0.5]
+- [react-dom-18.2.0]
+- [react-router-dom-6.9.0]
+- [Node.js]
+- [i18next-22.4.15]
+- [Axios-1.3.4]
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## :white_check_mark: Requirements ##
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
 
-### Code Splitting
+## :checkered_flag: Starting ##
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+# Clone this project
+$ git clone https://github.com/{{gizemsangur1}}/toyota-project
 
-### Analyzing the Bundle Size
+# Access
+$ cd toyota-project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Install dependencies
+$ yarn
 
-### Making a Progressive Web App
+# Run the project
+$ yarn start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# The server will initialize in the <http://localhost:3000>
+```
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<a href="#top">Back to top</a>

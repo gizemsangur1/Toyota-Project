@@ -27,7 +27,7 @@ export default function BuyukfontHeader() {
     >
       {data.map((data, index) => {
         return (
-          <Grid container minHeight={25}>
+          <Grid container key={index} minHeight={25}>
             <Grid item xs={2} sm={2}>
               <Typography>{t('MNo')}</Typography>
               <Typography value={data.assyNo}>{data.assyNo}</Typography>

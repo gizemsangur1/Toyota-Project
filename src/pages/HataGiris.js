@@ -35,7 +35,6 @@ export default function HataGiris(props) {
     setIsButtonDisabled(true);
     dispatch(resetAll());
     setClickedCoords([...clickedCoordinates, coord]);
-    console.log(clickedCoordinates)
   };
  
   

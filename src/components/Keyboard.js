@@ -48,8 +48,9 @@ export default function Keyboard(props) {
   return (
     <div>
       <Grid container sx={{ border: 1, backgroundColor: "#d9dedc",height:"45vh"}}>
-        {language.map((row) => (
+        {language.map((row,index) => (
           <Grid
+          key={index}
             container
             flexDirection="row"
             sx={{

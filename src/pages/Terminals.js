@@ -40,7 +40,6 @@ function Terminals() {
     axios
       .get("/JsonFiles/terminals.json")
       .then((res) => {
-        console.log(res.data.data);
         setData(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -131,13 +130,13 @@ function Terminals() {
               </Typography>
               
               <Button color="inherit" sx={{ color: "red" }}>
-                Yardim
+                {t('Help')}
               </Button>
               <Button color="inherit" sx={{ color: "red" }}>
-                Ana Sayfa
+                {t('MainPage')}
               </Button>
               <Button color="inherit" sx={{ color: "red" }}>
-                Destek
+                {t('Support')}
               </Button>
             </Toolbar>
           </AppBar>
@@ -149,7 +148,7 @@ function Terminals() {
           <Grid container direction="row">
             <Grid item xs={12} sx={{ borderBottom: 1, textAlign: "center" }}>
               <Typography sx={{ textDecorationLine: "underline" }}>
-                {t('Allterminals')} {i18n.language}
+                {t('Allterminals')}
               </Typography>
             </Grid>
           </Grid>

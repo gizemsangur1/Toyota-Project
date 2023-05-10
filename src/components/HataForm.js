@@ -145,7 +145,6 @@ export default function HataForm(props) {
     console.log(action);
     console.log(description);
     console.log(coord);
-    console.log(coords);
     props.onKaydedildi();
   } 
 
