@@ -1,0 +1,45 @@
+{
+    "Allterminals":"All Terminals",
+    "FBase":"Filter Base",
+    "Dep":"Department Base",
+    "TList":"Terminal List",
+    "SNo":"Registry No",
+    "BNo":"Body No",
+    "Sifre":"Password",
+    "MNo":"Assembly No",
+    "Date":"Date",
+    "Shift":"Shift",
+    "Login":"Log In",
+    "Close":"Close",
+    "Color":"Color",
+    "HGE":"Defect Recording Screen",
+    "Search":"Search",
+    "TFP":"Terminal First Picture",
+    "FE":"frequent defects",
+    "Mfp":"Model First Picture",
+    "Back":"Back",
+    "EL":"Defect List",
+    "Cl":"Clean",
+    "Exit":"Exit",
+    "ER":"Defect Register",
+    "Description":"Description",
+    "Save":"Save",
+    "Cancel":"Cancel",
+    "VL":"Vehicle List",
+    "ME":"Manuel defect",
+    "MultiE":"Multiple defect",
+    "EC":"Defect Copy",
+    "BF":"Big Font",
+    "FR":"Fast Register",
+    "RP":"Save and Pass",
+    "Help":"Help",
+    "Support":"Support",
+    "MainPage":"Main Page"
+    
+    
+    
+    
+    
+    
+
+}

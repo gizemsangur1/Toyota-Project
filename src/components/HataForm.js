@@ -14,7 +14,6 @@ import Keyboard from "./Keyboard";
 import { CheckBoxOutlineBlank } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import '../i18n';
 export default function HataForm(props) {
   const{t,i18n}=useTranslation();
   const [exitdepartment, setExitdepartment] = React.useState("");

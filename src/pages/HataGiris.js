@@ -21,7 +21,6 @@ import BuyukfontHeader from "../components/BuyukfontHeader";
 import { useDispatch, useSelector } from "react-redux";
 import {resetAll} from '../components/Store';
 import { useTranslation } from "react-i18next";
-import '../i18n';
 export default function HataGiris(props) {
   const{t,i18n}=useTranslation();
    const coord = useSelector((state) => state.coord);

@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { Virtuoso } from "react-virtuoso";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation  } from "react-i18next";
-import "../i18n"
 toast.configure();
 export default function Hatalistesi(props) {
   const{t,i18n}=useTranslation();

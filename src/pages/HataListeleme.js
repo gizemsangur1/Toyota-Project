@@ -5,7 +5,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { toast, useToast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
-import '../i18n';
 const Hatalistesi = lazy(() => import("../components/Hatalistesi"));
 
 export default function HataListeleme(props) {

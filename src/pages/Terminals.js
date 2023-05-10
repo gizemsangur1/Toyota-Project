@@ -7,7 +7,6 @@ import { Typography } from "@mui/material";
 import {  useNavigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useTranslation,Trans  } from "react-i18next";
-import "../i18n"
 function Terminals() {
   const{t,i18n}=useTranslation();
  
