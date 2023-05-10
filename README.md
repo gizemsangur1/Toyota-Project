@@ -79,6 +79,6 @@ Turkce \
 Ingilizce \
 Almanca \
 Fransizca \
-Rusca \
+Rusca 
 
 <a href="#top">Back to top</a>
