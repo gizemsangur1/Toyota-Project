@@ -4,8 +4,12 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { toast, useToast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
+import '../i18n';
 const Hatalistesi = lazy(() => import("../components/Hatalistesi"));
+
 export default function HataListeleme(props) {
+  const{t,i18n}=useTranslation();
   const [filterText1, setFilterText1] = useState("");
   const [filterText2, setFilterText2] = useState("");
   const [info, setInfo] = useState("");
@@ -81,7 +85,7 @@ const handleSearchB=()=>{
       <Grid container direction="row">
         <Grid container item xs={4} alignItems="center" justifyContent="center">
           <Grid item xs={3}>
-            <Typography sx={{ textAlign: "center" }}>MONTAJ NO</Typography>
+            <Typography sx={{ textAlign: "center" }}>{t('MNo')}</Typography>
           </Grid>
           <Grid item xs={5} sx={{ textAlign: "center" }}>
             <TextField
@@ -92,10 +96,10 @@ const handleSearchB=()=>{
             />
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
-            <Button onClick={handleSearchM}>ARA</Button>
+            <Button onClick={handleSearchM}>{t('Search')}</Button>
           </Grid>
           <Grid item xs={3}>
-            <Typography sx={{ textAlign: "center" }}>BODY NO</Typography>
+            <Typography sx={{ textAlign: "center" }}>{t('BNo')}</Typography>
           </Grid>
           <Grid item xs={5} sx={{ textAlign: "center" }}>
             <TextField
@@ -106,7 +110,7 @@ const handleSearchB=()=>{
             />
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
-            <Button onClick={handleSearchB}>ARA</Button>
+            <Button onClick={handleSearchB}>{t('Search')}</Button>
           </Grid>
         </Grid>
         <Grid container item xs={2} alignItems="center" justifyContent="center">
@@ -150,7 +154,7 @@ const handleSearchB=()=>{
                 height: 100,
               }}
             >
-              ARAC LİSTESİ
+              {t('VL')}
             </Button>
           </Grid>
         </Grid>
@@ -164,7 +168,7 @@ const handleSearchB=()=>{
                 height: 100,
               }}
             >
-              MANUEL HATA
+             {t('ME')}
             </Button>
           </Grid>
         </Grid>
@@ -178,7 +182,7 @@ const handleSearchB=()=>{
                 height: 100,
               }}
             >
-              COKLU HATA
+              {t('MultiE')}
             </Button>
           </Grid>
         </Grid>
@@ -193,7 +197,7 @@ const handleSearchB=()=>{
               }}
               onClick={handleClick}
             >
-              HATA LİSTESİ
+             {t('EL')}
             </Button>
           </Grid>
         </Grid>
@@ -207,7 +211,7 @@ const handleSearchB=()=>{
                 height: 100,
               }}
             >
-              HATA KOPYA
+              {t('EC')}
             </Button>
           </Grid>
         </Grid>
@@ -221,7 +225,7 @@ const handleSearchB=()=>{
                 height: 100,
               }}
             >
-              CİKİS
+              {t('Exit')}
             </Button>
           </Grid>
         </Grid>

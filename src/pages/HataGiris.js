@@ -19,8 +19,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BuyukfontHeader from "../components/BuyukfontHeader";
 import { useDispatch, useSelector } from "react-redux";
-import {resetAll} from '../components/Store'
+import {resetAll} from '../components/Store';
+import { useTranslation } from "react-i18next";
+import '../i18n';
 export default function HataGiris(props) {
+  const{t,i18n}=useTranslation();
    const coord = useSelector((state) => state.coord);
   const [clickedCoordinates, setClickedCoords] = useState([]);
   const notifyMe = () => {
@@ -217,16 +220,16 @@ export default function HataGiris(props) {
               <Grid container direction="row">
                 <Grid item xs={12}>
                   <ThemeProvider theme={theme2}>
-                    <Button variant="outlined" onClick={handlesvg}>
-                      MODELİN İLK RESMİ
+                    <Button variant="outlined" onClick={handlesvg} sx={{fontSize:"10px"}}>
+                    {t('Mfp')}
                     </Button>
                     <Button variant="outlined" onClick={navigateBack}>GERİ</Button>
                     <Button onClick={navigateToHataListesi} variant="outlined">
-                      HATA LİSTESİ
+                      {t('EL')}
                     </Button>
-                    <Button variant="outlined">TEMİZLE</Button>
+                    <Button variant="outlined">{t('Cl')}</Button>
                     <Button variant="outlined" onClick={buyukFont}>
-                      BÜYÜK FONT
+                      {t('BF')}
                     </Button>
                   </ThemeProvider>
                 </Grid>
@@ -249,12 +252,12 @@ export default function HataGiris(props) {
                 </Grid>
                 <Grid container item xs={12}>
                   <Button disabled variant="outlined">
-                    HIZLI KAYDET
+                    HIZLI KAYDET{t('EL')}
                   </Button>
                 </Grid>
                 <Grid container item xs={12}>
                   <Button disabled variant="outlined">
-                    KAYDET GEÇ
+                    KAYDET GEÇ{t('EL')}
                   </Button>
                 </Grid>
                 <Grid container item xs={12}>
@@ -263,11 +266,11 @@ export default function HataGiris(props) {
                     onClick={openForm}
                     variant="outlined"
                   >
-                    HATA KAYIT
+                    {t('ER')}
                   </Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography>MONTAJ NO</Typography>
+                  <Typography>{t('MNo')}</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   {data.map((item, i) => (
@@ -277,13 +280,13 @@ export default function HataGiris(props) {
                   ))}
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="outlined">ARA</Button>
+                  <Button variant="outlined">{t('Search')}</Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="outlined">TERMİNAL İLK RESMİ</Button>
+                  <Button variant="outlined">{t('TFP')}</Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="outlined">SIK GELEN HATA</Button>
+                  <Button variant="outlined">{t('FE')}</Button>
                 </Grid>
                 <Grid item xs={12}>
                   <Button variant="outlined">MANİFEST</Button>

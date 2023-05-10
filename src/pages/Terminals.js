@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AppBar, Badge, Button, Chip, Grid } from "@mui/material";
-import { Container } from "@mui/material";
+import { AppBar, Button, Grid } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import { useTranslation,Trans  } from "react-i18next";
+import "../i18n"
 function Terminals() {
+  const{t,i18n}=useTranslation();
+ 
   const theme = createTheme({
     components: {
       MuiTypography: {
@@ -47,6 +49,7 @@ function Terminals() {
   const arr = data.map((data, index) => {
     return (
       <Grid container direction="row" sx={{ lineHeight: 1 }} key={index}>
+        
         <Grid item xs={2} sx={{ borderRight: 1, borderBottom: 1 }}>
           <Typography sx={{ padding: 1 }}>{data.depName}</Typography>
         </Grid>
@@ -126,6 +129,7 @@ function Terminals() {
               >
                 Complete Vehicle Quality
               </Typography>
+              
               <Button color="inherit" sx={{ color: "red" }}>
                 Yardim
               </Button>
@@ -145,7 +149,7 @@ function Terminals() {
           <Grid container direction="row">
             <Grid item xs={12} sx={{ borderBottom: 1, textAlign: "center" }}>
               <Typography sx={{ textDecorationLine: "underline" }}>
-                Tum Terminaller
+                {t('Allterminals')} {i18n.language}
               </Typography>
             </Grid>
           </Grid>
@@ -155,10 +159,10 @@ function Terminals() {
               xs={2}
               sx={{ borderRight: 1, borderBottom: 1, textAlign: "center" }}
             >
-              <Typography>Bolum Bazinda</Typography>
+              <Typography>{t('Dep')}</Typography>
             </Grid>
             <Grid item xs={10} sx={{ borderBottom: 1, textAlign: "center" }}>
-              <Typography>Filtre Bazinda</Typography>
+              <Typography>{t('FBase')}</Typography>
             </Grid>
           </Grid>
           {arr}

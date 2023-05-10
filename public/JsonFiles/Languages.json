@@ -42,7 +42,7 @@
       { "value": "i" }
     ],
     [
-      { "value": "CPSLCK" },
+      { "value": "Capslock" },
       { "value": "z" },
       { "value": "x" },
       { "value": "c" },
@@ -94,7 +94,7 @@
       { "value": "l" }
     ],
     [
-      { "value": "CPSLCK" },
+      { "value": "Capslock" },
       { "value": "z" },
       { "value": "x" },
       { "value": "c" },
@@ -145,7 +145,7 @@
       { "value": "LNG" }
     ],
     [
-      { "value": "CPSLCK" },
+      { "value": "Capslock" },
       { "value": "W" },
       { "value": "X" },
       { "value": "C" },

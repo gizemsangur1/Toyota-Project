@@ -3,8 +3,10 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
-
+import { useTranslation } from "react-i18next";
+import '../i18n';
 export default function BuyukfontHeader() {
+  const{t,i18n}=useTranslation();
   const [data, setData] = useState([]);
   const shift = useSelector(state => state.shift);
   useEffect(() => {
@@ -26,7 +28,7 @@ export default function BuyukfontHeader() {
         return (
           <Grid container minHeight={25}>
             <Grid item xs={2} sm={2}>
-              <Typography>Montaj No</Typography>
+              <Typography>{t('MNo')}</Typography>
               <Typography value={data.assyNo}>{data.assyNo}</Typography>
             </Grid>
             <Grid
@@ -35,11 +37,11 @@ export default function BuyukfontHeader() {
               sm={2}
               sx={{ border: 1, borderRadius: 1, backgroundColor:shift, height: "12vh" }}
             >
-              <Typography>Body No</Typography>
+              <Typography>{t('BNo')}</Typography>
               <Typography>{data.bodyNo}</Typography>
             </Grid>
             <Grid item xs={2} sm={2}>
-              <Typography variant="h6">Hata Giris Ekrani</Typography>
+              <Typography variant="h6">{t('HGE')}</Typography>
             </Grid>
             <Grid item xs={2} sm={2}></Grid>
             <Grid
@@ -48,7 +50,7 @@ export default function BuyukfontHeader() {
               sm={2}
               sx={{ border: 1, borderRadius: 1, backgroundColor: data.bgColor, height: "12vh" }}
             >
-              <Typography>Renk</Typography>
+              <Typography>{t('Color')}</Typography>
               <Typography>{data.extCode}</Typography>
             </Grid>
 

@@ -13,7 +13,10 @@ import {
 import Keyboard from "./Keyboard";
 import { CheckBoxOutlineBlank } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import '../i18n';
 export default function HataForm(props) {
+  const{t,i18n}=useTranslation();
   const [exitdepartment, setExitdepartment] = React.useState("");
   const [data, setData] = useState([]);
   const [Nrlist, setNrlist] = useState([]);
@@ -227,7 +230,7 @@ export default function HataForm(props) {
                         }}
                         onClick={handleClik} 
                       >
-                        KAYDET
+                        {t('Save')}
                       </Button>
                     </Grid>
                     <Grid item xs={6}>
@@ -242,7 +245,7 @@ export default function HataForm(props) {
                         }}
                         onClick={closeform}
                       >
-                        İPTAL
+                        {t('Cancel')}
                       </Button>
                     </Grid>
                   </Grid>

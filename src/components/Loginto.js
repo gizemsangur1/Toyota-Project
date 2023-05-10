@@ -11,10 +11,11 @@ import Select from "@mui/material/Select";
 import { useNavigate } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import { useDispatch } from "react-redux";
-
+import { useTranslation } from "react-i18next";
 /* import KeyboardReact from "react-simple-keyboard";
 import 'react-simple-keyboard/build/css/index.css'; */
 export default function Loginto() {
+  const{t,i18n}=useTranslation();
   const [termlist, setTermlist] = useState("");
   const [termname, setTermname] = useState("");
   const dispatch = useDispatch();
@@ -124,16 +125,21 @@ export default function Loginto() {
       inputRef2.current.focus();
     }
   };
-
+  const handleCapslock = () => {
+    
+  };
   const handleKeyDown = (event) => {
     const { key } = event;
 
     let isBackspace = key === "Backspace";
+    let isCapslock = key === "Capslock";
     if (isBackspace) {
       handleDelete();
+    }else if(isCapslock){
+      handleCapslock();
     } else {
       if (selectedInput === 1) {
-        setInputValue1(inputValue1 + key);
+        setInputValue1(inputValue1+key );
         inputRef1.current.focus();
       } else if (selectedInput === 2) {
         setInputValue2(inputValue2 + key);
@@ -185,7 +191,7 @@ export default function Loginto() {
                           alignItems="center"
                         >
                           <Typography htmlFor="terminallist">
-                            Terminal Listesi
+                            {t('TList')}
                           </Typography>
                         </Grid>
                         <Grid
@@ -221,7 +227,7 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Typography htmlFor="sicilno">Sicil No</Typography>
+                          <Typography htmlFor="sicilno">{t('SNo')}</Typography>
                         </Grid>
                         <Grid
                           item
@@ -248,7 +254,7 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Typography htmlFor="sifre">Sifre</Typography>
+                          <Typography htmlFor="sifre">{t('Sifre')}</Typography>
                         </Grid>
                         <Grid
                           item
@@ -275,7 +281,7 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Typography htmlFor="montajno">Montaj No</Typography>
+                          <Typography htmlFor="montajno">{t('MNo')}</Typography>
                         </Grid>
                         <Grid
                           item
@@ -299,14 +305,14 @@ export default function Loginto() {
                       >
                         <Grid item container xs={8}>
                           <Grid item xs={2}>
-                            <Typography htmlFor="tarih">Tarih</Typography>
+                            <Typography htmlFor="tarih">{t('Date')}</Typography>
                           </Grid>
                           <Grid item xs={10}>
                             <SelectDate />
                           </Grid>
                         </Grid>
                         <Grid item container xs={4}>
-                          <Typography htmlFor="shift">Vardiya</Typography>
+                          <Typography htmlFor="shift">{t('Shift')}</Typography>
                           <FormControl sx={{ m: 1, minWidth: 80 }}>
                             <Select
                               labelId="demo-simple-select-autowidth-label"
@@ -333,7 +339,7 @@ export default function Loginto() {
                             }}
                             onClick={handleSubmit}
                           >
-                            Giris Yap
+                            {t('Login')}
                           </Button>
                         </Grid>
                         <Grid item xs={6}>
@@ -347,7 +353,7 @@ export default function Loginto() {
                             }}
                             onClick={closelogin}
                           >
-                            Kapat
+                            {t('Close')}
                           </Button>
                         </Grid>
                       </Grid>

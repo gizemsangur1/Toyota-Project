@@ -1,0 +1,39 @@
+{
+    "Allterminals":"All Terminals",
+    "FBase":"Filter Base",
+    "Dep":"Department Base",
+    "TList":"Terminal List",
+    "SNo":"Registry No",
+    "BNo":"Body No",
+    "Sifre":"Password",
+    "MNo":"Assembly No",
+    "Date":"Date",
+    "Shift":"Shift",
+    "Login":"Log In",
+    "Close":"Close",
+    "Color":"Color",
+    "HGE":"Error Recording Screen",
+    "Search":"Search",
+    "TFP":"Terminal First Picture",
+    "FE":"frequent errors",
+    "Mfp":"Model First Picture",
+    "Back":"Back",
+    "EL":"Error List",
+    "Cl":"Clean",
+    "Exit":"Exit",
+    "ER":"Error Register",
+    "Description":"Description",
+    "Save":"Save",
+    "Cancel":"Cancel",
+    "VL":"Vehicle List",
+    "ME":"Manuel Error",
+    "MultiE":"Multiple Error",
+    "EC":"Error Copy"
+    
+    
+    
+    
+    
+    
+
+}
