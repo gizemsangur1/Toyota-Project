@@ -76,12 +76,11 @@ $ yarn start
 ```
 ## :checkered_flag: Suppported Languages ##
 
-=======
 Türkçe \
 English \
 Deutsch \
 Français \
 Русский 
->>>>>>> 4483f45be9cc715b6969175cc625e8664c9d5a07
+
 
 <a href="#top">Back to top</a>
