@@ -46,16 +46,21 @@ export default function HataForm(props) {
       inputRef2.current.focus();
     }
   };
-
+  const handleCapslock = () => {
+    
+  };
   const handleKeyDown = (event) => {
     const { key } = event;
 
     let isBackspace = key === "Backspace";
+    let isCapslock = key === "Capslock";
     if (isBackspace) {
       handleDelete();
+    }else if(isCapslock){
+      handleCapslock();
     } else {
       if (selectedInput === 1) {
-        setInputValue1(inputValue1 + key);
+        setInputValue1(inputValue1+key );
         inputRef1.current.focus();
       } else if (selectedInput === 2) {
         setInputValue2(inputValue2 + key);
