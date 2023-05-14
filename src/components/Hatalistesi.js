@@ -120,7 +120,6 @@ const filterByLocalId = (item) => item.localId.toString().includes(filterText2.t
 
 const filteredData = sortedData.filter((item) => filterByBodyNo(item) && filterByLocalId(item));
   const handleDelete = (index) => {
-    console.log(index)
     const newData = [...data];
     newData.splice(index, 1);
     setData(newData);

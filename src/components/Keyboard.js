@@ -26,7 +26,7 @@ export default function Keyboard(props) {
     } else if (value === "SPACE") {
       props.setInputValue((inputValue) => inputValue + value);
     } else if (value === "Capslock") {
-      setShifted(!shifted); // toggle shifted state
+      setShifted(!shifted); 
     } else {
       const newValue = shifted ? value.toUpperCase() : value.toLowerCase();
       props.setInputValue((inputValue) => inputValue + newValue);

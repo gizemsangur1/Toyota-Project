@@ -12,19 +12,59 @@ import { useNavigate } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-/* import KeyboardReact from "react-simple-keyboard";
-import 'react-simple-keyboard/build/css/index.css'; */
+import KeyboardReact from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
+import languageLayouts from "../language/KeyboardLayouts";
 export default function Loginto() {
-  const{t,i18n}=useTranslation();
+  const [inputs, setInputs] = useState({});
+  const [layoutName, setLayoutName] = useState("default");
+  const [inputName, setInputName] = useState("default");
+ const keyboard = useRef(); 
+ const [language, setLanguage] = useState('english');
+ const layouts = ["default", "shift", "turkish", "german","french","russian"]; 
+ const [layoutIndex, setLayoutIndex] = useState(0);
+  const handleLanguageChange = (selectedLanguage) => {
+    setLanguage(selectedLanguage);
+  };
+  const onChangeAll = (inputs) => {
+    setInputs({ ...inputs });
+  };
+
+  const handleShift = () => {
+    const newLayoutName = layoutName === "default" ? "shift" : "default";
+    setLayoutName(newLayoutName);
+  };
+
+  const onKeyPress = (button) => {
+
+    if (button === "{shift}" || button === "{lock}") {
+      setLayoutIndex((layoutIndex + 1) % layouts.length);  }
+  };
+  useEffect(() => {
+    const newLayoutName = layouts[layoutIndex]; 
+    setLayoutName(newLayoutName);
+  }, [layoutIndex]);
+  const onChangeInput = (event) => {
+    const inputVal = event.target.value;
+    setInputs({
+      ...inputs,
+      [inputName]: inputVal,
+    });
+
+    keyboard.current.setInput(inputVal);
+  };
+
+  const getInputValue = (inputName) => {
+    return inputs[inputName] || "";
+  };
+
+  const { t, i18n } = useTranslation();
   const [termlist, setTermlist] = useState("");
-  const [termname, setTermname] = useState("");
   const dispatch = useDispatch();
   const GetData = (value) => {
     setTermlist(value);
   };
-  const sendTermName = (value) => {
-    setTermname(value);
-  };
+
   const navigate = useNavigate();
 
   const [color, setColor] = React.useState("#12a6eb");
@@ -43,6 +83,29 @@ export default function Loginto() {
       .catch((err) => console.log(err));
   }, []);
   const [error, setError] = useState("");
+
+  const formik = useFormik({
+    initialValues: {
+      sicilno: "",
+      sifre: "",
+      montajno: termlist,
+    },
+
+    onSubmit: (values) => {
+      values.montajno = termlist;
+      values.sicilno = document.getElementById('sicilno').value;
+      values.sifre = document.getElementById('password').value;
+      LoginSchema.validate(values)
+        .then(() => {
+          navigate("/HataGiris");
+        })
+        .catch((err) => {
+          setError(err.errors[0]);
+          console.log(values);
+        });
+    },
+  });
+
   const LoginSchema = Yup.object().shape({
     montajno: Yup.string().required("Montaj no gerekli"),
     sicilno: Yup.string()
@@ -62,28 +125,6 @@ export default function Loginto() {
       }),
   });
 
-  const formik = useFormik({
-    initialValues: {
-      sicilno: "",
-      sifre: "",
-      montajno: termlist,
-    },
-
-    onSubmit: (values) => {
-      values.montajno = termlist;
-      values.sicilno = inputValue1;
-      values.sifre = inputValue2;
-      LoginSchema.validate(values)
-        .then(() => {
-          navigate("/HataGiris");
-        })
-        .catch((err) => {
-          setError(err.errors[0]);
-          console.log(values);
-        });
-    },
-  });
-
   const handleSubmit = () => {
     dispatch({
       type: "SET_SHIFT",
@@ -100,52 +141,6 @@ export default function Loginto() {
       </MenuItem>
     );
   });
-
-  const [inputValue1, setInputValue1] = useState("");
-  const [inputValue2, setInputValue2] = useState("");
-  const inputRef1 = useRef(null);
-  const inputRef2 = useRef(null);
-  const [selectedInput, setSelectedInput] = useState(null);
-
-  const handleInputChange = (message) => {
-    if (selectedInput == 1) {
-      setInputValue1(message);
-    } else {
-      setInputValue2(message);
-    }
-  };
-
-  const handleDelete = () => {
-    if (selectedInput === 1) {
-      setInputValue1(inputValue1.slice(0, -1));
-      inputRef1.current.focus();
-    } else if (selectedInput === 2) {
-      setInputValue2(inputValue2.slice(0, -1));
-      inputRef2.current.focus();
-    }
-  };
-  const handleCapslock = () => {
-    
-  };
-  const handleKeyDown = (event) => {
-    const { key } = event;
-
-    let isBackspace = key === "Backspace";
-    let isCapslock = key === "Capslock";
-    if (isBackspace) {
-      handleDelete();
-    }else if(isCapslock){
-      handleCapslock();
-    } else {
-      if (selectedInput === 1) {
-        setInputValue1(inputValue1+key );
-        inputRef1.current.focus();
-      } else if (selectedInput === 2) {
-        setInputValue2(inputValue2 + key);
-        inputRef2.current.focus();
-      }
-    }
-  };
 
   return (
     <div>
@@ -190,7 +185,7 @@ export default function Loginto() {
                           alignItems="center"
                         >
                           <Typography htmlFor="terminallist">
-                            {t('TList')}
+                            {t("TList")}
                           </Typography>
                         </Grid>
                         <Grid
@@ -226,7 +221,7 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Typography htmlFor="sicilno">{t('SNo')}</Typography>
+                          <Typography htmlFor="sicilno">{t("SNo")}</Typography>
                         </Grid>
                         <Grid
                           item
@@ -238,10 +233,10 @@ export default function Loginto() {
                           <TextField
                             type="text"
                             name="sicilno"
-                            ref={inputRef1}
-                            value={inputValue1}
-                            onClick={() => setSelectedInput(1)}
-                            onKeyDown={handleKeyDown}
+                            id="sicilno"
+                            value={getInputValue("sicilno")}
+                            onFocus={() => setInputName("sicilno")}
+                            onChange={onChangeInput}
                           />
                         </Grid>
                       </Grid>
@@ -253,7 +248,7 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Typography htmlFor="sifre">{t('Sifre')}</Typography>
+                          <Typography htmlFor="sifre">{t("Sifre")}</Typography>
                         </Grid>
                         <Grid
                           item
@@ -264,11 +259,11 @@ export default function Loginto() {
                         >
                           <TextField
                             type="password"
-                            name="sifre"
-                            ref={inputRef2}
-                            value={inputValue2}
-                            onClick={() => setSelectedInput(2)}
-                            onKeyDown={handleKeyDown}
+                            name="password"
+                            id="password"
+                            value={getInputValue("password")}
+                            onFocus={() => setInputName("password")}
+                            onChange={onChangeInput}
                           />
                         </Grid>
                       </Grid>
@@ -280,7 +275,7 @@ export default function Loginto() {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Typography htmlFor="montajno">{t('MNo')}</Typography>
+                          <Typography htmlFor="montajno">{t("MNo")}</Typography>
                         </Grid>
                         <Grid
                           item
@@ -304,14 +299,14 @@ export default function Loginto() {
                       >
                         <Grid item container xs={8}>
                           <Grid item xs={2}>
-                            <Typography htmlFor="tarih">{t('Date')}</Typography>
+                            <Typography htmlFor="tarih">{t("Date")}</Typography>
                           </Grid>
                           <Grid item xs={10}>
                             <SelectDate />
                           </Grid>
                         </Grid>
                         <Grid item container xs={4}>
-                          <Typography htmlFor="shift">{t('Shift')}</Typography>
+                          <Typography htmlFor="shift">{t("Shift")}</Typography>
                           <FormControl sx={{ m: 1, minWidth: 80 }}>
                             <Select
                               labelId="demo-simple-select-autowidth-label"
@@ -338,7 +333,7 @@ export default function Loginto() {
                             }}
                             onClick={handleSubmit}
                           >
-                            {t('Login')}
+                            {t("Login")}
                           </Button>
                         </Grid>
                         <Grid item xs={6}>
@@ -352,7 +347,7 @@ export default function Loginto() {
                             }}
                             onClick={closelogin}
                           >
-                            {t('Close')}
+                            {t("Close")}
                           </Button>
                         </Grid>
                       </Grid>
@@ -361,10 +356,13 @@ export default function Loginto() {
                 </Formik>
               </Grid>
               <Grid item xs={1.5}></Grid>
-              <Keyboard
-                handleKeyDown={handleKeyDown}
-                setInputValue={handleInputChange}
-                handleDelete={handleDelete}
+              <KeyboardReact
+                keyboardRef={(r) => (keyboard.current = r)}
+                inputName={inputName}
+                layoutName={layoutName}
+                layout={languageLayouts}
+                onChangeAll={onChangeAll}
+                onKeyPress={onKeyPress}
               />
             </Grid>
           </Grid>
