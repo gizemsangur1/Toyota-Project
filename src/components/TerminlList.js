@@ -8,11 +8,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box } from "@mui/system";
 
 export default function TerminlList(props) {
-
   const [selectedName, setSelectedName] = useState("");
 
-  function handleChange(event,termName) {
-    closelist()
+  function handleChange(event, termName) {
+    closelist();
     props.sendMontajNo(event.target.value);
     setSelectedName(termName);
   }
@@ -69,49 +68,62 @@ export default function TerminlList(props) {
     );
   });
   return (
-    <div>
+    <>
       <Grid
+        container
         sx={{
-          border: 1,
-          borderRadius: 1,
+          borderColor:"grey",
           height: "55px",
           minWidth: "100%",
-          alignContent: "flex-end",
+          alignContent:"center",
+          alignItems:"center",
+          
         }}
         onClick={openTermlist}
       >
-        <Typography>{selectedName} </Typography>
-        <KeyboardArrowDownIcon />
+        <Grid item xs={11} sx={{position:"relative",
+          left:"1vw",}}>
+          <Typography>{selectedName} </Typography>
+        </Grid>
+        <Grid item xs={1}>
+          <KeyboardArrowDownIcon sx={{color:"#98C49A"}} />
+        </Grid>
       </Grid>
       {goster && (
         <Grid sx={{ position: "absolute", top: 65, zIndex: 999 }}>
           <Grid container>
-            <Grid item xs={9}>
+            <Grid item>
               <Box
                 id="scrollable-box"
                 container="true"
                 sx={{
+                  minWidth: "100%",
                   justifyContent: "space-evenly",
                   overflowY: "scroll",
                   overflowX: "hidden",
                   maxHeight: "400px",
                   background: "#c6ffc8",
+                  width: "33.5vw",
                 }}
               >
                 {arr}
               </Box>
             </Grid>
-            <Grid item xs={3}>
-              <Button onClick={() => handleScroll("up")}>
-                <KeyboardArrowUpIcon />
-              </Button>
-              <Button onClick={() => handleScroll("down")}>
-                <KeyboardArrowDownIcon />
-              </Button>
+            <Grid item>
+              <Grid sx={{width:"5vw",height:"6vh",border:1,borderRadius:1,borderColor:"#98C49A"}}>
+                <Button onClick={() => handleScroll("up")} sx={{width:"5vw",height:"6vh"}}>
+                  <KeyboardArrowUpIcon sx={{color:"black"}}  />
+                </Button>
+              </Grid>
+              <Grid sx={{width:"5vw",height:"6vh",border:1,borderRadius:1,borderColor:"#98C49A",justifyContent:"center"}}>
+                <Button onClick={() => handleScroll("down")}sx={{width:"5vw",height:"6vh"}} >
+                  <KeyboardArrowDownIcon sx={{color:"black"}} />
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
       )}
-    </div>
+    </>
   );
 }

@@ -195,6 +195,7 @@ export default function Loginto() {
                             sx={{
                               border: 1,
                               borderRadius: 1,
+                              borderColor:"#98C49A",
                               height: "55px",
                               minWidth: "100%",
                               alignContent: "flex-end",

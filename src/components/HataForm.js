@@ -22,38 +22,20 @@ export default function HataForm(props) {
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
   const keyboard = useRef();
-  const [language, setLanguage] = useState("english");
-  const layouts = [
-    "default",
-    "shift",
-    "turkish",
-    "german",
-    "french",
-    "russian",
-  ]; 
-  const [layoutIndex, setLayoutIndex] = useState(0);
-  const handleLanguageChange = (selectedLanguage) => {
-    setLanguage(selectedLanguage);
-  };
-  const onChangeAll = (inputs) => {
 
+  const onChangeAll = (inputs) => {
     setInputs({ ...inputs });
   };
 
-  const handleShift = () => {
-    const newLayoutName = layoutName === "default" ? "shift" : "default";
-    setLayoutName(newLayoutName);
-  };
+  const handleShift = () => {};
 
   const onKeyPress = (button) => {
-  
     if (button === "{shift}" || button === "{lock}") {
-      setLayoutIndex((layoutIndex + 1) % layouts.length);  }
+    }
   };
   useEffect(() => {
-    const newLayoutName = layouts[layoutIndex]; 
-    setLayoutName(newLayoutName);
-  }, [layoutIndex]);
+    setLayoutName(navigator.language);
+  });
   const onChangeInput = (event) => {
     const inputVal = event.target.value;
     setInputs({
@@ -75,14 +57,14 @@ export default function HataForm(props) {
   const [select2, setSelect2] = useState([]);
   const [select3, setSelect3] = useState([]);
   const [select4, setSelect4] = useState([]);
- 
+
   const [rdd, setRdd] = React.useState("");
   const [defectclass, setDefectclass] = React.useState("");
   const [defectresponsible, setDefectresponsible] = React.useState("");
   const [subresponsible, setSubresponsible] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [action, setAction] = React.useState("");
-  
+
   const handleChangeexit = (event) => {
     setExitdepartment(event.target.value);
   };
@@ -148,8 +130,8 @@ export default function HataForm(props) {
     console.log(defectclass);
     console.log(defectresponsible);
     console.log(subresponsible);
-    console.log(document.getElementById('action').value);
-    console.log(document.getElementById('description').value);
+    console.log(document.getElementById("action").value);
+    console.log(document.getElementById("description").value);
     console.log(coord);
     props.onKaydedildi();
   }
@@ -158,12 +140,12 @@ export default function HataForm(props) {
     if (data.controlType === "CMB") {
       if (data.englishUserName === "Exit Department") {
         return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
+          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+            <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
+            <Grid item xs={4} sx={{ textAlign: "center"}}>
+              <FormControl sx={{ minWidth: "100%" }}>
                 <Select value={exitdepartment} onChange={handleChangeexit}>
                   {select.map((item, i) => {
                     return (
@@ -175,15 +157,18 @@ export default function HataForm(props) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={2} sx={{ textAlign: "left" }}>
+            <Grid item xs={2} sx={{ textAlign: "center"  }}>
               <FormControlLabel
                 control={<CheckBoxOutlineBlank />}
                 label="Harigami"
               />
             </Grid>
-            <Grid item xs={3} sx={{ textAlign: "left" }}>
+            <Grid item xs={1} sx={{ textAlign: "left" }}>
               <Typography>RDD</Typography>
-              <FormControl sx={{ minWidth: "25%" }}>
+            </Grid>
+            <Grid item xs={2} sx={{ textAlign: "left" }}>
+              
+              <FormControl sx={{ minWidth: "100%" }}>
                 <Select value={rdd} onChange={handleChangerdd}>
                   {Nrlist.map((item, i) => {
                     return (
@@ -199,12 +184,14 @@ export default function HataForm(props) {
         );
       } else if (data.englishUserName === "Defect Class") {
         return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
             <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography sx={{ textAlign: "left" }}>{data.englishUserName}</Typography>
+              <Typography sx={{ textAlign: "left" }}>
+                {data.englishUserName}
+              </Typography>
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
+            <Grid item xs={4} sx={{ textAlign: "left" }}>
+              <FormControl sx={{ minWidth: "100%" }}>
                 <Select value={defectclass} onChange={handleChangedefectclass}>
                   {select2.map((item, i) => {
                     return (
@@ -254,12 +241,14 @@ export default function HataForm(props) {
         );
       } else if (data.englishUserName === "Defect Responsibles") {
         return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
             <Grid item xs={3} sx={{ alignContent: "center" }}>
-              <Typography sx={{ textAlign: "left" }}>{data.englishUserName}</Typography>
+              <Typography sx={{ textAlign: "left" }}>
+                {data.englishUserName}
+              </Typography>
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
+            <Grid item xs={4} sx={{ textAlign: "left" }}>
+              <FormControl sx={{ minWidth: "100%" }}>
                 <Select
                   value={defectresponsible}
                   onChange={handleChangedefectresp}
@@ -278,12 +267,14 @@ export default function HataForm(props) {
         );
       } else {
         return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
             <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography sx={{ textAlign: "left" }}>{data.englishUserName}</Typography>
+              <Typography sx={{ textAlign: "left" }}>
+                {data.englishUserName}
+              </Typography>
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "45%" }}>
+            <Grid item xs={4} sx={{ textAlign: "left" }}>
+              <FormControl sx={{ minWidth: "100%" }}>
                 <Select value={subresponsible} onChange={handleChangesubresp}>
                   {select4.map((item, i) => {
                     return (
@@ -301,16 +292,16 @@ export default function HataForm(props) {
     } else {
       if (data.userName === "Açıklama") {
         return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
             <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={9} sx={{ textAlign: "left" }}>
+            <Grid item xs={9} sx={{ textAlign: "center" }}>
               <TextField
                 type="text"
                 name="description"
                 id="description"
-                sx={{ minWidth: "75%" }}
+                sx={{ minWidth: "100%" }}
                 value={getInputValue("description")}
                 onFocus={() => setInputName("description")}
                 onChange={onChangeInput}
@@ -320,16 +311,16 @@ export default function HataForm(props) {
         );
       } else {
         return (
-          <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
+          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
             <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={9} sx={{ textAlign: "left" }}>
-            <TextField
+            <Grid item xs={9} sx={{ textAlign: "center" }}>
+              <TextField
                 type="text"
                 name="action"
                 id="action"
-                sx={{ minWidth: "75%" }}
+                sx={{ minWidth: "100%" }}
                 value={getInputValue("action")}
                 onFocus={() => setInputName("action")}
                 onChange={onChangeInput}
@@ -342,18 +333,28 @@ export default function HataForm(props) {
   });
 
   return (
-    <div>
-      <Grid container direction="row" sx={{ border: 1 }}>
-        {arr}
-         <KeyboardReact
-                keyboardRef={(r) => (keyboard.current = r)}
-                inputName={inputName}
-                layoutName={layoutName}
-                layout={languageLayouts}
-                onChangeAll={onChangeAll}
-                onKeyPress={onKeyPress}
+    
+    <Grid container direction="row" sx={{padding:2}}>
+      <Grid container sx={{marginBottom:0.5}}>
+        <Grid item xs={10}>
+          <Typography>CVQS(TMMT)</Typography>
+        </Grid>
+        <Grid item xs={2} >
+        <FormControlLabel
+                control={<CheckBoxOutlineBlank />}
+                label="Sık gelen hata"
               />
+        </Grid>
       </Grid>
-    </div>
+      {arr}
+      <KeyboardReact
+        keyboardRef={(r) => (keyboard.current = r)}
+        inputName={inputName}
+        layoutName={layoutName}
+        layout={languageLayouts}
+        onChangeAll={onChangeAll}
+        onKeyPress={onKeyPress}
+      />
+    </Grid>
   );
 }
