@@ -21,37 +21,24 @@ export default function Loginto() {
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
   const keyboard = useRef();
-  const [language, setLanguage] = useState("english");
-  const layouts = [
-    "default",
-    "shift",
-    "turkish",
-    "german",
-    "french",
-    "russian",
-  ];
-  const [layoutIndex, setLayoutIndex] = useState(0);
-  const handleLanguageChange = (selectedLanguage) => {
-    setLanguage(selectedLanguage);
-  };
+ 
   const onChangeAll = (inputs) => {
     setInputs({ ...inputs });
   };
 
   const handleShift = () => {
-    const newLayoutName = layoutName === "default" ? "shift" : "default";
-    setLayoutName(newLayoutName);
+    
   };
 
   const onKeyPress = (button) => {
     if (button === "{shift}" || button === "{lock}") {
-      setLayoutIndex((layoutIndex + 1) % layouts.length);
+     
     }
   };
   useEffect(() => {
-    const newLayoutName = layouts[layoutIndex];
-    setLayoutName(newLayoutName);
-  }, [layoutIndex]);
+    
+    setLayoutName(navigator.language);
+  });
   const onChangeInput = (event) => {
     const inputVal = event.target.value;
     setInputs({
@@ -190,7 +177,7 @@ export default function Loginto() {
                           item
                           container
                           xs={4}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <Typography htmlFor="terminallist">
@@ -201,7 +188,7 @@ export default function Loginto() {
                           item
                           container
                           xs={8}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <Grid
@@ -209,7 +196,7 @@ export default function Loginto() {
                               border: 1,
                               borderRadius: 1,
                               height: "55px",
-                              minWidth: "44%",
+                              minWidth: "100%",
                               alignContent: "flex-end",
                             }}
                           >
@@ -227,7 +214,7 @@ export default function Loginto() {
                           item
                           container
                           xs={4}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <Typography htmlFor="sicilno">{t("SNo")}</Typography>
@@ -236,13 +223,14 @@ export default function Loginto() {
                           item
                           container
                           xs={8}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <TextField
                             type="text"
                             name="sicilno"
                             id="sicilno"
+                            sx={{minWidth:"100%"}}
                             value={getInputValue("sicilno")}
                             onFocus={() => setInputName("sicilno")}
                             onChange={onChangeInput}
@@ -254,7 +242,7 @@ export default function Loginto() {
                           item
                           container
                           xs={4}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <Typography htmlFor="sifre">{t("Sifre")}</Typography>
@@ -263,13 +251,14 @@ export default function Loginto() {
                           item
                           container
                           xs={8}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <TextField
                             type="password"
                             name="password"
                             id="password"
+                            sx={{minWidth:"100%"}}
                             value={getInputValue("password")}
                             onFocus={() => setInputName("password")}
                             onChange={onChangeInput}
@@ -281,7 +270,7 @@ export default function Loginto() {
                           item
                           container
                           xs={4}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
                         >
                           <Typography htmlFor="montajno">{t("MNo")}</Typography>
@@ -290,32 +279,34 @@ export default function Loginto() {
                           item
                           container
                           xs={8}
-                          justifyContent="center"
+                          justifyContent="left"
                           alignItems="center"
+                          
                         >
                           <TextField
                             type="text"
                             name="montajno"
                             onChange={formik.handleChange}
                             value={termlist}
+                            sx={{minWidth:"100%"}}
                           />
                         </Grid>
                       </Grid>
                       <Grid
                         container
                         direction="row"
-                        sx={{ marginTop: 1, backgroundColor: color }}
+                        sx={{ marginTop: 1, backgroundColor: color,borderRadius:2 }}
                       >
-                        <Grid item container xs={8}>
-                          <Grid item xs={2}>
-                            <Typography htmlFor="tarih">{t("Date")}</Typography>
+                        <Grid item container xs={8} >
+                          <Grid item xs={2} >
+                            <Typography htmlFor="tarih" sx={{position:"relative",top:"35%"}}>{t("Date")}</Typography>
                           </Grid>
                           <Grid item xs={10}>
                             <SelectDate />
                           </Grid>
                         </Grid>
                         <Grid item container xs={4}>
-                          <Typography htmlFor="shift">{t("Shift")}</Typography>
+                          <Typography htmlFor="shift" sx={{position:"relative",top:"35%"}}>{t("Shift")}</Typography>
                           <FormControl sx={{ m: 1, minWidth: 80 }}>
                             <Select
                               labelId="demo-simple-select-autowidth-label"
@@ -364,7 +355,7 @@ export default function Loginto() {
                   )}
                 </Formik>
               </Grid>
-              <Grid item xs={1.5}></Grid>
+              <Grid item xs={1.5} ></Grid>
               <KeyboardReact
                 keyboardRef={(r) => (keyboard.current = r)}
                 inputName={inputName}

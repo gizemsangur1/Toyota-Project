@@ -34,10 +34,6 @@ function Terminals() {
     const nextPage = '/Login?' + buttonName;
     navigate(nextPage);
   };
-/*   const navigateToLogin = (buttonName) => {
-    const nextPage = buttonName+'/Login/' ;
-    navigate(nextPage);
-  }; */
 
   const [data, setData] = useState([]);
   useEffect(() => {
