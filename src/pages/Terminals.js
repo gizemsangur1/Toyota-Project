@@ -6,10 +6,11 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import {  useNavigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useTranslation,Trans  } from "react-i18next";
+import { useTranslation  } from "react-i18next";
 function Terminals() {
   const{t,i18n}=useTranslation();
- 
+  
+
   const theme = createTheme({
     components: {
       MuiTypography: {
@@ -29,10 +30,14 @@ function Terminals() {
   });
 
   const navigate = useNavigate();
-
-  const navigateToLogin = () => {
-    navigate("/Login");
+  const navigateToLogin = (buttonName) => {
+    const nextPage = '/Login?' + buttonName;
+    navigate(nextPage);
   };
+/*   const navigateToLogin = (buttonName) => {
+    const nextPage = buttonName+'/Login/' ;
+    navigate(nextPage);
+  }; */
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -56,7 +61,7 @@ function Terminals() {
             if (subitem.linkCount > 1) {
               return (
                 <Button
-                  onClick={navigateToLogin}
+                  onClick={() => navigateToLogin(subitem.filterCode)}
                   key={i}
                   sx={{
                     borderRadius: 2,
@@ -91,7 +96,7 @@ function Terminals() {
               return (
                 <Button
                   key={i}
-                  onClick={navigateToLogin}
+                  onClick={() => navigateToLogin(subitem.filterCode)}
                   sx={{
                     borderRadius: 2,
                     border: 1,

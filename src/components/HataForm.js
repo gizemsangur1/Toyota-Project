@@ -155,8 +155,8 @@ export default function HataForm(props) {
   }
 
   const arr = data.map((data, index) => {
-    if (data.controlType == "CMB") {
-      if (data.englishUserName == "Exit Department") {
+    if (data.controlType === "CMB") {
+      if (data.englishUserName === "Exit Department") {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
             <Grid item xs={3} sx={{ textAlign: "center" }}>
@@ -175,15 +175,15 @@ export default function HataForm(props) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={2} sx={{ textAlign: "center" }}>
+            <Grid item xs={2} sx={{ textAlign: "left" }}>
               <FormControlLabel
                 control={<CheckBoxOutlineBlank />}
                 label="Harigami"
               />
             </Grid>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
+            <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>RDD</Typography>
-              <FormControl sx={{ minWidth: "45%" }}>
+              <FormControl sx={{ minWidth: "25%" }}>
                 <Select value={rdd} onChange={handleChangerdd}>
                   {Nrlist.map((item, i) => {
                     return (
@@ -197,11 +197,11 @@ export default function HataForm(props) {
             </Grid>
           </Grid>
         );
-      } else if (data.englishUserName == "Defect Class") {
+      } else if (data.englishUserName === "Defect Class") {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
             <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.englishUserName}</Typography>
+              <Typography sx={{ textAlign: "left" }}>{data.englishUserName}</Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "center" }}>
               <FormControl sx={{ minWidth: "45%" }}>
@@ -252,11 +252,11 @@ export default function HataForm(props) {
             </Grid>
           </Grid>
         );
-      } else if (data.englishUserName == "Defect Responsibles") {
+      } else if (data.englishUserName === "Defect Responsibles") {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.englishUserName}</Typography>
+            <Grid item xs={3} sx={{ alignContent: "center" }}>
+              <Typography sx={{ textAlign: "left" }}>{data.englishUserName}</Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "center" }}>
               <FormControl sx={{ minWidth: "45%" }}>
@@ -280,7 +280,7 @@ export default function HataForm(props) {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
             <Grid item xs={3} sx={{ textAlign: "center" }}>
-              <Typography>{data.englishUserName}</Typography>
+              <Typography sx={{ textAlign: "left" }}>{data.englishUserName}</Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "center" }}>
               <FormControl sx={{ minWidth: "45%" }}>
@@ -299,17 +299,18 @@ export default function HataForm(props) {
         );
       }
     } else {
-      if (data.userName == "Açıklama") {
+      if (data.userName === "Açıklama") {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
+            <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={9} sx={{ textAlign: "center" }}>
+            <Grid item xs={9} sx={{ textAlign: "left" }}>
               <TextField
                 type="text"
                 name="description"
                 id="description"
+                sx={{ minWidth: "75%" }}
                 value={getInputValue("description")}
                 onFocus={() => setInputName("description")}
                 onChange={onChangeInput}
@@ -320,14 +321,15 @@ export default function HataForm(props) {
       } else {
         return (
           <Grid container direction="row" key={index} sx={{ marginTop: 1 }}>
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
+            <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={9} sx={{ textAlign: "center" }}>
+            <Grid item xs={9} sx={{ textAlign: "left" }}>
             <TextField
                 type="text"
                 name="action"
                 id="action"
+                sx={{ minWidth: "75%" }}
                 value={getInputValue("action")}
                 onFocus={() => setInputName("action")}
                 onChange={onChangeInput}

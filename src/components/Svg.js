@@ -58,6 +58,7 @@ export default function Svg(props) {
           </Typography>
         </div>
       </foreignObject>
+     
     ))
   );
   const arr3 = data.map((item) =>
@@ -65,8 +66,8 @@ export default function Svg(props) {
     subitem.lineX !== -100 ? (
       <line
         key={index}
-        x1={subitem.boxX}
-        y1={subitem.boxY}
+        x1={subitem.boxX + subitem.boxWidth / 2}
+        y1={subitem.boxY + subitem.boxHeight / 2}
         x2={subitem.lineX}
         y2={subitem.lineY}
         stroke="red"

@@ -39,7 +39,6 @@ function resetTimer() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(data);
 
   const arr = data.map((data, index) => {
     return (
@@ -55,7 +54,6 @@ function resetTimer() {
   }
   const [montajValue, setMontajValue] = useState("");
 
-  console.log(montajValue);
   return (
     <div
       style={{ backgroundColor: background, minHeight: "100vh" }}

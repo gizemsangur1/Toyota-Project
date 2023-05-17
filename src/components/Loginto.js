@@ -8,7 +8,7 @@ import TerminlList from "./TerminlList";
 import SelectDate from "./SelectDate";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -16,13 +16,21 @@ import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";
 export default function Loginto() {
+  const { buttonName } = useParams();
   const [inputs, setInputs] = useState({});
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
- const keyboard = useRef(); 
- const [language, setLanguage] = useState('english');
- const layouts = ["default", "shift", "turkish", "german","french","russian"]; 
- const [layoutIndex, setLayoutIndex] = useState(0);
+  const keyboard = useRef();
+  const [language, setLanguage] = useState("english");
+  const layouts = [
+    "default",
+    "shift",
+    "turkish",
+    "german",
+    "french",
+    "russian",
+  ];
+  const [layoutIndex, setLayoutIndex] = useState(0);
   const handleLanguageChange = (selectedLanguage) => {
     setLanguage(selectedLanguage);
   };
@@ -36,12 +44,12 @@ export default function Loginto() {
   };
 
   const onKeyPress = (button) => {
-
     if (button === "{shift}" || button === "{lock}") {
-      setLayoutIndex((layoutIndex + 1) % layouts.length);  }
+      setLayoutIndex((layoutIndex + 1) % layouts.length);
+    }
   };
   useEffect(() => {
-    const newLayoutName = layouts[layoutIndex]; 
+    const newLayoutName = layouts[layoutIndex];
     setLayoutName(newLayoutName);
   }, [layoutIndex]);
   const onChangeInput = (event) => {
@@ -93,15 +101,16 @@ export default function Loginto() {
 
     onSubmit: (values) => {
       values.montajno = termlist;
-      values.sicilno = document.getElementById('sicilno').value;
-      values.sifre = document.getElementById('password').value;
+      values.sicilno = document.getElementById("sicilno").value;
+      values.sifre = document.getElementById("password").value;
       LoginSchema.validate(values)
         .then(() => {
-          navigate("/HataGiris");
+          const nextPage = "/HataGiris?" + buttonName;
+          navigate(nextPage);
+          /*  navigate("/HataGiris"); */
         })
         .catch((err) => {
           setError(err.errors[0]);
-          console.log(values);
         });
     },
   });

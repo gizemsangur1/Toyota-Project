@@ -12,7 +12,6 @@ export default function Buyukfontdata() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(data)
   
   const arr = data.map((data, index) => {
     return (

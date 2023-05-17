@@ -8,13 +8,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 export default function Svg2(props) {
-  const [clickedCoordinates, setClickedCoordinates] = useState([]);
-
-  useEffect(() => {
-    if (props.clickedCoordinates) {
-      setClickedCoordinates(props.clickedCoordinates);
-    }
-  }, [props.clickedCoordinates]);
+ 
   const dispatch = useDispatch();
   const termname = useSelector((state) => state.termname);
   function handleFormChange(event, termname) {
@@ -97,12 +91,20 @@ export default function Svg2(props) {
       </foreignObject>
     ))
   );
-  const lines = clickedCoordinates.map((coord, i) => {
-    if (i-1 === 0) {
-      return null;
-    }
-    return <line key={i} x1={477} y1={112} x2={coord.x} y2={coord.y} stroke="red" />;
-  });
+  const arr3 = data.map((item) =>
+  item.defectButtonRecords.map((subitem, index) =>
+    subitem.lineX !== -100 ? (
+      <line
+        key={index}
+        x1={subitem.boxX + subitem.boxWidth / 2}
+        y1={subitem.boxY + subitem.boxHeight / 2}
+        x2={subitem.lineX}
+        y2={subitem.lineY}
+        stroke="red"
+      />
+    ) : null
+  )
+);
   const arrlist = listdata.map((data, index) => {
     return (
       <Grid key={index}>
@@ -184,7 +186,7 @@ export default function Svg2(props) {
           <>
             {arr}
             {arr2}
-            {lines}
+            {arr3}
           </>
         )}
 
@@ -197,7 +199,6 @@ export default function Svg2(props) {
                 r="10"
                 fill="red"
               />
-              {lines}
             </svg>
           </>
         )}
