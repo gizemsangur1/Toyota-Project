@@ -133,6 +133,7 @@ export default function HataForm(props) {
     console.log(defectclass);
     console.log(defectresponsible);
     console.log(subresponsible);
+    console.log(coord);
     console.log(document.getElementById("action").value);
     console.log(document.getElementById("description").value);
     props.onKaydedildi();

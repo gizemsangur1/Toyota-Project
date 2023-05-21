@@ -19,7 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BuyukfontHeader from "../components/BuyukfontHeader";
 import { useDispatch, useSelector } from "react-redux";
-import  {resetAll} from "../components/Store";
+import { resetAll } from "../components/Store";
 import { useTranslation } from "react-i18next";
 export default function HataGiris(props) {
   const { t, i18n } = useTranslation();
@@ -34,7 +34,6 @@ export default function HataGiris(props) {
     setIsButtonDisabled(true);
     dispatch(resetAll());
     setClickedCoords([...clickedCoordinates, coord]);
-    
   };
 
   const theme = createTheme({
@@ -54,15 +53,14 @@ export default function HataGiris(props) {
           root: {
             borderRadius: "2",
             border: "1",
-            color:"black",
+            color: "black",
             margin: 5,
-            fontSize: "1.2vw",
+            /* fontSize: "1.2vw", */
             width: "auto",
             height: "auto",
             minWidth: "15vw",
             minHeight: "8vh",
-            
-          }, 
+          },
         },
       },
     },
@@ -76,7 +74,7 @@ export default function HataGiris(props) {
             border: "1",
             margin: 3,
             fontSize: "1.2vw",
-            color:"black",
+            color: "black",
             width: "auto",
             height: "auto",
             minWidth: "8vw",
@@ -179,133 +177,305 @@ export default function HataGiris(props) {
       {showComponent ? (
         <BuyukFont onClick={closebuyukfont} onMenuSelect={handleMenuSelect} />
       ) : (
-        <Grid container direction="row">
-          <Grid item xs={1}></Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {/* <Grid item xs={1}></Grid> */}
           <Grid
             container
             item
             xs={10}
             justifyContent="center"
             alignItems="center"
-            sx={{ border: 1, borderRadius: 1, textAlign: "center"}}
+            sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
           >
             <Grid container direction="row">
               <BuyukfontHeader />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={12} md={12} lg={9}>
               <Grid
                 container
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ width: "50vw" }}
               >
                 <Box
                   sx={{
                     width: "100%",
+                    height: "100%",
                     margin: 0,
-                    position:"relative"
+                    position: "relative",
                   }}
                 >
                   {showComponent2 ? (
-                    
-                     <Svg2
+                    <Svg2
                       onClick={handlesvgclick}
                       onMenuSelect={handleMenuSelect}
                       clickedCoordinates={clickedCoordinates}
-                    /> 
+                      sx={{ width: "100%", height: "100%" }}
+                    />
                   ) : (
-                    <Svg onClick={handlerectclick} />
+                    <Svg
+                      onClick={handlerectclick}
+                      sx={{ width: "100%", height: "100%" }}
+                    />
                   )}
                 </Box>
               </Grid>
-              <Grid container direction="row">
-                <Grid item xs={12}>
-                  <ThemeProvider theme={theme2}>
-                    <Button
-                      variant="outlined"
-                      onClick={handlesvg}
-                      sx={{ fontSize: "0.7vw" }}
-                    >
-                      {t("Mfp")}
-                    </Button>
-                    <Button variant="outlined" onClick={navigateBack}>
-                      {t("Back")}
-                    </Button>
-                    <Button onClick={navigateToHataListesi} variant="outlined">
-                      {t("EL")}
-                    </Button>
-                    <Button variant="outlined">{t("Cl")}</Button>
-                    <Button variant="outlined" onClick={buyukFont}>
-                      {t("BF")}
-                    </Button>
-                  </ThemeProvider>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Grid item xs={10} md={10} lg={12}>
+                  <Grid container spacing={1} justifyContent="center">
+                    <Grid item xs={2} sm={2} md={2} lg={2}>
+                      <Button
+                        variant="outlined"
+                        onClick={handlesvg}
+                        sx={{
+                          border: 1,
+                          textAlign: "center",
+                          width: "100%",
+                          height: "100%",
+                          minWidth: "8vw",
+                          minHeight: "8vh",
+                          color: "black",
+                        }}
+                      >
+                        {t("Mfp")}
+                      </Button>
+                    </Grid>
+                    <Grid item xs={2} sm={2} md={2} lg={2}>
+                      <Button
+                        variant="outlined"
+                        onClick={navigateBack}
+                        sx={{
+                          border: 1,
+                          textAlign: "center",
+                          width: "100%",
+                          height: "100%",
+                          minWidth: "8vw",
+                          minHeight: "8vh",
+                          color: "black",
+                        }}
+                      >
+                        {t("Back")}
+                      </Button>
+                    </Grid>
+                    <Grid item xs={2} sm={2} md={2} lg={2}>
+                      <Button
+                        onClick={navigateToHataListesi}
+                        variant="outlined"
+                        sx={{
+                          border: 1,
+                          textAlign: "center",
+                          width: "100%",
+                          height: "100%",
+                          minWidth: "8vw",
+                          minHeight: "8vh",
+                          color: "black",
+                        }}
+                      >
+                        {t("EL")}
+                      </Button>
+                    </Grid>
+                    <Grid item xs={2} sm={2} md={2} lg={2}>
+                      <Button
+                        variant="outlined"
+                        sx={{
+                          border: 1,
+                          textAlign: "center",
+                          width: "100%",
+                          height: "100%",
+                          minWidth: "8vw",
+                          minHeight: "8vh",
+                          color: "black",
+                        }}
+                      >
+                        {t("Cl")}
+                      </Button>
+                    </Grid>
+                    <Grid item xs={2} sm={2} md={2} lg={2}>
+                      <Button
+                        variant="outlined"
+                        onClick={buyukFont}
+                        sx={{
+                          border: 1,
+                          textAlign: "center",
+                          color: "black",
+                          width: "100%",
+                          height: "100%",
+                          minWidth: "8vw",
+                          minHeight: "8vh",
+                        }}
+                      >
+                        {t("BF")}
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  {showselected && <Typography> {partname}</Typography>}
+                <Grid item xs={2} md={2} lg={12}>
+                  {showselected && <Typography>{partname}</Typography>}
                 </Grid>
               </Grid>
             </Grid>
             <ThemeProvider theme={theme}>
-              <Grid container item xs={3}>
-                <Grid container item xs={12}>
-                  <FormControlLabel
-                    control={<CheckBoxOutlineBlank defaultChecked />}
-                    label="Harigami"
-                  />
-                  <FormControlLabel
-                    control={<CheckBoxOutlineBlank defaultChecked />}
-                    label="RDD"
-                  />
+              <Grid item container xs={12} md={12} lg={3}>
+                <Grid
+                  container
+                  item
+                  lg={12}
+                  md={2}
+                  xs={2}
+                  sx={{display:"flex" ,justifyContent:"center"}}
+                >
+                  <Grid 
+                  container
+                  sx={{display:"flex" ,justifyContent:"left",marginLeft:5}}>
+                    <FormControlLabel
+                      control={<CheckBoxOutlineBlank defaultChecked />}
+                      label="Harigami"
+                    />
+                    {/*  </Grid>
+                <Grid container item lg={12} md={2} xs={2}> */}
+                    <FormControlLabel
+                      control={<CheckBoxOutlineBlank defaultChecked />}
+                      label="RDD"
+                    />
+                  </Grid>
                 </Grid>
-                <Grid container item xs={12}>
-                  <Button disabled variant="outlined">
+                <Grid container item lg={12} md={2} xs={2}>
+                  <Button
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
+                  >
                     {t("FR")}
                   </Button>
                 </Grid>
-                <Grid container item xs={12}>
-                  <Button disabled variant="outlined">
+                <Grid container item lg={12} md={2} xs={2}>
+                  <Button
+                    disabled
+                    variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
+                  >
                     {t("RP")}
                   </Button>
                 </Grid>
-                <Grid container item xs={12}>
+                <Grid container item lg={12} md={3} xs={3}>
                   <Button
                     disabled={isButtonDisabled}
                     onClick={openForm}
                     variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
                   >
                     {t("ER")}
                   </Button>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item lg={12} md={1} xs={1}>
                   <Typography>{t("MNo")}</Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item lg={12} md={2} xs={2}>
                   {data.map((item, i) => (
                     <TextField value={item.assyNo} key={i}>
                       {item.assyNo}
                     </TextField>
                   ))}
                 </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined">{t("Search")}</Button>
+
+                <Grid item lg={12} md={3} xs={3}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
+                  >
+                    {t("Search")}
+                  </Button>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined">{t("TFP")}</Button>
+                <Grid item lg={12} md={3} xs={3}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
+                  >
+                    {t("TFP")}
+                  </Button>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined">{t("FE")}</Button>
+                <Grid item lg={12} md={3} xs={3}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
+                  >
+                    {t("FE")}
+                  </Button>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined">MANİFEST</Button>
+                <Grid item lg={12} md={3} xs={3}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 1,
+                      textAlign: "center",
+                      width: "100%",
+                      height: "100%",
+                      minWidth: "12vw",
+                      minHeight: "8.2vh",
+                    }}
+                  >
+                    MANİFEST
+                  </Button>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item md={12} lg={12}>
                   {showselected && <Typography> {termname}</Typography>}
                 </Grid>
               </Grid>
             </ThemeProvider>
           </Grid>
-          <Grid item xs={1}></Grid>
+          {/*  <Grid item xs={1}></Grid> */}
           {showForm && (
             <Grid
               sx={{

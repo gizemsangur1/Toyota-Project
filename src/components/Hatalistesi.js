@@ -124,9 +124,9 @@ export default function Hatalistesi(props) {
   );
 
   const handleDelete = (index) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this row?"
-    );
+    const confirmMessage = t("DYWD");
+    const confirmDelete = window.confirm(confirmMessage);
+
     if (confirmDelete) {
       const newData = [...filteredData];
       newData.splice(index, 1);
@@ -145,11 +145,11 @@ export default function Hatalistesi(props) {
     if (newData[index]) {
       newData[index].nrReasonId = selectedValue;
       setData(newData);
-      notifyMe(); 
+      notifyMe();
     }
   };
-  const [indexv,setIndexv]=useState("")
-  const [selectedValue,setSelectedValue]=useState("")
+  const [indexv, setIndexv] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
   const handleValues = (index, value) => {
     setIndexv(index);
     setSelectedValue(value);
@@ -212,7 +212,7 @@ export default function Hatalistesi(props) {
                             textAlign: "center",
                           }}
                           size="small"
-                          onClick={(e) => handleSave(indexv,selectedValue)}
+                          onClick={(e) => handleSave(indexv, selectedValue)}
                         >
                           <Save />
                         </Button>
