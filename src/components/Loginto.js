@@ -322,29 +322,33 @@ export default function Loginto() {
                         </Grid>
                       </Grid>
                       <Grid container direction="row" sx={{ marginTop: 1 }}>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} sx={{paddingRight:0.5}}>
                           <Button
                             type="submit"
                             name="submit"
                             sx={{
                               backgroundColor: " black",
+                              marginRight:0.5,
                               color: "white",
                               borderRadius: 1,
-                              width: "100%",
+                              height:"7vh",
+                              width:"100%"
                             }}
                             onClick={handleSubmit}
                           >
                             {t("Login")}
                           </Button>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6}sx={{paddingLeft:0.5}}>
                           <Button
                             type="close"
                             sx={{
                               backgroundColor: " red",
                               color: "white",
                               borderRadius: 1,
-                              width: "100%",
+                              height:"7vh",
+                              width:"100%"
+                              
                             }}
                             onClick={closelogin}
                           >
@@ -357,14 +361,18 @@ export default function Loginto() {
                 </Formik>
               </Grid>
               <Grid item xs={1.5} ></Grid>
-              <KeyboardReact
+              <Grid item sx={{width:"100%",height:"100%",minHeight:"45vh"}}>
+                <KeyboardReact
                 keyboardRef={(r) => (keyboard.current = r)}
                 inputName={inputName}
                 layoutName={layoutName}
                 layout={languageLayouts}
                 onChangeAll={onChangeAll}
                 onKeyPress={onKeyPress}
+                
               />
+              </Grid>
+              
             </Grid>
           </Grid>
         </Grid>

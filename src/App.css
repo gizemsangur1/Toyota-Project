@@ -1,10 +1,12 @@
 .App {
   text-align: center;
+  min-height: 100vh;
 }
 
 
 body{
   background-color: #c6ffc8;
+  min-height: 100vh;
 }
 
 

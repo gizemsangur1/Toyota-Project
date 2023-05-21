@@ -15,7 +15,7 @@ export default function TerminlList(props) {
     props.sendMontajNo(event.target.value);
     setSelectedName(termName);
   }
-  const [goster, setGoster] = useState(false);
+  const [goster, setGoster] = useState(true);
   function closelist() {
     setGoster(false);
   }
@@ -103,20 +103,20 @@ export default function TerminlList(props) {
                   overflowX: "hidden",
                   maxHeight: "400px",
                   background: "#c6ffc8",
-                  width: "33.5vw",
+                  width: "32.8vw",
                 }}
               >
                 {arr}
               </Box>
             </Grid>
             <Grid item>
-              <Grid sx={{width:"5vw",height:"6vh",border:1,borderRadius:1,borderColor:"#98C49A"}}>
-                <Button onClick={() => handleScroll("up")} sx={{width:"5vw",height:"6vh"}}>
+              <Grid sx={{width:"6vw",height:"7vh",border:1,borderRadius:1,borderColor:"#98C49A"}}>
+                <Button onClick={() => handleScroll("up")} sx={{width:"6vw",height:"7vh"}}>
                   <KeyboardArrowUpIcon sx={{color:"black"}}  />
                 </Button>
               </Grid>
-              <Grid sx={{width:"5vw",height:"6vh",border:1,borderRadius:1,borderColor:"#98C49A",justifyContent:"center"}}>
-                <Button onClick={() => handleScroll("down")}sx={{width:"5vw",height:"6vh"}} >
+              <Grid sx={{width:"6vw",height:"7vh",border:1,borderRadius:1,borderColor:"#98C49A",justifyContent:"center"}}>
+                <Button onClick={() => handleScroll("down")}sx={{width:"6vw",height:"7vh"}} >
                   <KeyboardArrowDownIcon sx={{color:"black"}} />
                 </Button>
               </Grid>

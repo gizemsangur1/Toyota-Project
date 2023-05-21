@@ -8,7 +8,6 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 export default function Svg2(props) {
- 
   const dispatch = useDispatch();
   const termname = useSelector((state) => state.termname);
   function handleFormChange(event, termname) {
@@ -24,12 +23,15 @@ export default function Svg2(props) {
   }
 
   const [data, setData] = useState([]);
-
+  const [top, setTop] = useState([]);
+  const [left, setLeft] = useState([]);
   useEffect(() => {
     axios
       .get("/JsonFiles/MaviKutu.json")
       .then((response) => {
         setData(response.data.data);
+        setTop(response.data.data.defectButtonRecords.boxY);
+        setLeft(response.data.data.defectButtonRecords.boxX);
       })
       .catch((error) => {
         console.error("Bir hata oluştu:", error);
@@ -52,6 +54,7 @@ export default function Svg2(props) {
       .get("/JsonFiles/MaviKutu.json")
       .then((res) => {
         setListdata(res.data.data);
+        
       })
       .catch((err) => console.log(err));
   }, []);
@@ -75,7 +78,6 @@ export default function Svg2(props) {
 
   const arr2 = data.map((item, i) =>
     item.defectButtonRecords.map((subitem) => (
-      
       <foreignObject
         key={i}
         x={subitem.boxX}
@@ -92,19 +94,19 @@ export default function Svg2(props) {
     ))
   );
   const arr3 = data.map((item) =>
-  item.defectButtonRecords.map((subitem, index) =>
-    subitem.lineX !== -100 ? (
-      <line
-        key={index}
-        x1={subitem.boxX + subitem.boxWidth / 2}
-        y1={subitem.boxY + subitem.boxHeight / 2}
-        x2={subitem.lineX}
-        y2={subitem.lineY}
-        stroke="red"
-      />
-    ) : null
-  )
-);
+    item.defectButtonRecords.map((subitem, index) =>
+      subitem.lineX !== -100 ? (
+        <line
+          key={index}
+          x1={subitem.boxX + subitem.boxWidth / 2}
+          y1={subitem.boxY + subitem.boxHeight / 2}
+          x2={subitem.lineX}
+          y2={subitem.lineY}
+          stroke="red"
+        />
+      ) : null
+    )
+  );
   const arrlist = listdata.map((data, index) => {
     return (
       <Grid key={index}>
@@ -127,7 +129,7 @@ export default function Svg2(props) {
       </Grid>
     );
   });
-  
+
   const [clickedCoords, setClickedCoords] = useState([]);
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
@@ -175,7 +177,10 @@ export default function Svg2(props) {
   }
   return (
     <div>
+      <Grid>
       <svg
+       width="750"
+       height="450"
         viewBox="0 0 1000 600"
         preserveAspectRatio="none"
         onClick={handleClick}
@@ -187,7 +192,9 @@ export default function Svg2(props) {
             {arr}
             {arr2}
             {arr3}
+            
           </>
+          
         )}
 
         {gosterpointer && (
@@ -206,8 +213,8 @@ export default function Svg2(props) {
       <Grid
         sx={{
           position: "absolute",
-          top: " 23vh",
-          left: " 40vw",
+          top: "20vh",
+          left: "22vw",
           zIndex: 999,
           width: "20vw",
         }}
@@ -222,7 +229,6 @@ export default function Svg2(props) {
                   onChange={handleFormChange}
                   container="true"
                   sx={{
-                    
                     overflowY: "scroll",
                     overflowX: "hidden",
                     maxHeight: "40vh",
@@ -232,17 +238,37 @@ export default function Svg2(props) {
                 </Box>
               </Grid>
               <Grid item xs={4}>
-                <Button  sx={{backgroundColor:"#c6ffc8",width:"100%",border:1,borderColor:"black",height:"17%"}} onClick={() => handleScroll("up")}>
-                  <KeyboardArrowUpIcon sx={{color:"black"}}/>
+                <Button
+                  sx={{
+                    backgroundColor: "#c6ffc8",
+                    width: "100%",
+                    border: 1,
+                    borderColor: "black",
+                    height: "17%",
+                  }}
+                  onClick={() => handleScroll("up")}
+                >
+                  <KeyboardArrowUpIcon sx={{ color: "black" }} />
                 </Button>
-                <Button sx={{backgroundColor:"#c6ffc8",width:"100%",border:1,borderColor:"black",height:"17%"}} onClick={() => handleScroll("down")}>
-                  <KeyboardArrowDownIcon sx={{color:"black"}} />
+                <Button
+                  sx={{
+                    backgroundColor: "#c6ffc8",
+                    width: "100%",
+                    border: 1,
+                    borderColor: "black",
+                    height: "17%",
+                  }}
+                  onClick={() => handleScroll("down")}
+                >
+                  <KeyboardArrowDownIcon sx={{ color: "black" }} />
                 </Button>
               </Grid>
             </Grid>
           </div>
         )}
       </Grid>
+      </Grid>
+      
     </div>
   );
 }

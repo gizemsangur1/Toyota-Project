@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Svg(props) {
   const dispatch = useDispatch();
-  const partname = useSelector((state) => state.partname);
-  function handleFormChange(event,color,name) {
-  
+  function handleFormChange(event, color, name) {
     dispatch({
       type: "SET_PARTNAME",
       partname: name,
@@ -27,15 +25,16 @@ export default function Svg(props) {
       });
   }, []);
 
-
   const arr = data.map((item) =>
-    item.defectButtonRecords.map((subitem,index) => (
+    item.defectButtonRecords.map((subitem, index) => (
       <rect
         key={index}
         x={subitem.boxX}
         y={subitem.boxY}
         fill="transparent"
-        onClick={(event)=>handleFormChange(event, subitem.boxColor,subitem.labelText)}
+        onClick={(event) =>
+          handleFormChange(event, subitem.boxColor, subitem.labelText)
+        }
         width={subitem.boxWidth}
         height={subitem.boxHeight}
         stroke={subitem.boxColor}
@@ -44,9 +43,9 @@ export default function Svg(props) {
     ))
   );
   const arr2 = data.map((item) =>
-    item.defectButtonRecords.map((subitem,index) => (
+    item.defectButtonRecords.map((subitem, index) => (
       <foreignObject
-      key={index}
+        key={index}
         x={subitem.boxX}
         y={subitem.boxY}
         width={subitem.boxWidth - 5}
@@ -58,26 +57,30 @@ export default function Svg(props) {
           </Typography>
         </div>
       </foreignObject>
-     
     ))
   );
   const arr3 = data.map((item) =>
-  item.defectButtonRecords.map((subitem, index) =>
-    subitem.lineX !== -100 ? (
-      <line
-        key={index}
-        x1={subitem.boxX + subitem.boxWidth / 2}
-        y1={subitem.boxY + subitem.boxHeight / 2}
-        x2={subitem.lineX}
-        y2={subitem.lineY}
-        stroke="red"
-      />
-    ) : null
-  )
-);
+    item.defectButtonRecords.map((subitem, index) =>
+      subitem.lineX !== -100 ? (
+        <line
+          key={index}
+          x1={subitem.boxX + subitem.boxWidth / 2}
+          y1={subitem.boxY + subitem.boxHeight / 2}
+          x2={subitem.lineX}
+          y2={subitem.lineY}
+          stroke="red"
+        />
+      ) : null
+    )
+  );
   return (
     <div>
-      <svg viewBox="0 0 1000 600" preserveAspectRatio="none">
+      <svg
+        /* width="750"
+        height="450" */
+        viewBox="0 0 1000 600"
+        preserveAspectRatio="none"
+      >
         <image href="car1.jpg" />
         {arr}
         {arr2}
@@ -85,5 +88,4 @@ export default function Svg(props) {
       </svg>
     </div>
   );
-} 
-
+}

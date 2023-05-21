@@ -18,6 +18,7 @@ import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";
 export default function HataForm(props) {
+
   const [inputs, setInputs] = useState({});
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
@@ -62,7 +63,7 @@ export default function HataForm(props) {
   const [defectclass, setDefectclass] = React.useState("");
   const [defectresponsible, setDefectresponsible] = React.useState("");
   const [subresponsible, setSubresponsible] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  /* const [description, setDescription] = React.useState(""); */
   const [action, setAction] = React.useState("");
 
   const handleChangeexit = (event) => {
@@ -118,13 +119,15 @@ export default function HataForm(props) {
   const fontdata = props.fontdata;
   const buyukfont = {
     partName: fontdata.partname,
-    description: description,
+   /*  description: description, */
     defectName: fontdata.termlist,
   };
+  
   const dispatch = useDispatch();
   const coord = useSelector((state) => state.coord);
   const coords = useSelector((state) => state.coords);
-  function handleClik() {
+  /* const description = useSelector((state) => state.description); */
+  function handleClik() {   
     console.log(exitdepartment);
     console.log(rdd);
     console.log(defectclass);
@@ -132,7 +135,6 @@ export default function HataForm(props) {
     console.log(subresponsible);
     console.log(document.getElementById("action").value);
     console.log(document.getElementById("description").value);
-    console.log(coord);
     props.onKaydedildi();
   }
 

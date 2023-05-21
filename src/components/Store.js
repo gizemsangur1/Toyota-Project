@@ -1,9 +1,11 @@
-import { legacy_createStore as createStore } from "redux";
+/* import { legacy_createStore as createStore } from "redux"; */
+const { legacy_createStore } = require('redux');
 const initialState = {
   termname: "",
   partname: "",
   coord: "",
   shift: "",
+  description:"",
 };
 
 function reducer(state = initialState, action) {
@@ -27,5 +29,5 @@ function reducer(state = initialState, action) {
 export function resetAll() {
   return { type: "RESET_ALL" };
 } 
-const store = createStore(reducer);
-export default store;
+const Store = legacy_createStore(reducer);
+export default Store;
