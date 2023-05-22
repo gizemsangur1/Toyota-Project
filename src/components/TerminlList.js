@@ -59,7 +59,7 @@ export default function TerminlList(props) {
     return (
       <MenuItem
         key={index}
-        value={data.lastAssyNo}
+        value={data.termName}
         onClick={(event) => handleChange(event, data.termName)}
         sx={{ minWidth: 300, backgroundColor: " #c6ffc8" }}
       >

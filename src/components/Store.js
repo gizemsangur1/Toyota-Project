@@ -1,17 +1,19 @@
 /* import { legacy_createStore as createStore } from "redux"; */
-const { legacy_createStore } = require('redux');
+const { legacy_createStore } = require("redux");
 const initialState = {
   termname: "",
   partname: "",
   coord: "",
   shift: "",
-  description:"",
+  description: "",
+  buttonName: "",
+  montajno: "",
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "RESET_ALL":
-      return { ...state,termname: "", partname: "" }; 
+      return { ...state, termname: "", partname: "" };
     case "SET_TERMNAME":
       return { ...state, termname: action.termname };
     case "SET_PARTNAME":
@@ -20,7 +22,10 @@ function reducer(state = initialState, action) {
       return { ...state, coord: action.coord };
     case "SET_SHIFT":
       return { ...state, shift: action.shift };
-
+    case "SET_BUTTONNAME":
+      return { ...state, buttonName: action.buttonName };
+    case "SET_MONTAJNO":
+      return { ...state, montajno: action.montajno };
     default:
       return state;
   }
@@ -28,6 +33,6 @@ function reducer(state = initialState, action) {
 
 export function resetAll() {
   return { type: "RESET_ALL" };
-} 
+}
 const Store = legacy_createStore(reducer);
 export default Store;

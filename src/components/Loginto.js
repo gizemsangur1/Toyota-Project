@@ -5,6 +5,7 @@ import { Formik, Form, useFormik } from "formik";
 import * as Yup from "yup";
 import { Grid, Button, TextField, Typography, Alert } from "@mui/material";
 import TerminlList from "./TerminlList";
+import { ToastContainer, toast } from "react-toastify";
 import SelectDate from "./SelectDate";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -15,28 +16,25 @@ import { useTranslation } from "react-i18next";
 import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";
+import { useSelector } from "react-redux";
 export default function Loginto() {
   const { buttonName } = useParams();
   const [inputs, setInputs] = useState({});
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
   const keyboard = useRef();
- 
+
   const onChangeAll = (inputs) => {
     setInputs({ ...inputs });
   };
 
-  const handleShift = () => {
-    
-  };
+  const handleShift = () => {};
 
   const onKeyPress = (button) => {
     if (button === "{shift}" || button === "{lock}") {
-     
     }
   };
   useEffect(() => {
-    
     setLayoutName(navigator.language);
   });
   const onChangeInput = (event) => {
@@ -55,6 +53,7 @@ export default function Loginto() {
 
   const { t, i18n } = useTranslation();
   const [termlist, setTermlist] = useState("");
+  const [termlistm, setTermlistm] = useState("");
   const dispatch = useDispatch();
   const GetData = (value) => {
     setTermlist(value);
@@ -78,21 +77,25 @@ export default function Loginto() {
       .catch((err) => console.log(err));
   }, []);
   const [error, setError] = useState("");
-
+  const buttonname = useSelector((state) => state.buttonName);
   const formik = useFormik({
     initialValues: {
       sicilno: "",
       sifre: "",
-      montajno: termlist,
+      montajno: "",
     },
 
     onSubmit: (values) => {
-      values.montajno = termlist;
+      values.montajno = document.getElementById("montajno").value;
       values.sicilno = document.getElementById("sicilno").value;
       values.sifre = document.getElementById("password").value;
+      dispatch({
+        type: "SET_MONTAJNO",
+        montajno: document.getElementById("montajno").value,
+      });
       LoginSchema.validate(values)
         .then(() => {
-          const nextPage = "/HataGiris?" + buttonName;
+          const nextPage = `/HataGiris?${buttonname}&${document.getElementById("montajno").value}`;
           navigate(nextPage);
           /*  navigate("/HataGiris"); */
         })
@@ -101,22 +104,44 @@ export default function Loginto() {
         });
     },
   });
-
+  const notifyMe = (message) => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
   const LoginSchema = Yup.object().shape({
-    montajno: Yup.string().required("Montaj no gerekli"),
+    montajno: Yup.string()
+      .min(5, ({ min }) => {
+        notifyMe(`Montaj No en az ${min} karakter olmalı!`);
+        return "";
+      })
+      .required("Montaj No gerekli")
+      .test("match", "", function (montajno) {
+        return parseInt(montajno) === 44444;
+      }),
     sicilno: Yup.string()
-
-      .min(5, "Sicilno minimum 5 karakter olmali")
-
-      .required("Sicilno gerekli")
-      .test("match", "Sicilno yanlış", function (sicilno) {
+      .min(5, ({ min }) => {
+        notifyMe(`sicil No en az ${min} karakter olmalı!`);
+        return "";
+      })
+      .required(" ")
+      .test("match", "", function (sicilno) {
         return parseInt(sicilno) === 26917;
+      })
+      .test("notify", "", function (sicilno) {
+        if (this.createError) {
+          notifyMe("Kullanıcı bulunamadı");
+          this.createError({ message: "" });
+        }
+        return true;
       }),
     sifre: Yup.string()
-
-      .min(3, "Sifre mininmum 3 karakter olmali")
-      .required("Sifre gerekli")
-      .test("match", "Şifre yanlış", function (passw) {
+      .min(3, ({ min }) => {
+        notifyMe(`Şifre en az ${min} karakter olmalı!`);
+        return "";
+      })
+      .required("Şifre gerekli")
+      .test("match", "", function (passw) {
         return parseInt(passw) === 233;
       }),
   });
@@ -195,7 +220,7 @@ export default function Loginto() {
                             sx={{
                               border: 1,
                               borderRadius: 1,
-                              borderColor:"#98C49A",
+                              borderColor: "#98C49A",
                               height: "55px",
                               minWidth: "100%",
                               alignContent: "flex-end",
@@ -231,7 +256,7 @@ export default function Loginto() {
                             type="text"
                             name="sicilno"
                             id="sicilno"
-                            sx={{minWidth:"100%"}}
+                            sx={{ minWidth: "100%" }}
                             value={getInputValue("sicilno")}
                             onFocus={() => setInputName("sicilno")}
                             onChange={onChangeInput}
@@ -259,7 +284,7 @@ export default function Loginto() {
                             type="password"
                             name="password"
                             id="password"
-                            sx={{minWidth:"100%"}}
+                            sx={{ minWidth: "100%" }}
                             value={getInputValue("password")}
                             onFocus={() => setInputName("password")}
                             onChange={onChangeInput}
@@ -282,32 +307,47 @@ export default function Loginto() {
                           xs={8}
                           justifyContent="left"
                           alignItems="center"
-                          
                         >
                           <TextField
                             type="text"
                             name="montajno"
-                            onChange={formik.handleChange}
-                            value={termlist}
-                            sx={{minWidth:"100%"}}
+                            id="montajno"
+                            onFocus={() => setInputName("montajno")}
+                            onChange={onChangeInput}
+                            value={getInputValue("montajno")}
+                            sx={{ minWidth: "100%" }}
                           />
                         </Grid>
                       </Grid>
                       <Grid
                         container
                         direction="row"
-                        sx={{ marginTop: 1, backgroundColor: color,borderRadius:2 }}
+                        sx={{
+                          marginTop: 1,
+                          backgroundColor: color,
+                          borderRadius: 2,
+                        }}
                       >
-                        <Grid item container xs={8} >
-                          <Grid item xs={2} >
-                            <Typography htmlFor="tarih" sx={{position:"relative",top:"35%"}}>{t("Date")}</Typography>
+                        <Grid item container xs={8}>
+                          <Grid item xs={2}>
+                            <Typography
+                              htmlFor="tarih"
+                              sx={{ position: "relative", top: "35%" }}
+                            >
+                              {t("Date")}
+                            </Typography>
                           </Grid>
                           <Grid item xs={10}>
                             <SelectDate />
                           </Grid>
                         </Grid>
                         <Grid item container xs={4}>
-                          <Typography htmlFor="shift" sx={{position:"relative",top:"35%"}}>{t("Shift")}</Typography>
+                          <Typography
+                            htmlFor="shift"
+                            sx={{ position: "relative", top: "35%" }}
+                          >
+                            {t("Shift")}
+                          </Typography>
                           <FormControl sx={{ m: 1, minWidth: 80 }}>
                             <Select
                               labelId="demo-simple-select-autowidth-label"
@@ -322,33 +362,32 @@ export default function Loginto() {
                         </Grid>
                       </Grid>
                       <Grid container direction="row" sx={{ marginTop: 1 }}>
-                        <Grid item xs={6} sx={{paddingRight:0.5}}>
+                        <Grid item xs={6} sx={{ paddingRight: 0.5 }}>
                           <Button
                             type="submit"
                             name="submit"
                             sx={{
                               backgroundColor: " black",
-                              marginRight:0.5,
+                              marginRight: 0.5,
                               color: "white",
                               borderRadius: 1,
-                              height:"7vh",
-                              width:"100%"
+                              height: "7vh",
+                              width: "100%",
                             }}
                             onClick={handleSubmit}
                           >
                             {t("Login")}
                           </Button>
                         </Grid>
-                        <Grid item xs={6}sx={{paddingLeft:0.5}}>
+                        <Grid item xs={6} sx={{ paddingLeft: 0.5 }}>
                           <Button
                             type="close"
                             sx={{
                               backgroundColor: " red",
                               color: "white",
                               borderRadius: 1,
-                              height:"7vh",
-                              width:"100%"
-                              
+                              height: "7vh",
+                              width: "100%",
                             }}
                             onClick={closelogin}
                           >
@@ -360,24 +399,26 @@ export default function Loginto() {
                   )}
                 </Formik>
               </Grid>
-              <Grid item xs={1.5} ></Grid>
-              <Grid item sx={{width:"100%",height:"100%",minHeight:"45vh"}}>
+              <Grid item xs={1.5}></Grid>
+              <Grid
+                item
+                sx={{ width: "100%", height: "100%", minHeight: "45vh" }}
+              >
                 <KeyboardReact
-                keyboardRef={(r) => (keyboard.current = r)}
-                inputName={inputName}
-                layoutName={layoutName}
-                layout={languageLayouts}
-                onChangeAll={onChangeAll}
-                onKeyPress={onKeyPress}
-                
-              />
+                  keyboardRef={(r) => (keyboard.current = r)}
+                  inputName={inputName}
+                  layoutName={layoutName}
+                  layout={languageLayouts}
+                  onChangeAll={onChangeAll}
+                  onKeyPress={onKeyPress}
+                />
               </Grid>
-              
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>
+      <ToastContainer />
     </div>
   );
 }

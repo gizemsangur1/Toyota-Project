@@ -4,12 +4,13 @@ import { AppBar, Button, Grid } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useTranslation  } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 function Terminals() {
-  const{t,i18n}=useTranslation();
-  
+  const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
 
   const theme = createTheme({
     components: {
@@ -30,8 +31,13 @@ function Terminals() {
   });
 
   const navigate = useNavigate();
+
   const navigateToLogin = (buttonName) => {
-    const nextPage = '/Login?' + buttonName;
+    dispatch({
+      type: "SET_BUTTONNAME",
+      buttonName: buttonName,
+    });
+    const nextPage = "/Login?" + buttonName;
     navigate(nextPage);
   };
 
@@ -48,7 +54,6 @@ function Terminals() {
   const arr = data.map((data, index) => {
     return (
       <Grid container direction="row" sx={{ lineHeight: 1 }} key={index}>
-        
         <Grid item xs={2} sx={{ borderRight: 1, borderBottom: 1 }}>
           <Typography sx={{ padding: 1 }}>{data.depName}</Typography>
         </Grid>
@@ -128,15 +133,15 @@ function Terminals() {
               >
                 Complete Vehicle Quality
               </Typography>
-              
+
               <Button color="inherit" sx={{ color: "red" }}>
-                {t('Help')}
+                {t("Help")}
               </Button>
               <Button color="inherit" sx={{ color: "red" }}>
-                {t('MainPage')}
+                {t("MainPage")}
               </Button>
               <Button color="inherit" sx={{ color: "red" }}>
-                {t('Support')}
+                {t("Support")}
               </Button>
             </Toolbar>
           </AppBar>
@@ -148,7 +153,7 @@ function Terminals() {
           <Grid container direction="row">
             <Grid item xs={12} sx={{ borderBottom: 1, textAlign: "center" }}>
               <Typography sx={{ textDecorationLine: "underline" }}>
-                {t('Allterminals')}
+                {t("Allterminals")}
               </Typography>
             </Grid>
           </Grid>
@@ -158,10 +163,10 @@ function Terminals() {
               xs={2}
               sx={{ borderRight: 1, borderBottom: 1, textAlign: "center" }}
             >
-              <Typography>{t('Dep')}</Typography>
+              <Typography>{t("Dep")}</Typography>
             </Grid>
             <Grid item xs={10} sx={{ borderBottom: 1, textAlign: "center" }}>
-              <Typography>{t('FBase')}</Typography>
+              <Typography>{t("FBase")}</Typography>
             </Grid>
           </Grid>
           {arr}

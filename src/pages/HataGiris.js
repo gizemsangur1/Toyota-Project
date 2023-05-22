@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { React, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { CheckBoxOutlineBlank } from "@mui/icons-material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetAll } from "../components/Store";
 import { useTranslation } from "react-i18next";
 export default function HataGiris(props) {
+  /* const { buttonname } = useParams();
+  const { termlistm } = useParams(); */
   const { t, i18n } = useTranslation();
   const coord = useSelector((state) => state.coord);
   const [clickedCoordinates, setClickedCoords] = useState([]);
@@ -110,9 +112,11 @@ export default function HataGiris(props) {
     setIsButtonDisabled(false);
   };
   const navigate = useNavigate();
-
+  const buttonname = useSelector((state) => state.buttonName);
+  const montajno = useSelector((state) => state.montajno);
   const navigateToHataListesi = () => {
-    navigate("/HataListeleme");
+    const nextPage = `/HataListeleme?${buttonname}&${montajno}`;
+          navigate(nextPage);
   };
   const navigateBack = () => {
     navigate(-1);
