@@ -76,8 +76,8 @@ export default function Svg(props) {
   return (
     <div>
       <svg
-         width="750"
-        height="450" 
+         width="100%"
+        height="100%" 
         viewBox="0 0 1000 600"
         preserveAspectRatio="none"
       >

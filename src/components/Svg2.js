@@ -30,9 +30,14 @@ export default function Svg2(props) {
       .get("/JsonFiles/MaviKutu.json")
       .then((response) => {
         setData(response.data.data);
-        setTop(response.data.data[0].defectButtonRecords[0].boxY+response.data.data[0].defectButtonRecords[0].boxWidth);
-      setLeft(response.data.data[0].defectButtonRecords[0].boxX+response.data.data[0].defectButtonRecords[0].boxWidth)
-        
+        setTop(
+          response.data.data[0].defectButtonRecords[0].boxY +
+            response.data.data[0].defectButtonRecords[0].boxWidth
+        );
+        setLeft(
+          response.data.data[0].defectButtonRecords[0].boxX +
+            response.data.data[0].defectButtonRecords[0].boxWidth
+        );
       })
       .catch((error) => {
         console.error("Bir hata oluştu:", error);
@@ -128,7 +133,68 @@ export default function Svg2(props) {
       </Grid>
     );
   });
-
+  const arr4 = (
+   
+        <div>
+          
+            <Grid
+              id="selectbox"
+              sx={{
+                position: "absolute",
+                top: "8vw",
+                left: "30vw",
+                zIndex: 999,
+                width: "20vw",
+              }}
+            >
+              <div>
+                <Grid container>
+                  <Grid item xs={8}>
+                    <Box
+                      id="scrollable-box"
+                      value={selectedName}
+                      onChange={handleFormChange}
+                      container="true"
+                      sx={{
+                        overflowY: "scroll",
+                        overflowX: "hidden",
+                        maxHeight: "40vh",
+                      }}
+                    >
+                      {arrlist}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      sx={{
+                        backgroundColor: "#c6ffc8",
+                        width: "100%",
+                        border: 1,
+                        borderColor: "black",
+                        height: "17%",
+                      }}
+                      onClick={() => handleScroll("up")}
+                    >
+                      <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                    </Button>
+                    <Button
+                      sx={{
+                        backgroundColor: "#c6ffc8",
+                        width: "100%",
+                        border: 1,
+                        borderColor: "black",
+                        height: "17%",
+                      }}
+                      onClick={() => handleScroll("down")}
+                    >
+                      <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                    </Button>
+                  </Grid>
+                </Grid>
+              </div>
+            </Grid>
+        </div>
+  );
   const [clickedCoords, setClickedCoords] = useState([]);
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
@@ -174,18 +240,26 @@ export default function Svg2(props) {
       }
     }
   }
+  const calculateNewPath = () => {
+    const newPath = `M${clickedCoords.x} ${clickedCoords.y} L${
+      clickedCoords.x + 25
+    } ${60 + clickedCoords.y} L${-2 + clickedCoords.x} ${
+      clickedCoords.y + 70
+    } Z`;
+    return newPath;
+  };
   return (
     <div>
       <Grid>
         <svg
-           width="750"
-       height="450" 
+          width="100%"
+          height="100%"
           viewBox="0 0 1000 600"
           preserveAspectRatio="none"
           onClick={handleClick}
         >
           <image href="car2.jpg" />
-
+          
           {gostersvg && (
             <>
               {arr}
@@ -195,75 +269,23 @@ export default function Svg2(props) {
           )}
 
           {gosterpointer && (
-            <>
-              <svg>
-                <circle
-                  cx={clickedCoords.x}
-                  cy={clickedCoords.y}
-                  r="10"
-                  fill="red"
-                />
-              </svg>
-            </>
+            <svg>
+              <path
+                d={calculateNewPath()}
+                fill="#9cff9f"
+                stroke="#7aff7f"
+                strokeWidth="2"
+              />
+            </svg>
           )}
         </svg>
-        <Grid
-          sx={{
-            position: "absolute",
-            top: top,
-            left: left,
-            zIndex: 999,
-            width: "20vw",
-          }}
-        >
-          {goster && (
-            <div>
-              <Grid container>
-                <Grid item xs={8}>
-                  <Box
-                    id="scrollable-box"
-                    value={selectedName}
-                    onChange={handleFormChange}
-                    container="true"
-                    sx={{
-                      overflowY: "scroll",
-                      overflowX: "hidden",
-                      maxHeight: "40vh",
-                    }}
-                  >
-                    {arrlist}
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Button
-                    sx={{
-                      backgroundColor: "#c6ffc8",
-                      width: "100%",
-                      border: 1,
-                      borderColor: "black",
-                      height: "17%",
-                    }}
-                    onClick={() => handleScroll("up")}
-                  >
-                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
-                  </Button>
-                  <Button
-                    sx={{
-                      backgroundColor: "#c6ffc8",
-                      width: "100%",
-                      border: 1,
-                      borderColor: "black",
-                      height: "17%",
-                    }}
-                    onClick={() => handleScroll("down")}
-                  >
-                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
+        {goster && (
+            <>
+            {arr4}
+            </>
+            
+
           )}
-        </Grid>
       </Grid>
     </div>
   );

@@ -6,6 +6,7 @@ import { toast, useToast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 const Hatalistesi = lazy(() => import("../components/Hatalistesi"));
 
 export default function HataListeleme(props) {
@@ -31,7 +32,10 @@ export default function HataListeleme(props) {
   const handleClick = () => {
     setShowErrorList(true);
   };
-
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
   const [scrollPosition, setScrollPosition] = useState(0);
 
   function handleScroll(direction) {
@@ -320,6 +324,7 @@ export default function HataListeleme(props) {
                   minWidth: "8vw",
                   minHeight: "17vh",
                 }}
+                onClick={goBack}
               >
                 {t("Exit")}
               </Button>

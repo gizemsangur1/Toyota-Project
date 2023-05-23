@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import keyboardv from "react-virtual-keyboard"
 import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";

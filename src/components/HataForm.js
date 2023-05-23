@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";
+import { ToastContainer, toast } from "react-toastify";
 export default function HataForm(props) {
-
   const [inputs, setInputs] = useState({});
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
@@ -119,23 +119,42 @@ export default function HataForm(props) {
   const fontdata = props.fontdata;
   const buyukfont = {
     partName: fontdata.partname,
-   /*  description: description, */
     defectName: fontdata.termlist,
   };
+  const notifyMe = () => {
+    const pcoord = coord;
+    const pexitdepartment = exitdepartment;
+    const prdd = rdd;
+    const pdefectclass = defectclass;
+    const psubresponsible = subresponsible;
+    const paction = document.getElementById("action").value;
+    const pdescription = document.getElementById("description").value;
+    const message = (
+      <div>
+        <p>Koordinat: {pcoord.x} {pcoord.y}</p>
+        <p>Exit Department: {pexitdepartment}</p>
+        <p>RDD: {prdd}</p>
+        <p>Defect Class: {pdefectclass}</p>
+        <p>Sub Responsible: {psubresponsible}</p>
+        <p>Action: {paction}</p>
+        <p>Description: {pdescription}</p>
+      </div>
+    );
   
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_LEFT,
+      autoClose: 4000, 
+      hideProgressBar: false, 
+      closeOnClick: true,
+      pauseOnHover: true, 
+      draggable: true,
+    });
+  };
   const dispatch = useDispatch();
   const coord = useSelector((state) => state.coord);
   const coords = useSelector((state) => state.coords);
-  /* const description = useSelector((state) => state.description); */
-  function handleClik() {   
-    console.log(exitdepartment);
-    console.log(rdd);
-    console.log(defectclass);
-    console.log(defectresponsible);
-    console.log(subresponsible);
-    console.log(coord);
-    console.log(document.getElementById("action").value);
-    console.log(document.getElementById("description").value);
+  function handleClik() {
+    notifyMe();
     props.onKaydedildi();
   }
 
@@ -143,11 +162,16 @@ export default function HataForm(props) {
     if (data.controlType === "CMB") {
       if (data.englishUserName === "Exit Department") {
         return (
-          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+          <Grid
+            container
+            direction="row"
+            key={index}
+            sx={{ marginBottom: 0.5, alignItems: "center" }}
+          >
             <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center"}}>
+            <Grid item xs={4} sx={{ textAlign: "center" }}>
               <FormControl sx={{ minWidth: "100%" }}>
                 <Select value={exitdepartment} onChange={handleChangeexit}>
                   {select.map((item, i) => {
@@ -160,7 +184,7 @@ export default function HataForm(props) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={2} sx={{ textAlign: "center"  }}>
+            <Grid item xs={2} sx={{ textAlign: "center" }}>
               <FormControlLabel
                 control={<CheckBoxOutlineBlank />}
                 label="Harigami"
@@ -170,7 +194,6 @@ export default function HataForm(props) {
               <Typography>RDD</Typography>
             </Grid>
             <Grid item xs={2} sx={{ textAlign: "left" }}>
-              
               <FormControl sx={{ minWidth: "100%" }}>
                 <Select value={rdd} onChange={handleChangerdd}>
                   {Nrlist.map((item, i) => {
@@ -187,7 +210,12 @@ export default function HataForm(props) {
         );
       } else if (data.englishUserName === "Defect Class") {
         return (
-          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+          <Grid
+            container
+            direction="row"
+            key={index}
+            sx={{ marginBottom: 0.5, alignItems: "center" }}
+          >
             <Grid item xs={3} sx={{ textAlign: "center" }}>
               <Typography sx={{ textAlign: "left" }}>
                 {data.englishUserName}
@@ -244,7 +272,12 @@ export default function HataForm(props) {
         );
       } else if (data.englishUserName === "Defect Responsibles") {
         return (
-          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+          <Grid
+            container
+            direction="row"
+            key={index}
+            sx={{ marginBottom: 0.5, alignItems: "center" }}
+          >
             <Grid item xs={3} sx={{ alignContent: "center" }}>
               <Typography sx={{ textAlign: "left" }}>
                 {data.englishUserName}
@@ -270,7 +303,12 @@ export default function HataForm(props) {
         );
       } else {
         return (
-          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+          <Grid
+            container
+            direction="row"
+            key={index}
+            sx={{ marginBottom: 0.5, alignItems: "center" }}
+          >
             <Grid item xs={3} sx={{ textAlign: "center" }}>
               <Typography sx={{ textAlign: "left" }}>
                 {data.englishUserName}
@@ -295,7 +333,12 @@ export default function HataForm(props) {
     } else {
       if (data.userName === "Açıklama") {
         return (
-          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+          <Grid
+            container
+            direction="row"
+            key={index}
+            sx={{ marginBottom: 0.5, alignItems: "center" }}
+          >
             <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
@@ -314,7 +357,12 @@ export default function HataForm(props) {
         );
       } else {
         return (
-          <Grid container direction="row" key={index} sx={{marginBottom:0.5,alignItems:"center" }}>
+          <Grid
+            container
+            direction="row"
+            key={index}
+            sx={{ marginBottom: 0.5, alignItems: "center" }}
+          >
             <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
@@ -336,28 +384,30 @@ export default function HataForm(props) {
   });
 
   return (
-    
-    <Grid container direction="row" sx={{padding:2}}>
-      <Grid container sx={{marginBottom:0.5}}>
-        <Grid item xs={10}>
-          <Typography>CVQS(TMMT)</Typography>
+    <>
+      <Grid container direction="row" sx={{ padding: 2 }}>
+        <Grid container sx={{ marginBottom: 0.5 }}>
+          <Grid item xs={10}>
+            <Typography>CVQS(TMMT)</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <FormControlLabel
+              control={<CheckBoxOutlineBlank />}
+              label="Sık gelen hata"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={2} >
-        <FormControlLabel
-                control={<CheckBoxOutlineBlank />}
-                label="Sık gelen hata"
-              />
-        </Grid>
+        {arr}
+        <KeyboardReact
+          keyboardRef={(r) => (keyboard.current = r)}
+          inputName={inputName}
+          layoutName={layoutName}
+          layout={languageLayouts}
+          onChangeAll={onChangeAll}
+          onKeyPress={onKeyPress}
+        />
       </Grid>
-      {arr}
-      <KeyboardReact
-        keyboardRef={(r) => (keyboard.current = r)}
-        inputName={inputName}
-        layoutName={layoutName}
-        layout={languageLayouts}
-        onChangeAll={onChangeAll}
-        onKeyPress={onKeyPress}
-      />
-    </Grid>
+      <ToastContainer />
+    </>
   );
 }

@@ -22,15 +22,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetAll } from "../components/Store";
 import { useTranslation } from "react-i18next";
 export default function HataGiris(props) {
-  /* const { buttonname } = useParams();
-  const { termlistm } = useParams(); */
   const { t, i18n } = useTranslation();
   const coord = useSelector((state) => state.coord);
   const [clickedCoordinates, setClickedCoords] = useState([]);
   const notifyMe = () => {
-    toast.success("Kaydedildi!", {
-      position: toast.POSITION.TOP_CENTER,
-    });
+   
     closeform();
     setShowComponent2(false);
     setIsButtonDisabled(true);
@@ -57,7 +53,6 @@ export default function HataGiris(props) {
             border: "1",
             color: "black",
             margin: 5,
-            /* fontSize: "1.2vw", */
             width: "auto",
             height: "auto",
             minWidth: "15vw",
@@ -187,7 +182,6 @@ export default function HataGiris(props) {
           justifyContent="center"
           alignItems="center"
         >
-          {/* <Grid item xs={1}></Grid> */}
           <Grid
             container
             item
@@ -345,8 +339,7 @@ export default function HataGiris(props) {
                       control={<CheckBoxOutlineBlank defaultChecked />}
                       label="Harigami"
                     />
-                    {/*  </Grid>
-                <Grid container item lg={12} md={2} xs={2}> */}
+                    
                     <FormControlLabel
                       control={<CheckBoxOutlineBlank defaultChecked />}
                       label="RDD"
@@ -479,7 +472,7 @@ export default function HataGiris(props) {
               </Grid>
             </ThemeProvider>
           </Grid>
-          {/*  <Grid item xs={1}></Grid> */}
+        
           {showForm && (
             <Grid
               sx={{
@@ -502,7 +495,6 @@ export default function HataGiris(props) {
           )}
         </Grid>
       )}
-
       <ToastContainer />
     </div>
   );
