@@ -483,7 +483,7 @@ export default function HataGiris(props) {
                 top: 40,
                 left: 50,
                 width: "90%",
-                height: "90%",
+                height: "90vh",
               }}
             >
               <HataForm

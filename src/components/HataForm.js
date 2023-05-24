@@ -131,7 +131,9 @@ export default function HataForm(props) {
     const pdescription = document.getElementById("description").value;
     const message = (
       <div>
-        <p>Koordinat: {pcoord.x} {pcoord.y}</p>
+        <p>
+          Koordinat: {pcoord.x} {pcoord.y}
+        </p>
         <p>Exit Department: {pexitdepartment}</p>
         <p>RDD: {prdd}</p>
         <p>Defect Class: {pdefectclass}</p>
@@ -140,13 +142,13 @@ export default function HataForm(props) {
         <p>Description: {pdescription}</p>
       </div>
     );
-  
+
     toast.success(message, {
       position: toast.POSITION.BOTTOM_LEFT,
-      autoClose: 4000, 
-      hideProgressBar: false, 
+      autoClose: 4000,
+      hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true, 
+      pauseOnHover: true,
       draggable: true,
     });
   };
@@ -172,8 +174,12 @@ export default function HataForm(props) {
               <Typography>{data.userName}</Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormControl sx={{ minWidth: "100%" }}>
-                <Select value={exitdepartment} onChange={handleChangeexit}>
+              <FormControl sx={{ minWidth: "100%", height: "6vh" }}>
+                <Select
+                  value={exitdepartment}
+                  onChange={handleChangeexit}
+                  sx={{ minWidth: "100%", height: "6vh" }}
+                >
                   {select.map((item, i) => {
                     return (
                       <MenuItem key={i} value={item.dataValue}>
@@ -194,8 +200,12 @@ export default function HataForm(props) {
               <Typography>RDD</Typography>
             </Grid>
             <Grid item xs={2} sx={{ textAlign: "left" }}>
-              <FormControl sx={{ minWidth: "100%" }}>
-                <Select value={rdd} onChange={handleChangerdd}>
+              <FormControl sx={{ minWidth: "100%", height: "6vh" }}>
+                <Select
+                  value={rdd}
+                  onChange={handleChangerdd}
+                  sx={{ minWidth: "100%", height: "6vh" }}
+                >
                   {Nrlist.map((item, i) => {
                     return (
                       <MenuItem key={i} value={item.nrReasonAbb}>
@@ -222,8 +232,12 @@ export default function HataForm(props) {
               </Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "left" }}>
-              <FormControl sx={{ minWidth: "100%" }}>
-                <Select value={defectclass} onChange={handleChangedefectclass}>
+              <FormControl sx={{ minWidth: "100%", height: "6vh" }}>
+                <Select
+                  value={defectclass}
+                  onChange={handleChangedefectclass}
+                  sx={{ minWidth: "100%", height: "6vh" }}
+                >
                   {select2.map((item, i) => {
                     return (
                       <MenuItem key={i} value={item.dataValue}>
@@ -284,10 +298,11 @@ export default function HataForm(props) {
               </Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "left" }}>
-              <FormControl sx={{ minWidth: "100%" }}>
+              <FormControl sx={{ minWidth: "100%", height: "6vh" }}>
                 <Select
                   value={defectresponsible}
                   onChange={handleChangedefectresp}
+                  sx={{ minWidth: "100%", height: "6vh" }}
                 >
                   {select3.map((item, i) => {
                     return (
@@ -315,8 +330,12 @@ export default function HataForm(props) {
               </Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "left" }}>
-              <FormControl sx={{ minWidth: "100%" }}>
-                <Select value={subresponsible} onChange={handleChangesubresp}>
+              <FormControl sx={{ minWidth: "100%", height: "6vh" }}>
+                <Select
+                  value={subresponsible}
+                  onChange={handleChangesubresp}
+                  sx={{ minWidth: "100%", height: "6vh" }}
+                >
                   {select4.map((item, i) => {
                     return (
                       <MenuItem key={i} value={item.dataValue}>
@@ -343,11 +362,17 @@ export default function HataForm(props) {
               <Typography>{data.userName}</Typography>
             </Grid>
             <Grid item xs={9} sx={{ textAlign: "center" }}>
-              <TextField
+              <input
                 type="text"
                 name="description"
                 id="description"
-                sx={{ minWidth: "100%" }}
+                style={{
+                  minWidth: "100%",
+                  height: "6vh",
+                  backgroundColor: "transparent",
+                  borderColor: "#98C49A",
+                  borderRadius: 5,
+                }}
                 value={getInputValue("description")}
                 onFocus={() => setInputName("description")}
                 onChange={onChangeInput}
@@ -367,11 +392,17 @@ export default function HataForm(props) {
               <Typography>{data.userName}</Typography>
             </Grid>
             <Grid item xs={9} sx={{ textAlign: "center" }}>
-              <TextField
+              <input
                 type="text"
                 name="action"
                 id="action"
-                sx={{ minWidth: "100%" }}
+                style={{
+                  minWidth: "100%",
+                  height: "6vh",
+                  backgroundColor: "transparent",
+                  borderColor: "#98C49A",
+                  borderRadius: 5,
+                }}
                 value={getInputValue("action")}
                 onFocus={() => setInputName("action")}
                 onChange={onChangeInput}
@@ -382,10 +413,17 @@ export default function HataForm(props) {
       }
     }
   });
-
+  const buttonTheme = {
+    class: "my-button-class",
+    style: {
+      fontSize: "20px",
+      width: "80px",
+      height: "80px",
+    },
+  };
   return (
     <>
-      <Grid container direction="row" sx={{ padding: 2 }}>
+      <Grid container direction="row" sx={{ padding: 2, maxHeight: "90vw" }}>
         <Grid container sx={{ marginBottom: 0.5 }}>
           <Grid item xs={10}>
             <Typography>CVQS(TMMT)</Typography>
@@ -397,15 +435,23 @@ export default function HataForm(props) {
             />
           </Grid>
         </Grid>
-        {arr}
-        <KeyboardReact
-          keyboardRef={(r) => (keyboard.current = r)}
-          inputName={inputName}
-          layoutName={layoutName}
-          layout={languageLayouts}
-          onChangeAll={onChangeAll}
-          onKeyPress={onKeyPress}
-        />
+        <Grid container direction="row">
+          {arr}
+        </Grid>
+        <Grid container direction="row" sx={{ padding: 0.5 }}>
+          <Grid item xs={12}>
+            <KeyboardReact
+              buttonTheme={buttonTheme}
+              keyboardRef={(r) => (keyboard.current = r)}
+              inputName={inputName}
+              layoutName={layoutName}
+              layout={languageLayouts}
+              onChangeAll={onChangeAll}
+              onKeyPress={onKeyPress}
+            />
+          </Grid>
+          {/*   */}
+        </Grid>
       </Grid>
       <ToastContainer />
     </>

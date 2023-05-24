@@ -98,7 +98,6 @@ export default function Loginto() {
         .then(() => {
           const nextPage = `/HataGiris?${buttonname}&${document.getElementById("montajno").value}`;
           navigate(nextPage);
-          /*  navigate("/HataGiris"); */
         })
         .catch((err) => {
           setError(err.errors[0]);
@@ -118,7 +117,7 @@ export default function Loginto() {
       })
       .required("Montaj No gerekli")
       .test("match", "", function (montajno) {
-        return parseInt(montajno) === 44444;
+        return parseInt(montajno) === parseInt(termlist);
       }),
     sicilno: Yup.string()
       .min(5, ({ min }) => {
