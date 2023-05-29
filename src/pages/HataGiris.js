@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetAll } from "../components/Store";
 import { useTranslation } from "react-i18next";
 export default function HataGiris(props) {
+  const {buttonName}=useParams();
   const { t, i18n } = useTranslation();
   const coord = useSelector((state) => state.coord);
   const [clickedCoordinates, setClickedCoords] = useState([]);
@@ -94,6 +95,7 @@ export default function HataGiris(props) {
   const [lastClick, setLastClick] = useState(Date.now());
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
+  const MontajNo = JSON.parse(localStorage.getItem('MontajNo'));
   function handlesvgclick(x1, y1) {
     setX1(x1);
     setY1(y1);
@@ -170,7 +172,6 @@ export default function HataGiris(props) {
   function resetTimer() {
     setLastClick(Date.now());
   }
-
   return (
     <div onClick={resetTimer}>
       {showComponent ? (
@@ -400,8 +401,8 @@ export default function HataGiris(props) {
                 </Grid>
                 <Grid item lg={12} md={2} xs={2}>
                   {data.map((item, i) => (
-                    <TextField value={item.assyNo} key={i}>
-                      {item.assyNo}
+                    <TextField value={MontajNo} key={i}>
+                      {MontajNo}
                     </TextField>
                   ))}
                 </Grid>

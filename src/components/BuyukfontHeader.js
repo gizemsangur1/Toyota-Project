@@ -9,7 +9,9 @@ import { Box } from "@mui/material";
 export default function BuyukfontHeader() {
   const { t, i18n } = useTranslation();
   const [data, setData] = useState([]);
-  const shift = useSelector((state) => state.shift);
+  const MontajNo = JSON.parse(localStorage.getItem('MontajNo'));
+    
+   const Shift = localStorage.getItem('Shift'); 
   useEffect(() => {
     axios
       .get("/JsonFiles/Header.json")
@@ -36,7 +38,7 @@ export default function BuyukfontHeader() {
             >
               <Box>
                 <Typography sx={{fontSize:"1.5vw"}}>{t("MNo")}</Typography>
-                <Typography value={data.assyNo} sx={{fontSize:"1.5vw"}}>{data.assyNo}</Typography>
+                <Typography value={MontajNo} sx={{fontSize:"1.5vw"}}>{MontajNo}</Typography>
               </Box>
             </Grid>
             <Grid
@@ -51,7 +53,7 @@ export default function BuyukfontHeader() {
             >
               <Grid
                 sx={{
-                  backgroundColor: shift,
+                  backgroundColor:Shift,
                   border: 1,
                   borderRadius: 1,
                 }}

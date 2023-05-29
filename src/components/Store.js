@@ -4,10 +4,8 @@ const initialState = {
   termname: "",
   partname: "",
   coord: "",
-  shift: "",
   description: "",
   buttonName: "",
-  montajno: "",
 };
 
 function reducer(state = initialState, action) {
@@ -20,12 +18,8 @@ function reducer(state = initialState, action) {
       return { ...state, partname: action.partname };
     case "SET_COORD":
       return { ...state, coord: action.coord };
-    case "SET_SHIFT":
-      return { ...state, shift: action.shift };
     case "SET_BUTTONNAME":
       return { ...state, buttonName: action.buttonName };
-    case "SET_MONTAJNO":
-      return { ...state, montajno: action.montajno };
     default:
       return state;
   }

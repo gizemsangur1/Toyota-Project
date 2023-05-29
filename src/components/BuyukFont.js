@@ -1,36 +1,35 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Button,
-  Grid,
-  Input,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Input, TextField, Typography } from "@mui/material";
 import Buyukfontdata from "./Buyukfontdata";
 import BuyukfontHeader from "./BuyukfontHeader";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function BuyukFont(props) {
+  const { t, i18n } = useTranslation();
   const [background, setBackground] = useState("#c6ffc8");
-const [lastClick, setLastClick] = useState(Date.now());
+  const [lastClick, setLastClick] = useState(Date.now());
 
-useEffect(() => {
-  const intervalId = setInterval(() => {
-    if (Date.now() - lastClick >= 10000) {
-      const beep = new Audio('Beep.mp3');
-      beep.play();
-      setBackground((prevColor) => (prevColor === "#c6ffc8" ? "red" : "red"));
-    }
-  }, 1000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (Date.now() - lastClick >= 10000) {
+        const beep = new Audio("Beep.mp3");
+        beep.play();
+        setBackground((prevColor) => (prevColor === "#c6ffc8" ? "red" : "red"));
+      }
+    }, 1000);
 
-  return () => clearInterval(intervalId);
-}, [lastClick]);
+    return () => clearInterval(intervalId);
+  }, [lastClick]);
 
-function resetTimer() {
-  setBackground("#c6ffc8");
-  setLastClick(Date.now());
-}
+  function resetTimer() {
+    setBackground("#c6ffc8");
+    setLastClick(Date.now());
+  }
 
   const [data, setData] = useState([]);
+
   useEffect(() => {
     axios
       .get("/JsonFiles/Buyukfont1.json")
@@ -52,7 +51,8 @@ function resetTimer() {
   function handleClick() {
     props.onClick();
   }
-  const [montajValue, setMontajValue] = useState("");
+  
+  const montajno = useSelector((state) => state.montajno);
 
   return (
     <div
@@ -102,10 +102,10 @@ function resetTimer() {
             <Button sx={{ width: "90%" }} onClick={handleClick}>
               HATA GIRISI
             </Button>
-            <Typography sx={{ width: "100%" }}>MONTAJ NO</Typography>
-            <Input type="text">{montajValue}</Input>
+            <Typography sx={{ width: "100%" }}>{t("MNo")}</Typography>
+            <TextField value={montajno}>{montajno}</TextField>
 
-            <Button sx={{ width: "90%" }}>ARA</Button>
+            <Button sx={{ width: "90%" }}>{t("Search")}</Button>
           </Grid>
         </Grid>
         <Grid container direction="row">

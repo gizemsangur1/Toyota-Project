@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
+
 export default function Svg2(props) {
   const dispatch = useDispatch();
   const termname = useSelector((state) => state.termname);
@@ -271,9 +272,10 @@ export default function Svg2(props) {
           {gosterpointer && (
             <svg>
               <path
+              id="path"
                 d={calculateNewPath()}
-                fill="#9cff9f"
-                stroke="#7aff7f"
+                /* fill="#9cff9f" */
+                /* stroke="#7aff7f" */
                 strokeWidth="2"
               />
             </svg>

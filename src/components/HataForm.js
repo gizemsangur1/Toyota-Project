@@ -173,7 +173,7 @@ export default function HataForm(props) {
             <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography>{data.userName}</Typography>
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: "center" }}>
+            <Grid item xs={4} sx={{ textAlign: "left" }}>
               <FormControl sx={{ minWidth: "100%", height: "6vh" }}>
                 <Select
                   value={exitdepartment}
@@ -226,7 +226,7 @@ export default function HataForm(props) {
             key={index}
             sx={{ marginBottom: 0.5, alignItems: "center" }}
           >
-            <Grid item xs={3} sx={{ textAlign: "center" }}>
+            <Grid item xs={3} sx={{ textAlign: "left" }}>
               <Typography sx={{ textAlign: "left" }}>
                 {data.englishUserName}
               </Typography>

@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@keyframes colorchange {
+  0% {
+    fill: blue;
+  }
+  10% {
+    fill: #8e44ad;
+  }
+  20% {
+    fill: #1abc9c;
+  }
+  30% {
+    fill: #d35400;
+  }
+  40% {
+    fill: blue;
+  }
+  50% {
+    fill: #34495e;
+  }
+  60% {
+    fill: blue;
+  }
+  70% {
+    fill: #2980b9;
+  }
+  80% {
+    cofilllor: #2980b9;
+  }
+  90% {
+    fill: #b865a1;
+  }
+  100% {
+    fill: pink;
+  }
+}
+#path{
+  animation: colorchange 20s infinite alternate;
+}
+

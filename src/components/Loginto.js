@@ -18,9 +18,11 @@ import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";
 import { useSelector } from "react-redux";
+/* import localStorage from "local-storage"; */
 export default function Loginto() {
-  const { buttonName } = useParams();
+   const { buttonName } = useParams(); 
   const [inputs, setInputs] = useState({});
+
   const [layoutName, setLayoutName] = useState("default");
   const [inputName, setInputName] = useState("default");
   const keyboard = useRef();
@@ -63,7 +65,6 @@ export default function Loginto() {
   const navigate = useNavigate();
 
   const [color, setColor] = React.useState("#12a6eb");
-
   const handleChange = (event) => {
     setColor(event.target.value);
   };
@@ -78,7 +79,8 @@ export default function Loginto() {
       .catch((err) => console.log(err));
   }, []);
   const [error, setError] = useState("");
-  const buttonname = useSelector((state) => state.buttonName);
+   const buttonname = useSelector((state) => state.buttonName); 
+  
   const formik = useFormik({
     initialValues: {
       sicilno: "",
@@ -87,6 +89,7 @@ export default function Loginto() {
     },
 
     onSubmit: (values) => {
+      
       values.montajno = document.getElementById("montajno").value;
       values.sicilno = document.getElementById("sicilno").value;
       values.sifre = document.getElementById("password").value;
@@ -96,13 +99,14 @@ export default function Loginto() {
       });
       LoginSchema.validate(values)
         .then(() => {
-          const nextPage = `/HataGiris?${buttonname}&${document.getElementById("montajno").value}`;
+          const nextPage = `/HataGiris?&${buttonname}&${document.getElementById("montajno").value}`;
           navigate(nextPage);
         })
         .catch((err) => {
           setError(err.errors[0]);
         });
     },
+   
   });
   const notifyMe = (message) => {
     toast.success(message, {
@@ -146,11 +150,9 @@ export default function Loginto() {
       }),
   });
 
-  const handleSubmit = () => {
-    dispatch({
-      type: "SET_SHIFT",
-      shift: color,
-    });
+  const handleSubmit = () => { 
+     localStorage.setItem('MontajNo',document.getElementById("montajno").value);  
+     localStorage.setItem('Shift',color);
   };
   const closelogin = () => {
     navigate(-1);

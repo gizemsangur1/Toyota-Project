@@ -6,23 +6,23 @@ import Select from "@mui/material/Select";
 
 export default function SelectDate() {
   const months = [
-    { value: "Ocak" },
-    { value: "Şubat" },
-    { value: "Mart" },
-    { value: "Nisan" },
-    { value: "Mayıs" },
-    { value: "Haziran" },
-    { value: "Temmuz" },
-    { value: "Ağustos" },
-    { value: "Eylül" },
-    { value: "Ekim" },
-    { value: "Kasım" },
-    { value: "Aralık" },
+    { value: "1" },
+    { value: "2" },
+    { value: "3" },
+    { value: "4" },
+    { value: "5" },
+    { value: "6" },
+    { value: "7" },
+    { value: "8" },
+    { value: "9" },
+    { value: "10" },
+    { value: "11" },
+    { value: "12" },
   ];
   const years = Array.from({ length: 100 }, (_, i) => 2023 - i);
 
   const [day, setDay] = React.useState("1");
-  const [month, setMonth] = React.useState("Ocak");
+  const [month, setMonth] = React.useState("1");
   const [year, setYear] = React.useState("2023");
   const handleChangeD = (d) => {
     setDay(d.target.value);
@@ -37,11 +37,11 @@ export default function SelectDate() {
   };
 
   const days =
-    month === "Şubat"
+    month === "2"
       ? (year % 4 === 0 && year % 100 !== 0) || year % 4 === 0
         ? Array.from({ length: 29 }, (_, i) => i + 1)
         : Array.from({ length: 28 }, (_, i) => i + 1)
-      : ["Nisan", "Haziran", "Eylül", "Kasım"].includes(month)
+      : ["4", "6", "8", "10"].includes(month)
       ? Array.from({ length: 30 }, (_, i) => i + 1)
       : Array.from({ length: 31 }, (_, i) => i + 1);
 
