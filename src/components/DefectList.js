@@ -4,7 +4,7 @@ import axios from "axios";
 import Save from "@mui/icons-material/Save";
 import Delete from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { Virtuoso } from "react-virtuoso";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
@@ -31,105 +31,115 @@ export default function Hatalistesi(props) {
     {
       headerName: "Bildiren",
       columnName: "depCode",
-      headerN: t("Search"),
+      headerN: t("Bldrn"),
       Width: "4vw",
     },
     {
       headerName: "Body",
       columnName: "bodyNo",
-      headerN: t("Search"),
+      headerN: t("Body"),
       Width: "3vw",
     },
-    { headerName: "Assy", columnName: "assyNo", Width: "2.5vw" },
-    { headerName: "Vin No", columnName: "vinNo", Width: "11vw" },
+    {
+      headerName: "Assy",
+      headerN: t("Assy"),
+      columnName: "assyNo",
+      Width: "2.5vw",
+    },
+    {
+      headerName: "Vin No",
+      headerN: t("VnN"),
+      columnName: "vinNo",
+      Width: "11vw",
+    },
     {
       headerName: "Renk",
       columnName: "colorExtCode",
-      headerN: t("Search"),
+      headerN: t("Rnk"),
       Width: "3vw",
       rgbcode: "rgbCode",
     },
     {
       headerName: "Mdl",
       columnName: "modelCode",
-      headerN: t("Search"),
+      headerN: t("Mdl"),
       Width: "3vw",
     },
     {
       headerName: "Sicil",
       columnName: "localId",
-      headerN: t("Search"),
+      headerN: t("Scl"),
       Width: "3vw",
     },
     {
       headerName: "Parça",
       columnName: "description",
-      headerN: t("Search"),
+      headerN: t("Prc"),
       Width: "12vw",
     },
     {
       headerName: "Spot",
       columnName: "spotId",
-      headerN: t("Search"),
+      headerN: t("Spt"),
       Width: "3vw",
     },
     {
       headerName: "Gun",
       columnName: "spotgunId",
-      headerN: t("Search"),
+      headerN: t("Gn"),
       Width: "3vw",
     },
     {
       headerName: "Arc",
       columnName: "arcnutboltId",
-      headerN: t("Search"),
+      headerN: t("Arc"),
       Width: "2.5vw",
     },
     {
       headerName: "ArcGun",
       columnName: "arcnutboltgunId",
-      headerN: t("Search"),
+      headerN: t("Rcgn"),
       Width: "4vw",
     },
     {
       headerName: "Hata",
       columnName: "defectName",
-      headerN: t("Search"),
+      headerN: t("Ht"),
       Width: "8vw",
     },
     {
       headerName: "Rank",
       columnName: "defrankCode",
-      headerN: t("Search"),
+      headerN: t("Rank"),
       Width: "3vw",
     },
     {
       headerName: "Saat",
       columnName: "formattedDefectHour",
-      headerN: t("Search"),
+      headerN: t("Saat"),
       Width: "4vw",
     },
     {
       headerName: "Hata Turu",
       columnName: "defectType",
-      headerN: t("Search"),
+      headerN: t("Httr"),
       Width: "3vw",
     },
     {
       headerName: "Hata Sor",
       columnName: "defrespName",
-      headerN: t("Search"),
+      headerN: t("Htsrml"),
       Width: "4.5vw",
     },
     {
       headerName: "Alt Sorumlu",
       columnName: "defrespCode",
-      headerN: t("Search"),
+      headerN: t("Altsrml"),
       Width: "5vw",
     },
     {
       headerName: "NR REASON",
-      headerN: t("Search"),
+      headerN: t("nrresn"),
       nrId: "nrReasonId",
       Width: "7vw",
     },
@@ -140,7 +150,7 @@ export default function Hatalistesi(props) {
     },
     {
       headerName: "islem",
-      headerN: t("Search"),
+      headerN: t("islem"),
       Width: "6vw",
     },
   ];
@@ -158,7 +168,7 @@ export default function Hatalistesi(props) {
           fontSize: "1vw",
         }}
       >
-        {header.headerName}
+        {header.headerN}
       </Grid>
     );
   });
@@ -196,8 +206,11 @@ export default function Hatalistesi(props) {
     if (newData[index]) {
       newData[index].nrReasonId = selectedValue;
       setData(newData);
-      notifyMe();
     }
+  };
+  const MultipleFonk = (index, selectedValue) => {
+    notifyMe();
+    handleSave(index, selectedValue);
   };
   const [indexv, setIndexv] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
@@ -263,7 +276,7 @@ export default function Hatalistesi(props) {
                             textAlign: "center",
                           }}
                           size="small"
-                          onClick={(e) => handleSave(indexv, selectedValue)}
+                          onClick={(e) => MultipleFonk(indexv, selectedValue)}
                         >
                           <Save />
                         </Button>
@@ -413,6 +426,7 @@ export default function Hatalistesi(props) {
           <Typography>Total Rows:{data.length}</Typography>
         </Box>
       </Box>
+      <ToastContainer />
     </div>
   );
 }

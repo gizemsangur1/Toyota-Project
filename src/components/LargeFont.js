@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Grid, Input, TextField, Typography } from "@mui/material";
-import Buyukfontdata from "./Buyukfontdata";
-import BuyukfontHeader from "./BuyukfontHeader";
+import LargeFontData from "./LargeFontData";
+import LargeFontHeader from "./LargeFontHeader";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
@@ -70,7 +70,7 @@ export default function BuyukFont(props) {
             textAlign: "center",
           }}
         >
-          <BuyukfontHeader value={data.assyNo} />
+          <LargeFontHeader value={data.assyNo} />
         </Grid>
         <Grid container direction="row" sx={{ padding: 2 }}>
           <Grid
@@ -84,7 +84,7 @@ export default function BuyukFont(props) {
               textAlign: "center",
             }}
           >
-            <Buyukfontdata montajNo={data.assyNo} />
+            <LargeFontData montajNo={data.assyNo} />
           </Grid>
           <Grid
             container

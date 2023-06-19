@@ -56,23 +56,23 @@ export default function BuyukfontHeader() {
                   backgroundColor:Shift,
                   border: 1,
                   borderRadius: 1,
+                  textAlign:"center"
                 }}
               >
                 <Typography sx={{fontSize:"1.5vw"}}>{t("BNo")}</Typography>
                 <Typography sx={{fontSize:"1.5vw"}}>{data.bodyNo}</Typography>
               </Grid>
             </Grid>
-            <Grid item xs={2} sm={2}>
-              <Typography variant="h6"  sx={{fontSize:"1.9vw"}}>{t("HGE")}</Typography>
+            <Grid item xs={4} sm={4} sx={{textAlign:"center"}}>
+              <Typography variant="h6"  sx={{fontSize:"1.6vw"}}>{t("HGE")}</Typography>
             </Grid>
-            <Grid item xs={2} sm={2}></Grid>
             <Grid item xs={2} sm={2} sx={{padding:1}}>
               <Grid
                 sx={{
                   backgroundColor: data.bgColor,
                   border: 1,
                   borderRadius: 1,
-                  
+                  textAlign:"center"
                 }}
               >
                 <Typography sx={{fontSize:"1.5vw"}}>{t("Color")}</Typography>
@@ -82,7 +82,7 @@ export default function BuyukfontHeader() {
 
             <Grid item xs={2} sm={2}>
               <Grid
-              
+              sx={{textAlign:"center"}}
               >
                 <Typography sx={{fontSize:"1.3vw"}}>{data.firstname}</Typography>
                 <Typography sx={{fontSize:"1.3vw"}}>{data.lastname}</Typography>

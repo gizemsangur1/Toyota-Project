@@ -372,6 +372,7 @@ export default function HataForm(props) {
                   backgroundColor: "transparent",
                   borderColor: "#98C49A",
                   borderRadius: 5,
+                  fontSize:20
                 }}
                 value={getInputValue("description")}
                 onFocus={() => setInputName("description")}
@@ -402,6 +403,7 @@ export default function HataForm(props) {
                   backgroundColor: "transparent",
                   borderColor: "#98C49A",
                   borderRadius: 5,
+                  fontSize:20
                 }}
                 value={getInputValue("action")}
                 onFocus={() => setInputName("action")}
@@ -423,10 +425,10 @@ export default function HataForm(props) {
   };
   return (
     <>
-      <Grid container direction="row" sx={{ padding: 2, maxHeight: "90vw" }}>
+      <Grid container direction="row" sx={{ padding: 2, maxHeight: "90vh" }}>
         <Grid container sx={{ marginBottom: 0.5 }}>
           <Grid item xs={10}>
-            <Typography>CVQS(TMMT)</Typography>
+            <Typography sx={{fontSize:20}}>CVQS(TMMT)</Typography>
           </Grid>
           <Grid item xs={2}>
             <FormControlLabel
@@ -450,7 +452,6 @@ export default function HataForm(props) {
               onKeyPress={onKeyPress}
             />
           </Grid>
-          {/*   */}
         </Grid>
       </Grid>
       <ToastContainer />

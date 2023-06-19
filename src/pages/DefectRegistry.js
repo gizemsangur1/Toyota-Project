@@ -13,21 +13,20 @@ import { CheckBoxOutlineBlank } from "@mui/icons-material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Svg from "../components/Svg";
 import Svg2 from "../components/Svg2";
-import HataForm from "../components/HataForm";
-import BuyukFont from "../components/BuyukFont";
+import DefectForm from "../components/DefectForm";
+import LargeFont from "../components/LargeFont";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BuyukfontHeader from "../components/BuyukfontHeader";
+import LargeFontHeader from "../components/LargeFontHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { resetAll } from "../components/Store";
 import { useTranslation } from "react-i18next";
 export default function HataGiris(props) {
-  const {buttonName}=useParams();
+  const { buttonName } = useParams();
   const { t, i18n } = useTranslation();
   const coord = useSelector((state) => state.coord);
   const [clickedCoordinates, setClickedCoords] = useState([]);
   const notifyMe = () => {
-   
     closeform();
     setShowComponent2(false);
     setIsButtonDisabled(true);
@@ -95,7 +94,6 @@ export default function HataGiris(props) {
   const [lastClick, setLastClick] = useState(Date.now());
   const [x1, setX1] = useState(null);
   const [y1, setY1] = useState(null);
-  const MontajNo = JSON.parse(localStorage.getItem('MontajNo'));
   function handlesvgclick(x1, y1) {
     setX1(x1);
     setY1(y1);
@@ -110,10 +108,10 @@ export default function HataGiris(props) {
   };
   const navigate = useNavigate();
   const buttonname = useSelector((state) => state.buttonName);
-  const montajno = useSelector((state) => state.montajno);
+  const MontajNo = JSON.parse(localStorage.getItem("MontajNo"));
   const navigateToHataListesi = () => {
-    const nextPage = `/HataListeleme?${buttonname}&${montajno}`;
-          navigate(nextPage);
+    const nextPage = `/HataListeleme?&${buttonname}&${MontajNo}`;
+    navigate(nextPage);
   };
   const navigateBack = () => {
     navigate(-1);
@@ -173,9 +171,9 @@ export default function HataGiris(props) {
     setLastClick(Date.now());
   }
   return (
-    <div onClick={resetTimer}>
+    <div onClick={resetTimer} style={{justifyContent:"center",justifyItems:"center"}}>
       {showComponent ? (
-        <BuyukFont onClick={closebuyukfont} onMenuSelect={handleMenuSelect} />
+        <LargeFont onClick={closebuyukfont} onMenuSelect={handleMenuSelect} />
       ) : (
         <Grid
           container
@@ -192,9 +190,9 @@ export default function HataGiris(props) {
             sx={{ border: 1, borderRadius: 1, textAlign: "center" }}
           >
             <Grid container direction="row">
-              <BuyukfontHeader />
+              <LargeFontHeader />
             </Grid>
-            <Grid item xs={12} md={12} lg={9}>
+            <Grid item xs={12} md={9} lg={9}> 
               <Grid
                 container
                 direction="row"
@@ -207,6 +205,8 @@ export default function HataGiris(props) {
                     height: "100%",
                     margin: 0,
                     position: "relative",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   {showComponent2 ? (
@@ -230,7 +230,7 @@ export default function HataGiris(props) {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Grid item xs={10} md={10} lg={12}>
+                <Grid item xs={10} md={12} lg={12}>
                   <Grid container spacing={1} justifyContent="center">
                     <Grid item xs={2} sm={2} md={2} lg={2}>
                       <Button
@@ -318,36 +318,41 @@ export default function HataGiris(props) {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={2} md={2} lg={12}>
+                <Grid item xs={2} md={12} lg={12}>
                   {showselected && <Typography>{partname}</Typography>}
                 </Grid>
               </Grid>
             </Grid>
             <ThemeProvider theme={theme}>
-              <Grid item container xs={12} md={12} lg={3}>
+              <Grid item container xs={12} md={3} lg={3}>
                 <Grid
                   container
                   item
                   lg={12}
                   md={2}
                   xs={2}
-                  sx={{display:"flex" ,justifyContent:"center"}}
+                  sx={{ display: "flex", justifyContent: "center" }}
                 >
-                  <Grid 
-                  container
-                  sx={{display:"flex" ,justifyContent:"left",marginLeft:5}}>
+                  <Grid
+                    container
+                    sx={{
+                      display: "flex",
+                      justifyContent: "left",
+                      marginLeft: 5,
+                    }}
+                  >
                     <FormControlLabel
                       control={<CheckBoxOutlineBlank defaultChecked />}
                       label="Harigami"
                     />
-                    
+
                     <FormControlLabel
                       control={<CheckBoxOutlineBlank defaultChecked />}
                       label="RDD"
                     />
                   </Grid>
                 </Grid>
-                <Grid container item lg={12} md={2} xs={2}>
+                <Grid container item lg={12} md={12} xs={2}>
                   <Button
                     disabled
                     variant="outlined"
@@ -363,7 +368,7 @@ export default function HataGiris(props) {
                     {t("FR")}
                   </Button>
                 </Grid>
-                <Grid container item lg={12} md={2} xs={2}>
+                <Grid container item lg={12} md={12} xs={2}>
                   <Button
                     disabled
                     variant="outlined"
@@ -379,7 +384,7 @@ export default function HataGiris(props) {
                     {t("RP")}
                   </Button>
                 </Grid>
-                <Grid container item lg={12} md={3} xs={3}>
+                <Grid container item lg={12} md={12} xs={3}>
                   <Button
                     disabled={isButtonDisabled}
                     onClick={openForm}
@@ -396,10 +401,10 @@ export default function HataGiris(props) {
                     {t("ER")}
                   </Button>
                 </Grid>
-                <Grid item lg={12} md={1} xs={1}>
+                <Grid item lg={12} md={12} xs={1}>
                   <Typography>{t("MNo")}</Typography>
                 </Grid>
-                <Grid item lg={12} md={2} xs={2}>
+                <Grid item lg={12} md={12} xs={2}>
                   {data.map((item, i) => (
                     <TextField value={MontajNo} key={i}>
                       {MontajNo}
@@ -407,7 +412,7 @@ export default function HataGiris(props) {
                   ))}
                 </Grid>
 
-                <Grid item lg={12} md={3} xs={3}>
+                <Grid item lg={12} md={12} xs={3}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -422,7 +427,7 @@ export default function HataGiris(props) {
                     {t("Search")}
                   </Button>
                 </Grid>
-                <Grid item lg={12} md={3} xs={3}>
+                <Grid item lg={12} md={12} xs={3}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -437,7 +442,7 @@ export default function HataGiris(props) {
                     {t("TFP")}
                   </Button>
                 </Grid>
-                <Grid item lg={12} md={3} xs={3}>
+                <Grid item lg={12} md={12} xs={3}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -452,7 +457,7 @@ export default function HataGiris(props) {
                     {t("FE")}
                   </Button>
                 </Grid>
-                <Grid item lg={12} md={3} xs={3}>
+                <Grid item lg={12} md={12} xs={3}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -462,6 +467,7 @@ export default function HataGiris(props) {
                       height: "100%",
                       minWidth: "12vw",
                       minHeight: "8.2vh",
+                      borderColor: "black",
                     }}
                   >
                     MANİFEST
@@ -473,7 +479,7 @@ export default function HataGiris(props) {
               </Grid>
             </ThemeProvider>
           </Grid>
-        
+
           {showForm && (
             <Grid
               sx={{
@@ -487,7 +493,7 @@ export default function HataGiris(props) {
                 height: "90vh",
               }}
             >
-              <HataForm
+              <DefectForm
                 onClick={closeform}
                 onKaydedildi={notifyMe}
                 fontdata={fontdata}

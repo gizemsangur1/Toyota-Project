@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-
+import SVG from 'react-inlinesvg';
 export default function Svg(props) {
   const dispatch = useDispatch();
   function handleFormChange(event, color, name) {
@@ -73,19 +73,22 @@ export default function Svg(props) {
       ) : null
     )
   );
+
+  
   return (
     <div>
-      <svg
-         width="100%"
-        height="100%" 
-        viewBox="0 0 1000 600"
-        preserveAspectRatio="none"
+       <svg
+        width="100%"
+        height="100%"
+       viewBox="0 0 1000 600"
+       preserveAspectRatio="none"
       >
-        <image href="car1.jpg" />
+        <image href="car1.jpg"  />
         {arr}
         {arr2}
         {arr3}
-      </svg>
+      </svg> 
+     
     </div>
   );
 }

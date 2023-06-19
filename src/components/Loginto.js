@@ -13,12 +13,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import keyboardv from "react-virtual-keyboard"
 import KeyboardReact from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import languageLayouts from "../language/KeyboardLayouts";
 import { useSelector } from "react-redux";
-/* import localStorage from "local-storage"; */
 export default function Loginto() {
    const { buttonName } = useParams(); 
   const [inputs, setInputs] = useState({});
@@ -115,7 +113,7 @@ export default function Loginto() {
   };
   const LoginSchema = Yup.object().shape({
     montajno: Yup.string()
-      .min(5, ({ min }) => {
+      .min(3, ({ min }) => {
         notifyMe(`Montaj No en az ${min} karakter olmalı!`);
         return "";
       })
@@ -404,7 +402,7 @@ export default function Loginto() {
               <Grid item xs={1.5}></Grid>
               <Grid
                 item
-                sx={{ width: "100%", height: "100%", minHeight: "45vh" }}
+                sx={{ width: "100%", height: "100%", minHeight: "35vh" }}
               >
                 <KeyboardReact
                   keyboardRef={(r) => (keyboard.current = r)}

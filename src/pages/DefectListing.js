@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-const Hatalistesi = lazy(() => import("../components/Hatalistesi"));
+const DefectList = lazy(() => import("../components/DefectList"));
 
 export default function HataListeleme(props) {
   const { t, i18n } = useTranslation();
@@ -79,7 +79,7 @@ export default function HataListeleme(props) {
     },
   });
   return (
-    <div>
+    <div  style={{ justifyContent:"center",alignContent:"center" }}>
       <Box
         sx={{
           height: "550px",
@@ -101,7 +101,7 @@ export default function HataListeleme(props) {
               ></div>
             }
           >
-            <Hatalistesi
+            <DefectList
               handleScroll={handleScroll}
               filterText1={info}
               filterText2={info2}
@@ -112,7 +112,7 @@ export default function HataListeleme(props) {
       <Grid
         container
         direction="row"
-        sx={{ backgroundColor: "white", textAlign: "center" }}
+        sx={{ backgroundColor: "white", textAlign: "center",height:"22vh",justifyContent:"center",alignContent:"center" }}
       >
         <Grid
           container
