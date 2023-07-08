@@ -30,8 +30,7 @@
 
 ## :dart: About ##
 
-The aim of the project, which we made in cooperation with Toyota and 32 Bit companies, is to record and list the defects that occur during the production phase of the vehicles.
-
+This project is a front-end project that has created to add and list the defects of vehicles produced at the Toyota vehicle manufacturing factory.
 
 ## Media
 ### Terminal page <img src="./Terminal.png">
